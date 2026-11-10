@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dead-code-checker"
+version = "0.1.0"
+description = "Dead code in what a commit or a session added: unreferenced symbols and files, stubs, unread config keys, unused CLI flags."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = []
+keywords = ["dead-code", "lint", "pre-commit"]
+
+[project.scripts]
+dead-code-checker = "dead_code_checker.core:main"
+
+[project.urls]
+Homepage = "https://github.com/AlexGromer/dead-code-checker"
+
+[tool.setuptools]
+packages = ["dead_code_checker"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

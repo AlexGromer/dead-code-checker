@@ -1,0 +1,7 @@
+- id: dead-code-checker
+  name: dead-code-checker
+  description: Block new code that nothing references (dead functions in hooks, stubs, unread config keys).
+  entry: dead-code-checker staged
+  language: python
+  pass_filenames: false
+  always_run: true

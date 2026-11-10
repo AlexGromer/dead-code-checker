@@ -1,0 +1,52 @@
+name: Bug report
+description: Something is broken or behaves unexpectedly
+title: "fix: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Do not paste secrets, tokens or personal data; redact them.
+        For security vulnerabilities do not use this form: see SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Release tag or commit SHA you ran.
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The behaviour you observed. Include error messages and exit codes.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The smallest set of steps or input that shows the problem.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, language runtime and tool versions, how you installed the project.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and artifacts
+      description: Relevant output, redacted. It is rendered as code automatically.
+      render: shell

@@ -1,0 +1,48 @@
+mod worker;
+
+mod utils {
+    pub fn helper() {}
+    pub fn unused_in_mod() {}
+    pub mod deep {
+        pub fn leaf() {}
+    }
+    pub fn aliased() {}
+}
+
+mod prelude {
+    pub fn from_glob() {}
+}
+
+pub mod shared {
+    pub fn common() {}
+    pub fn unused_shared() {}
+}
+
+pub fn top_level() {}
+
+pub struct Wrapper<T> {
+    v: T,
+}
+
+impl<T: Default> Wrapper<T> {
+    pub fn new() -> Wrapper<T> {
+        loop {}
+    }
+
+    pub fn never_called(&self) {}
+}
+
+fn orphan() {}
+
+use utils::{helper, deep::leaf};
+use crate::utils::aliased as renamed;
+use prelude::*;
+
+fn main() {
+    helper();
+    leaf();
+    renamed();
+    from_glob();
+    worker::work();
+    Wrapper::<Vec<u8>>::new();
+}

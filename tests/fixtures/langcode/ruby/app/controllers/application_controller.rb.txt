@@ -1,0 +1,3 @@
+class ApplicationController
+  def helper_for_all; end
+end

@@ -1,0 +1,21 @@
+{
+ "files": [
+  "go.mod",
+  "main.go"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "go-deadcode",
+    "-json",
+    "./..."
+   ],
+   "out": "out.json",
+   "rc": 0,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "go-deadcode",
+ "version": "v0.52.0"
+}

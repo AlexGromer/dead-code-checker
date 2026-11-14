@@ -1,0 +1,64 @@
+{
+  "main.go": {
+    "defs": [
+      [4, {"def.func": "func run(config *config.Config) {…\n}", "name": "run"}],
+      [4, {"def.func": "func save() {…\n}", "name": "save"}],
+      [4, {"def.func": "func plain() {…\n}", "name": "plain"}],
+      [4, {"def.func": "func main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [8, {"import": "\"example.com/app/config\""}],
+      [8, {"import": "\"example.com/app/user\""}],
+      [13, {"local": "config#1"}],
+      [6, {"ref.ref": "Config", "name": "Config"}],
+      [1, {"ref.call": "config.Validate()", "obj": "config", "name": "Validate"}],
+      [15, {"local": "user#1"}],
+      [1, {"ref.call": "user.New()", "obj": "user", "name": "New"}],
+      [1, {"ref.call": "user.Save()", "obj": "user", "name": "Save"}],
+      [1, {"ref.call": "config.Load()", "obj": "config", "name": "Load"}],
+      [0, {"ref.call": "run(nil)", "name": "run"}],
+      [0, {"ref.call": "save()#1", "name": "save"}],
+      [0, {"ref.call": "plain()#1", "name": "plain"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func run(config *config.Config) {…\n}", "name": "run"}],
+      [2, {"root.cand": "func save() {…\n}", "name": "save"}],
+      [2, {"root.cand": "func plain() {…\n}", "name": "plain"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}]
+    ],
+    "stub": []
+  },
+  "config/config.go": {
+    "defs": [
+      [6, {"def.class": "Config struct{}", "name": "Config"}],
+      [1, {"def.method": "func (c *Config) Validate() {}", "recv": "Config", "name": "Validate"}],
+      [1, {"def.method": "func (c *Config) Load() {}", "recv": "Config", "name": "Load"}],
+      [1, {"def.method": "func (c *Config) Unused() {}", "recv": "Config", "name": "Unused"}],
+      [4, {"def.func": "func Load() {}", "name": "Load"}]
+    ],
+    "refs": [],
+    "roots": [
+      [1, {"pkg": "config"}],
+      [2, {"root.cand": "func Load() {}", "name": "Load"}]
+    ],
+    "stub": []
+  },
+  "user/user.go": {
+    "defs": [
+      [6, {"def.class": "User struct{}", "name": "User"}],
+      [4, {"def.func": "func New() *User { return &User{} }", "name": "New"}],
+      [1, {"def.method": "func (u *User) Save() {}", "recv": "User", "name": "Save"}],
+      [1, {"def.method": "func (u *User) Forget() {}", "recv": "User", "name": "Forget"}]
+    ],
+    "refs": [
+      [6, {"ref.ref": "User#1", "name": "User"}],
+      [6, {"ref.ref": "User#2", "name": "User"}]
+    ],
+    "roots": [
+      [1, {"pkg": "user"}],
+      [2, {"root.cand": "func New() *User { return &User{} }", "name": "New"}]
+    ],
+    "stub": []
+  }
+}

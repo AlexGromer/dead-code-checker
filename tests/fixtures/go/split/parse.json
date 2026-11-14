@@ -1,0 +1,47 @@
+{
+  "a.go": {
+    "defs": [
+      [9, {"def.const": "Max = 1", "name": "Max"}],
+      [10, {"def.var": "ErrNotFound = 2", "name": "ErrNotFound"}],
+      [10, {"def.var": "UnusedVar = 3", "name": "UnusedVar"}],
+      [6, {"def.class": "Circle struct{}", "name": "Circle"}],
+      [7, {"def.class": "Circle struct{}", "name": "Circle"}],
+      [4, {"def.func": "func handler() {}", "name": "handler"}],
+      [4, {"def.func": "func code() int {…\n}", "name": "code"}],
+      [4, {"def.func": "func main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [4, {"ref.ref": "ErrNotFound#1", "name": "ErrNotFound"}],
+      [4, {"ref.ref": "handler#1", "name": "handler"}],
+      [4, {"ref.ref": "Max#1", "name": "Max"}],
+      [6, {"ref.ref": "Circle#1", "name": "Circle"}],
+      [0, {"ref.call": "code()#1", "name": "code"}],
+      [0, {"ref.call": "cb()", "name": "cb"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func handler() {}", "name": "handler"}],
+      [2, {"root.cand": "func code() int {…\n}", "name": "code"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "func handler() {}", "name": "handler", "body": "{}"}]
+    ]
+  },
+  "b.go": {
+    "defs": [
+      [0, {"def.method": "func (c Circle) String() string { return \"c\" }", "recv": "Circle", "name": "String"}],
+      [0, {"def.method": "func (c Circle) Dead() {}", "recv": "Circle", "name": "Dead"}]
+    ],
+    "refs": [
+      [6, {"ref.ref": "Circle", "name": "Circle"}],
+      [6, {"ref.ref": "Circle#1", "name": "Circle"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}]
+    ],
+    "stub": [
+      [1, {"stub.def": "func (c Circle) Dead() {}", "name": "Dead", "body": "{}"}]
+    ]
+  }
+}

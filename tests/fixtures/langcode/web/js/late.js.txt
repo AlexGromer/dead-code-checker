@@ -1,0 +1,5 @@
+function lateStart() {}
+lateStart();
+function lateDead() {}
+function jj() {}
+function kk() {}

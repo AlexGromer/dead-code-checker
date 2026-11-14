@@ -1,0 +1,24 @@
+{
+  "_doc": "PHP. path_sub.include: a path joined to the directory of the file (include __DIR__ . '/../src/a.php', dirname(__FILE__) . '/x.php') leaves a literal that starts with a slash, which is read as relative to the including file. public = public, protected = package, private = private; no modifier: a member is public (the language default), a top-level function or class exported. abstract: base.m reaches the overrides. protocol: the magic methods and the methods of the SPL / standard interfaces that the engine or a library calls by name. ref_cmd.ref: a string argument of a callback function (call_user_func, array_map, add_action ...) names a function. path_roots: Laravel and Symfony call controllers, commands, providers, middleware, jobs, listeners, policies and migrations by convention (hard), models and views by their methods in templates (soft).",
+  "stub_tag": "php",
+  "vis_mods": {"public": "public", "protected": "package", "private": "private"},
+  "flag_mods": {"abstract": "abstract"},
+  "default_vis": {"*": "public"},
+  "parent_default_vis": {"iface": "public"},
+  "name_map": [["\\", "."]],
+  "path_sub": {"include": [["^/+", "./"]]},
+  "ref_cmd": {
+    "ref": "^(call_user_func|call_user_func_array|array_map|array_filter|array_walk|array_reduce|usort|uasort|uksort|is_callable|function_exists|method_exists|register_shutdown_function|set_error_handler|set_exception_handler|spl_autoload_register|iterator_apply|add_action|add_filter|register_activation_hook|register_deactivation_hook|add_shortcode)$",
+    "dyn": "^(constant|define)$"
+  },
+  "roots": {"main": {"re": "^main$", "kinds": ["func"]}},
+  "protocol": [
+    {"re": "\\.(__construct|__destruct|__call|__callStatic|__get|__set|__isset|__unset|__toString|__invoke|__clone|__sleep|__wakeup|__serialize|__unserialize|__set_state|__debugInfo|jsonSerialize|count|offsetGet|offsetSet|offsetExists|offsetUnset|getIterator|current|key|next|rewind|valid|serialize|unserialize|handle|boot|register)$", "kinds": ["func", "method"]}
+  ],
+  "path_roots": [
+    {"path": "(^|/)app/(Http|Console|Providers|Jobs|Listeners|Policies|Events|Exceptions|Mail|Notifications|Observers|Rules|Casts)/", "kind": "annotation:php-framework", "kinds": ["class", "iface", "func", "method"]},
+    {"path": "(^|/)(database/(migrations|seeders|factories)|routes|config|bootstrap)/", "kind": "annotation:php-framework", "kinds": ["class", "iface", "func", "method"]},
+    {"path": "(^|/)src/(Controller|Command|EventSubscriber|EventListener|Security|Twig|Form|DependencyInjection|Kernel)", "kind": "annotation:php-framework", "kinds": ["class", "iface", "func", "method"]},
+    {"path": "(^|/)(app/Models|resources/views|src/Entity|src/Repository)/", "kind": "annotation:php-framework", "kinds": ["func", "method"], "strength": "soft"}
+  ]
+}

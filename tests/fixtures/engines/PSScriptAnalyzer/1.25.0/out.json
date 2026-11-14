@@ -1,0 +1,9 @@
+{
+  "RuleName": "PSUseDeclaredVarsMoreThanAssignments",
+  "Severity": 1,
+  "Line": 2,
+  "Column": 5,
+  "Message": "The variable 'unused' is assigned but never used.",
+  "ScriptName": "x.ps1",
+  "ScriptPath": "/work/x.ps1"
+}

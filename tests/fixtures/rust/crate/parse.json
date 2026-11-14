@@ -1,0 +1,106 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}],
+      [4, {"def.func": "fn dead_fn() {}", "name": "dead_fn"}],
+      [4, {"def.func": "fn dead_a() {…\n}", "name": "dead_a"}],
+      [4, {"def.func": "fn dead_b() {…\n}", "name": "dead_b"}]
+    ],
+    "refs": [
+      [16, {"import": "mod macros;"}],
+      [16, {"import": "mod shapes;"}],
+      [16, {"import": "mod utils;"}],
+      [15, {"import": "use shapes::{Shape, Square};"}],
+      [1, {"ref.call": "utils::helper()", "name": "utils::helper"}],
+      [1, {"ref.call": "Square::new()", "name": "Square::new"}],
+      [4, {"ref.call": "s.area()", "obj": "s", "name": "area"}],
+      [12, {"ref.ref": "(\"{}\", a)", "name": "a", "member": "a"}],
+      [6, {"ref.call": "my_macro!()", "name": "my_macro"}],
+      [0, {"ref.call": "dead_b()", "name": "dead_b"}],
+      [0, {"ref.call": "dead_a()#1", "name": "dead_a"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}],
+      [1, {"root.cand": "fn dead_fn() {}", "name": "dead_fn"}],
+      [1, {"root.cand": "fn dead_a() {…\n}", "name": "dead_a"}],
+      [1, {"root.cand": "fn dead_b() {…\n}", "name": "dead_b"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn dead_fn() {}", "name": "dead_fn", "body": "{}"}]
+    ]
+  },
+  "src/utils.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn helper() {…\n}", "vis": "pub", "name": "helper"}],
+      [4, {"def.func": "fn inner() {}", "name": "inner"}],
+      [4, {"def.func": "pub fn lib_unused() {}", "vis": "pub", "name": "lib_unused"}]
+    ],
+    "refs": [
+      [0, {"ref.call": "inner()", "name": "inner"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "pub fn helper() {…\n}", "name": "helper"}],
+      [1, {"root.cand": "fn inner() {}", "name": "inner"}],
+      [1, {"root.cand": "pub fn lib_unused() {}", "name": "lib_unused"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn inner() {}", "name": "inner", "body": "{}"}],
+      [0, {"stub.def": "pub fn lib_unused() {}", "name": "lib_unused", "body": "{}"}]
+    ]
+  },
+  "src/macros.rs": {
+    "defs": [
+      [13, {"def.func": "macro_rules! my_macro {…\n}", "name": "my_macro"}],
+      [4, {"def.func": "fn helper_in_macro() {}", "name": "helper_in_macro"}]
+    ],
+    "refs": [
+      [17, {"dyn": "my_macro"}],
+      [12, {"ref.ref": "{\n        helper_in_macro()\n    }", "name": "helper_in_macro", "member": "helper_in_macro"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn helper_in_macro() {}", "name": "helper_in_macro"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn helper_in_macro() {}", "name": "helper_in_macro", "body": "{}"}]
+    ]
+  },
+  "src/shapes.rs": {
+    "defs": [
+      [8, {"def.iface": "pub trait Shape {…\n}", "vis": "pub", "name": "Shape"}],
+      [5, {"def.func": "fn area(&self) -> f64;", "flag.abstract": "fn area(&self) -> f64;", "name": "area"}],
+      [4, {"def.func": "fn label(&self) -> String {…\n    }", "name": "label"}],
+      [6, {"def.class": "pub struct Square {…\n}", "vis": "pub", "name": "Square"}],
+      [0, {"def.method": "fn area(&self) -> f64 {…\n    }", "flag.protocol": "fn area(&self) -> f64 {…\n    }", "recv": "<Square", "name": "area"}],
+      [4, {"def.func": "fn area(&self) -> f64 {…\n    }", "name": "area"}],
+      [1, {"def.method": "pub fn new() -> Square {…\n    }", "vis": "pub", "recv": "<Square", "name": "new"}],
+      [1, {"def.method": "fn dead_method(&self) {}", "recv": "<Square", "name": "dead_method"}],
+      [6, {"def.class": "pub struct Unused;", "vis": "pub", "name": "Unused"}],
+      [4, {"def.func": "pub extern \"C\" fn ffi_entry() {}", "vis": "pub", "name": "ffi_entry"}],
+      [12, {"def.module": "mod tests {…\n}", "name": "tests"}],
+      [4, {"def.func": "fn square_area() {…\n    }", "name": "square_area"}],
+      [4, {"def.func": "fn assert_helper() {}", "name": "assert_helper"}]
+    ],
+    "refs": [
+      [1, {"ref.call": "String::from(\"shape\")", "name": "String::from"}],
+      [8, {"ref.impl": "impl Shape for Square {…\n}", "name": "Shape", "scope": "Square"}],
+      [13, {"ref.ref": "Shape", "name": "Shape"}],
+      [13, {"ref.ref": "Shape#1", "name": "Shape"}],
+      [13, {"ref.ref": "Square", "name": "Square"}],
+      [13, {"ref.ref": "Square#1", "name": "Square"}],
+      [13, {"ref.ref": "Square#3", "name": "Square"}],
+      [13, {"ref.ref": "Square#4", "name": "Square"}],
+      [0, {"ref.call": "assert_helper()", "name": "assert_helper"}]
+    ],
+    "roots": [
+      [2, {"root.attr": "#[no_mangle]", "attr": "no_mangle"}],
+      [2, {"root.attr": "#[cfg(test)]", "attr": "cfg"}],
+      [2, {"root.attr": "#[test]", "attr": "test"}],
+      [1, {"root.cand": "pub extern \"C\" fn ffi_entry() {}", "name": "ffi_entry"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn dead_method(&self) {}", "name": "dead_method", "body": "{}"}],
+      [0, {"stub.def": "pub extern \"C\" fn ffi_entry() {}", "name": "ffi_entry", "body": "{}"}],
+      [0, {"stub.def": "fn assert_helper() {}", "name": "assert_helper", "body": "{}"}]
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+ "_doc": "Nix closed world: flake.nix is an entry and its outputs function is rooted (path_roots); import ./lib resolves a directory to lib/default.nix (path_sub); let bindings nobody uses and attribute functions nobody selects are dead; modules/stale.nix is imported by nobody.",
+ "roots": [
+  [
+   "export",
+   "flake.nix#outputs"
+  ]
+ ],
+ "closed_world": {
+  "flake.nix#outputs": "alive",
+  "flake.nix#outputs.lib": "alive",
+  "flake.nix#outputs.pkgs": "alive",
+  "lib/default.nix#double": "weak-alive",
+  "lib/default.nix#neverUsedHelper": "dead",
+  "modules/box.nix#mkThing": "dead",
+  "pkg.nix#fmt": "alive",
+  "pkg.nix#unusedLocal": "dead"
+ },
+ "files": {
+  "flake.nix": "alive",
+  "lib/default.nix": "alive",
+  "modules/box.nix": "alive",
+  "modules/stale.nix": "dead",
+  "pkg.nix": "alive"
+ }
+}

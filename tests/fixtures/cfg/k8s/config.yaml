@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cfg
+data:
+  secret: "a key named like a reference rule must not count"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orphan-cfg
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tls-cert
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: api-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: orphan-secret
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-data
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: web-sa
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orphan-sa

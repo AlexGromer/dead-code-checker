@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="4.3">
+<file name="/work/A.kt">
+	<error line="6" column="7" severity="warning" message="The file name &apos;A&apos; does not match the name of the single top-level declaration &apos;my_class&apos;." source="detekt.MatchingDeclarationName" />
+	<error line="6" column="16" severity="warning" message="Constructor parameter names should match the pattern: [a-z][A-Za-z0-9]*" source="detekt.ConstructorParameterNaming" />
+	<error line="6" column="7" severity="warning" message="Class and Object names should match the pattern: [A-Z][a-zA-Z0-9]*" source="detekt.ClassNaming" />
+	<error line="9" column="9" severity="warning" message="Function names should match the pattern: [a-z][a-zA-Z0-9]*" source="detekt.FunctionNaming" />
+	<error line="9" column="32" severity="warning" message="Variable names should match the pattern: [a-z][A-Za-z0-9]*" source="detekt.VariableNaming" />
+	<error line="3" column="1" severity="warning" message="The import &apos;java.util.List&apos; is unused." source="detekt.UnusedImports" />
+	<error line="4" column="1" severity="warning" message="The import &apos;java.io.File&apos; is unused." source="detekt.UnusedImports" />
+	<error line="8" column="27" severity="warning" message="Function parameter `x` is unused." source="detekt.UnusedParameter" />
+	<error line="9" column="18" severity="warning" message="Function parameter `p` is unused." source="detekt.UnusedParameter" />
+	<error line="12" column="1" severity="warning" message="Private class Hidden is unused." source="detekt.UnusedPrivateClass" />
+	<error line="8" column="17" severity="warning" message="Private function `unusedFun` is unused." source="detekt.UnusedPrivateMember" />
+	<error line="7" column="17" severity="warning" message="Private property `unusedProp` is unused." source="detekt.UnusedPrivateProperty" />
+</file>
+</checkstyle>

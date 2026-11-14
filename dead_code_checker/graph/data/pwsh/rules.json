@@ -1,0 +1,92 @@
+{
+  "_doc": "Rules of the PowerShell extractor (graph.extract.pwsh; the `protocol` key is read as in ts_generic.rules_of, names are case-folded). A property of a class is a data member: a hashtable cast ([Foo]@{Name = 'x'}), New-Object -Property, ConvertFrom-Json and Select-Object name it by a string, no member access shows the use; it lives with its class. So do the methods the language calls by convention: ToString, Equals, GetHashCode, CompareTo, Dispose, GetEnumerator, Parse (a string cast to the type), Clone. A class-based DSC resource has Get, Set and Test methods that the Local Configuration Manager calls: they live with the class too (a plain class with such a method keeps it alive, never a false dead). sinks: a string handed to a command or a member that EVALUATES it is code. mode command = the string is a script (Invoke-Expression, ScriptBlock::Create, InvokeScript, AddScript): the first word of every statement is a command, a call; mode words = the string is a command line of a launcher (pwsh -Command, Start-Process -ArgumentList): every word that is no parameter is a weak ref, a path is an exec. A word with a variable in it is a name glob (`Do-$action` -> name:do-*); a computed argument of a command-mode sink is a dyn site. Keys are lowercase, `.exe` dropped; members are `owner.name` (`?` = a receiver the text does not name). globs: Get-ChildItem and its aliases enumerate the files a loop dot-sources (the classic module layout `foreach ($f in @($public + $private)) { . $f.FullName }`): when the file loads a computed path, the pattern of the enumeration (path / filter / recurse parameters, switch parameters take no value; helpers are commands that only build the path) is an include glob. get-command: a string with a wildcard names functions by pattern (`Get-Command 'Test-*'`). script_skip: commands at the top level that a library file runs too (strict mode, module loading, aliases, type data): they do not make the file a script.",
+  "protocol": [
+    {
+      "kinds": [
+        "var"
+      ],
+      "parents": [
+        "class"
+      ]
+    },
+    {
+      "kinds": [
+        "method"
+      ],
+      "re": "(^|\\.)(get|set|test|tostring|equals|gethashcode|compareto|dispose|getenumerator|parse|tryparse|clone)$"
+    }
+  ],
+  "sinks": {
+    "cmd": {
+      "invoke-expression": "command",
+      "iex": "command",
+      "pwsh": "words",
+      "powershell": "words",
+      "start-process": "words",
+      "saps": "words",
+      "start": "words",
+      "get-command": "words",
+      "gcm": "words"
+    },
+    "members": {
+      "scriptblock.create": "command",
+      "?.invokescript": "command",
+      "?.createnewscriptblock": "command",
+      "?.addscript": "command",
+      "?.addcommand": "command"
+    }
+  },
+  "globs": {
+    "commands": [
+      "get-childitem",
+      "gci",
+      "ls",
+      "dir"
+    ],
+    "path": [
+      "path",
+      "literalpath",
+      "lp"
+    ],
+    "filter": [
+      "filter",
+      "include"
+    ],
+    "recurse": [
+      "recurse",
+      "r"
+    ],
+    "helpers": [
+      "join-path",
+      "split-path",
+      "resolve-path",
+      "convert-path",
+      "get-location"
+    ],
+    "switch": [
+      "recurse",
+      "r",
+      "force",
+      "file",
+      "directory",
+      "hidden",
+      "name",
+      "readonly",
+      "system"
+    ]
+  },
+  "script_skip": [
+    "set-strictmode",
+    "import-module",
+    "export-modulemember",
+    "set-alias",
+    "new-alias",
+    "add-type",
+    "update-typedata",
+    "register-argumentcompleter",
+    "set-variable",
+    "new-variable",
+    "write-verbose",
+    "write-debug"
+  ]
+}

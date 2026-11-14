@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "_doc": "graph.publish. out = the default directory of `graph publish` (relative to the repository root; the branch-level stale check looks only there), digest_file = the file in it that remembers what was published, branch = the local branch of --gh-pages. calls = the entry-point pictures: depth levels from each entry point, at most nodes nodes in a picture, at most max pictures (the rest is counted in index.md). modules_rows / edge_rows = the rows of the two tables of index.md. markers = the built-in scan of the rendered text (reason, regular expression, icase): the scan reports the reason and the line, never the text. abs_roots = first path components of an absolute path that must not appear in a published file (the scan reports /<name>/ at a word boundary).",
+  "out": "docs/architecture",
+  "digest_file": ".dc-digest",
+  "branch": "gh-pages",
+  "calls": { "depth": 3, "nodes": 60, "max": 40 },
+  "modules_rows": 60,
+  "edge_rows": 40,
+  "abs_roots": ["opt", "home", "Users", "root", "var", "tmp", "mnt", "srv"],
+  "markers": [
+    { "reason": "a private key block", "pattern": "-----BEGIN [A-Z ]*PRIVATE KEY-----" },
+    { "reason": "an access key id of a cloud provider", "pattern": "\\b(?:AKIA|ASIA)[0-9A-Z]{16}\\b" },
+    { "reason": "a token of a code host or chat service", "pattern": "\\b(?:gh[pousr]_[A-Za-z0-9]{20,}|glpat-[A-Za-z0-9_-]{16,}|xox[abprs]-[A-Za-z0-9-]{10,})" },
+    { "reason": "a credential assignment", "pattern": "\\b(?:password|passwd|secret|api[_-]?key|token)\\b\\s*[:=]\\s*[\"']?[^\\s\"'<>]{6,}", "icase": true },
+    { "reason": "an e-mail address", "pattern": "[A-Za-z0-9._%+-]+@(?![0-9]+\\.)[A-Za-z0-9-]+(?:\\.[A-Za-z0-9-]+)*\\.[A-Za-z]{2,}(?![A-Za-z0-9_-])" },
+    { "reason": "an IPv4 address", "pattern": "(?<![\\w.])(?:25[0-5]|2[0-4]\\d|1?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1?\\d?\\d)){3}(?![\\w.])" }
+  ]
+}

@@ -1,0 +1,8 @@
+nameOverride: ""
+extraLabels: {}
+settings:
+  level: info
+motd: "hello"
+debug:
+  enabled: false
+neverRead: 1

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 https://pmd.github.io/schema/report_2_0_0.xsd" version="7.29.0" timestamp="2026-11-11T21:16:45.472">
+<file name="A.java">
+<violation beginline="4" endline="4" begincolumn="17" endcolumn="28" rule="UnusedPrivateField" ruleset="Best Practices" class="A" variable="unusedField" externalInfoUrl="https://docs.pmd-code.org/snapshot/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
+Avoid unused private fields such as 'unusedField'.
+</violation>
+<violation beginline="5" endline="5" begincolumn="18" endcolumn="30" rule="UnusedPrivateMethod" ruleset="Best Practices" class="A" method="unusedMethod" externalInfoUrl="https://docs.pmd-code.org/snapshot/pmd_rules_java_bestpractices.html#unusedprivatemethod" priority="3">
+Avoid unused private methods such as 'unusedMethod()'.
+</violation>
+</file>
+</pmd>

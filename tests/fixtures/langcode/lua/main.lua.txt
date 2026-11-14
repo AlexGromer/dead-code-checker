@@ -1,0 +1,32 @@
+local util = require("lib.util")
+local M = {}
+local ok, opt = pcall(require, "lib.optional")
+if ok then opt.load() end
+
+-- deadcode: root exported to the host
+function M.run(x)
+  util.greet(x)
+  local r = helper()
+  return r
+end
+
+local function helper() return 1 end
+
+function M:method()
+  self:other()
+end
+
+function M:other() end
+
+function unused_global() end
+
+local function dead_local() end
+
+local cb = function() end
+local function on_event() end
+register("evt", on_event)
+register("load", util.on_load)
+register("save", { save = util.on_save })
+M.hook = util.on_alias
+
+return M

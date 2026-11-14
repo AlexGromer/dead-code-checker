@@ -1,0 +1,15 @@
+{
+  "_doc": "HTML pages. ref_cmd.include: the attributes that name a file (src, href, a form action, an object data, a lazy data-src); path_sub.include: a URL (scheme:, //host), a fragment (#top) and a mail link name nothing of ours, a query or fragment is cut, a root-relative /img/a.png is looked up as a path suffix. ref_cmd.scan: an on* attribute is script text, its calls are uses; scan_value: so is an href (src, action) that starts with javascript:. embed: the <script> blocks that hold code (no src, type module / text/javascript / absent) are extracted as JavaScript; their top-level functions are globals that the page calls by name from attributes and other scripts (soft script roots).",
+  "ref_cmd": {"include": "^(src|href|xlink:href|poster|action|formaction|data|data-src|data-href)$", "scan": "^on[a-z]+$"},
+  "scan_value": {"^(href|src|action|formaction)$": "^\\s*javascript:"},
+  "path_sub": {"include": [["^(?:[A-Za-z][A-Za-z0-9+.-]*:|//|#).*$", ""], ["[?#].*$", ""], ["^/+", ""]]},
+  "embed": {
+    "lang": [
+      ["\\bsrc\\s*=", ""],
+      ["\\btype\\s*=\\s*[\"']?(?:module|text/javascript|application/javascript|text/babel)\\b", "javascript"],
+      ["\\btype\\s*=", ""],
+      ["<script", "javascript"]
+    ],
+    "roots": "script"
+  }
+}

@@ -1,0 +1,502 @@
+{
+ "src/main/groovy/app/Tool.groovy": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "package app\n\n",
+     "kw": "package",
+     "name": "app"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "class Tool {\n    def run() { new Greeter().shout() }\n    def idle() { 1 }\n}\n",
+     "kw": "class",
+     "name": "Tool"
+    }
+   ],
+   [
+    2,
+    {
+     "def.iface": "class Tool {\n    def run() { new Greeter().shout() }\n    def idle() { 1 }\n}\n",
+     "kw": "class",
+     "name": "Tool"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def run() { new Greeter().shout() }\n",
+     "name": "run"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def run() { new Greeter().shout() }\n",
+     "mod": "def",
+     "name": "run"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def idle() { 1 }\n",
+     "name": "idle"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def idle() { 1 }\n",
+     "mod": "def",
+     "name": "idle"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "def run() { new Greeter().shout() }\n",
+     "body": "run() { new Greeter().shout() }",
+     "name": "run"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "def idle() { 1 }\n",
+     "body": "idle() { 1 }",
+     "name": "idle"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    0,
+    {
+     "root.main": "run"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "idle"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    2,
+    {
+     "name": "package",
+     "ref.ref": "package"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "app",
+     "ref.ref": "app"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "class",
+     "ref.ref": "class"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Tool",
+     "ref.ref": "Tool"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "def",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "run()",
+     "name": "run"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "run()",
+     "member": "run",
+     "name": "run"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "run",
+     "ref.ref": "run"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "new",
+     "ref.ref": "new"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Greeter()",
+     "name": "Greeter"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Greeter()",
+     "member": "Greeter",
+     "name": "Greeter"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Greeter",
+     "ref.ref": "Greeter"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "shout()",
+     "name": "shout"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "shout()",
+     "member": "shout",
+     "name": "shout"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "shout",
+     "ref.ref": "shout"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "def#1",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "idle()",
+     "name": "idle"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "idle()",
+     "member": "idle",
+     "name": "idle"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "idle",
+     "ref.ref": "idle"
+    }
+   ]
+  ]
+ },
+ "src/main/java/app/Greeter.java": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "public class Greeter {\n    pub…everCalled() { return \"x\"; }\n}",
+     "mods": "public",
+     "name": "Greeter"
+    }
+   ],
+   [
+    4,
+    {
+     "def.method": "public String hello() { return \"hi\"; }",
+     "mods": "public",
+     "name": "hello"
+    }
+   ],
+   [
+    4,
+    {
+     "def.method": "public String shout() { return \"HI\"; }",
+     "mods": "public",
+     "name": "shout"
+    }
+   ],
+   [
+    4,
+    {
+     "def.method": "public String neverCalled() { return \"x\"; }",
+     "mods": "public",
+     "name": "neverCalled"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    1,
+    {
+     "import": "package app;"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    7,
+    {
+     "name": "String",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    7,
+    {
+     "name": "String#1",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    7,
+    {
+     "name": "String#2",
+     "ref.ref": "String"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    3,
+    {
+     "ffi.decl": "public String hello() { return \"hi\"; }",
+     "name": "hello"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "\"hi\""
+    }
+   ],
+   [
+    3,
+    {
+     "ffi.decl": "public String shout() { return \"HI\"; }",
+     "name": "shout"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "\"HI\""
+    }
+   ],
+   [
+    3,
+    {
+     "ffi.decl": "public String neverCalled() { return \"x\"; }",
+     "name": "neverCalled"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "\"x\""
+    }
+   ]
+  ]
+ },
+ "src/main/java/app/Lone.java": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "public class Lone { }",
+     "mods": "public",
+     "name": "Lone"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    1,
+    {
+     "import": "package app;"
+    }
+   ]
+  ]
+ },
+ "src/main/scala/app/Main.scala": {
+  "defs": [
+   [
+    1,
+    {
+     "def.class": "object Main extends App {\n  println(new Greeter().hello())\n  new Tool().run()\n}",
+     "name": "Main"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    2,
+    {
+     "root.main-app": "App"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    17,
+    {
+     "name": "app",
+     "ref.ref": "app",
+     "self": "app"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Main",
+     "ref.ref": "Main",
+     "self": "Main"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.inherit": "object Main extends App {\n  println(new Greeter().hello())\n  new Tool().run()\n}",
+     "name": "App",
+     "scope": "Main"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "App",
+     "ref.ref": "App"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "println(new Greeter().hello())",
+     "name": "println"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "println",
+     "ref.ref": "println",
+     "self": "println"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.call": "new Greeter()",
+     "name": "Greeter"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Greeter",
+     "ref.ref": "Greeter"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "new Greeter().hello()",
+     "member": "hello",
+     "name": "hello"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "new Greeter().hello",
+     "member": "hello",
+     "name": "hello"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "hello",
+     "ref.ref": "hello",
+     "self": "hello"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.call": "new Tool()",
+     "name": "Tool"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Tool",
+     "ref.ref": "Tool"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "new Tool().run()",
+     "member": "run",
+     "name": "run"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "new Tool().run",
+     "member": "run",
+     "name": "run"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "run",
+     "ref.ref": "run",
+     "self": "run"
+    }
+   ]
+  ]
+ }
+}

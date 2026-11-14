@@ -1,0 +1,48 @@
+{
+ "_doc": "Scala closed world: an object that extends App is the entry (roots main-app); private members nobody calls and an unreferenced class are dead; companion objects and traits are reached by name. An object with a `main` method is an entry and so is the object (Cli, rules roots host); a method that a subclass or a trait user calls by its bare name (Base.baseCall, Greets.greet, Derived.flag in `if (flag)`) stays alive (self_word); a parameter or a val is no call.",
+ "roots": [
+  [
+   "main",
+   "src/main/scala/app/Main.scala#Main"
+  ]
+ ],
+ "closed_world": {
+  "src/main/scala/app/Cli.scala#Base": "alive",
+  "src/main/scala/app/Cli.scala#Base.baseCall": "weak-alive",
+  "src/main/scala/app/Cli.scala#Base.neverCalled": "dead",
+  "src/main/scala/app/Cli.scala#Cli": "alive",
+  "src/main/scala/app/Cli.scala#Cli.main": "alive",
+  "src/main/scala/app/Cli.scala#Derived": "alive",
+  "src/main/scala/app/Cli.scala#Derived.flag": "weak-alive",
+  "src/main/scala/app/Cli.scala#Derived.go": "weak-alive",
+  "src/main/scala/app/Cli.scala#Derived.go.local": "weak-alive",
+  "src/main/scala/app/Cli.scala#Greets": "alive",
+  "src/main/scala/app/Cli.scala#Greets.greet": "weak-alive",
+  "src/main/scala/app/Cli.scala#Greets.silent": "dead",
+  "src/main/scala/app/Cli.scala#Unused": "dead",
+  "src/main/scala/app/Cli.scala#Unused.helper": "dead",
+  "src/main/scala/app/Main.scala#Main": "alive",
+  "src/main/scala/app/Main.scala#Main.svc": "alive",
+  "src/main/scala/app/Service.scala#Handler": "weak-alive",
+  "src/main/scala/app/Service.scala#Handler.handle": "weak-alive",
+  "src/main/scala/app/Service.scala#Orphan": "dead",
+  "src/main/scala/app/Service.scala#Orphan.handle": "weak-alive",
+  "src/main/scala/app/Service.scala#Service": "weak-alive",
+  "src/main/scala/app/Service.scala#Service.audit": "weak-alive",
+  "src/main/scala/app/Service.scala#Service.handle": "weak-alive",
+  "src/main/scala/app/Service.scala#Service.unusedPrivate": "dead",
+  "src/main/scala/app/Service.scala#Service.unusedPublic": "dead",
+  "src/main/scala/app/Util.scala#Repo": "weak-alive",
+  "src/main/scala/app/Util.scala#Repo.drop": "dead",
+  "src/main/scala/app/Util.scala#Repo.save": "weak-alive",
+  "src/main/scala/app/Util.scala#Util": "weak-alive",
+  "src/main/scala/app/Util.scala#Util.fmt": "weak-alive",
+  "src/main/scala/app/Util.scala#Util.neverFmt": "dead"
+ },
+ "files": {
+  "src/main/scala/app/Cli.scala": "alive",
+  "src/main/scala/app/Main.scala": "alive",
+  "src/main/scala/app/Service.scala": "weak-alive",
+  "src/main/scala/app/Util.scala": "weak-alive"
+ }
+}

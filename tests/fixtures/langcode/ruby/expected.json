@@ -1,0 +1,63 @@
+{
+ "_doc": "Ruby closed world: the Rakefile is an entry (langs.json entry_re); require_relative adds file edges; Rails controllers are rooted by path (rules path_roots) so ApplicationController.helper_for_all stays alive; send(\"handle_#{name}\") is a dyn site (the whole file lib/dynamic.rb stays weakly alive); lib/orphan.rb is required and referenced by nobody. A method named by a block symbol (`[arg].map(&:norm)`) is a use of a member of that name (User.norm). The classes of app/models are soft roots: a model is reached by an association symbol (has_many :comments) or by autoload, not by its constant. A method that a subclass calls by its bare name (Shape.base_area from Circle#area) and one that an including class calls (Printable.print_it), or that the module calls on its host (Circle.host_hook from Printable#uses_host), stay alive (self_word, a bare name is also self.name); a parameter or a local is no call (scale).",
+ "roots": [
+  [
+   "annotation:rails",
+   "app/controllers/users_controller.rb#UsersController.index"
+  ]
+ ],
+ "closed_world": {
+  "Rakefile#Report": "alive",
+  "Rakefile#Report.build": "weak-alive",
+  "Rakefile#Report.format_it": "alive",
+  "Rakefile#Report.initialize": "alive",
+  "Rakefile#Report.never_used": "dead",
+  "Rakefile#Report.to_s": "alive",
+  "Rakefile#Tools": "alive",
+  "Rakefile#Tools.greet": "weak-alive",
+  "Rakefile#Tools.run": "weak-alive",
+  "Rakefile#Tools.unused_tool": "dead",
+  "app/controllers/application_controller.rb#ApplicationController": "alive",
+  "app/controllers/application_controller.rb#ApplicationController.helper_for_all": "alive",
+  "app/controllers/users_controller.rb#UsersController": "alive",
+  "app/controllers/users_controller.rb#UsersController.authenticate": "alive",
+  "app/controllers/users_controller.rb#UsersController.index": "alive",
+  "app/models/comment.rb#Comment": "weak-alive",
+  "app/models/post.rb#Post": "weak-alive",
+  "lib/auth.rb#Auth": "weak-alive",
+  "lib/auth.rb#Auth.check": "weak-alive",
+  "lib/auth.rb#Auth.dead_auth": "dead",
+  "lib/auth.rb#Auth.verify": "weak-alive",
+  "lib/dynamic.rb#Dispatcher": "weak-alive",
+  "lib/dynamic.rb#Dispatcher.go": "weak-alive",
+  "lib/dynamic.rb#Dispatcher.handle_a": "weak-alive",
+  "lib/dynamic.rb#Dispatcher.handle_b": "weak-alive",
+  "lib/orphan.rb#Orphan": "dead-cluster",
+  "lib/shapes.rb#Circle": "weak-alive",
+  "lib/shapes.rb#Circle.area": "weak-alive",
+  "lib/shapes.rb#Circle.host_hook": "weak-alive",
+  "lib/shapes.rb#Circle.label": "weak-alive",
+  "lib/shapes.rb#Printable": "weak-alive",
+  "lib/shapes.rb#Printable.print_it": "weak-alive",
+  "lib/shapes.rb#Printable.uses_host": "weak-alive",
+  "lib/shapes.rb#Shape": "weak-alive",
+  "lib/shapes.rb#Shape.base_area": "weak-alive",
+  "lib/shapes.rb#Shape.never_called": "dead",
+  "lib/user.rb#User": "weak-alive",
+  "lib/user.rb#User.norm": "weak-alive",
+  "lib/user.rb#User.old_method": "dead",
+  "lib/user.rb#User.recent": "weak-alive"
+ },
+ "files": {
+  "Rakefile": "alive",
+  "app/controllers/application_controller.rb": "alive",
+  "app/controllers/users_controller.rb": "alive",
+  "app/models/comment.rb": "weak-alive",
+  "app/models/post.rb": "weak-alive",
+  "lib/auth.rb": "alive",
+  "lib/dynamic.rb": "alive",
+  "lib/orphan.rb": "dead-cluster",
+  "lib/shapes.rb": "alive",
+  "lib/user.rb": "alive"
+ }
+}

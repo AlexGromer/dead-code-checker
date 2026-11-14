@@ -1,0 +1,31 @@
+{
+  "main.go": {
+    "defs": [
+      [6, {"def.class": "Base struct{}", "name": "Base"}],
+      [1, {"def.method": "func (b *Base) Hello() {}", "recv": "Base", "name": "Hello"}],
+      [6, {"def.class": "server struct {…\n}", "name": "server"}],
+      [1, {"def.method": "func (s *server) SayHello() {}", "recv": "server", "name": "SayHello"}],
+      [6, {"def.class": "ptrServer struct {…\n}", "name": "ptrServer"}],
+      [1, {"def.method": "func (s *ptrServer) Serve() {}", "recv": "ptrServer", "name": "Serve"}],
+      [6, {"def.class": "derived struct {…\n}", "name": "derived"}],
+      [6, {"def.class": "quiet struct{}", "name": "quiet"}],
+      [1, {"def.method": "func (q *quiet) Run() {}", "recv": "quiet", "name": "Run"}],
+      [4, {"def.func": "func main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [8, {"import": "pb \"example.com/app/pb\""}],
+      [9, {"ref.inherit": "pb.UnimplementedGreeterServer", "name": "UnimplementedGreeterServer"}],
+      [12, {"ref.inherit": "*pb.UnimplementedGreeterServer", "name": "UnimplementedGreeterServer"}],
+      [11, {"ref.inherit": "*Base#1", "name": "Base"}],
+      [6, {"ref.ref": "server#2", "name": "server"}],
+      [6, {"ref.ref": "ptrServer#2", "name": "ptrServer"}],
+      [6, {"ref.ref": "derived#1", "name": "derived"}],
+      [6, {"ref.ref": "quiet#2", "name": "quiet"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}]
+    ],
+    "stub": []
+  }
+}

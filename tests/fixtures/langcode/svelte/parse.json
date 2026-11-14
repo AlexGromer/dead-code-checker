@@ -1,0 +1,603 @@
+{
+ "src/lib/Child.svelte": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.ref": "<script>",
+     "name": "script"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<i>",
+     "name": "i"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "value#2"
+    }
+   ]
+  ],
+  "embed": [
+   [
+    0,
+    {
+     "block": "<script>\n  export let value = 1;\n  function format() { return value; }\n</script>",
+     "script": "export let value = 1;\n  function format() { return value; }\n",
+     "tag": "\\<script>"
+    }
+   ]
+  ]
+ },
+ "src/lib/Child.svelte#1": {
+  "src": "        \n  export let value = 1;\n  function format() { return value; }\n",
+  "grammar": "javascript",
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function format() { return value; }",
+     "name": "format"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function format() { return value; }",
+     "body": "{ return value; }",
+     "name": "format"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    13,
+    {
+     "ref.ref": "return value;",
+     "name": "value"
+    }
+   ]
+  ],
+  "exports": [
+   [
+    1,
+    {
+     "export": "export let value = 1;",
+     "name": "value"
+    }
+   ]
+  ]
+ },
+ "src/lib/Stale.svelte": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.ref": "<script>",
+     "name": "script"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<b>",
+     "name": "b"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "x#2"
+    }
+   ]
+  ],
+  "embed": [
+   [
+    0,
+    {
+     "block": "<script>export let x = 0;</script>",
+     "script": "export let x = 0;",
+     "tag": "\\<script>"
+    }
+   ]
+  ]
+ },
+ "src/lib/Stale.svelte#1": {
+  "src": "        export let x = 0;",
+  "grammar": "javascript",
+  "exports": [
+   [
+    1,
+    {
+     "export": "export let x = 0;",
+     "name": "x#1"
+    }
+   ]
+  ]
+ },
+ "src/lib/utils.ts": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function fmt(x: number): string { return String(x) }",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function unusedUtil() {}",
+     "name": "unusedUtil"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function fmt(x: number): string { return String(x) }",
+     "body": "{ return String(x) }",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function unusedUtil() {}",
+     "body": "{}",
+     "name": "unusedUtil"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "String(x)",
+     "name": "String"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "(x)",
+     "name": "x"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    16,
+    {
+     "import": "String(x)",
+     "pattern": "x",
+     "req": "String"
+    }
+   ]
+  ],
+  "exports": [
+   [
+    0,
+    {
+     "export": "export function fmt(x: number): string { return String(x) }",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "export": "export function unusedUtil() {}",
+     "name": "unusedUtil"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    0,
+    {
+     "call": "String(x)",
+     "args": "(x)"
+    }
+   ]
+  ]
+ },
+ "src/routes/+page.svelte": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.ref": "<script lang=\"ts\">",
+     "name": "script"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "lang=\"ts\"",
+     "name": "lang"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.include": "lang=\"ts\"",
+     "cmd": "lang",
+     "name": "ts"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<h1>",
+     "name": "h1"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "name#1"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "fmt(count)"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<button on:click={inc} use:tip…eIn animate:flip class:active>",
+     "name": "button"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "on:click={inc}",
+     "name": "on:click"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "inc#1"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "use:tip",
+     "name": "use:tip"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "transition:fly|local",
+     "name": "transition:fly|local"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "in:slideIn",
+     "name": "in:slideIn"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "animate:flip",
+     "name": "animate:flip"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "class:active",
+     "name": "class:active"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "<Child value={count} />",
+     "name": "Child"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "value={count}",
+     "name": "value"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "count#4"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<img src=logo.png alt=\"logo\">",
+     "name": "img"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "src=logo.png",
+     "name": "src"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.include": "src=logo.png",
+     "cmd": "src",
+     "name": "logo.png"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.call": "alt=\"logo\"",
+     "name": "alt"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.include": "alt=\"logo\"",
+     "cmd": "alt",
+     "name": "logo"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": "count > 1"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<p>",
+     "name": "p"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<style>",
+     "name": "style"
+    }
+   ]
+  ],
+  "embed": [
+   [
+    0,
+    {
+     "block": "<script lang=\"ts\">\n  import Ch…ler() { count = 0; }\n</script>",
+     "script": "import Child from '$lib/Child.…nusedHandler() { count = 0; }\n",
+     "tag": "\\<script lang=\"ts\">"
+    }
+   ]
+  ]
+ },
+ "src/routes/+page.svelte#1": {
+  "src": "                  \n  import Child from '$lib/Child.svelte';\n  import { fmt } from '$lib/utils';\n  export let name: string;\n  let count = 0;\n  function inc() { count += 1; }\n  function tip(node: HTMLElement) { return {}; }\n  function fly(node: HTMLElement) { return {}; }\n  function slideIn(node: HTMLElement) { return {}; }\n  function flip(node: HTMLElement) { return {}; }\n  let active = false;\n  function neverUsedAction(node: HTMLElement) { return {}; }\n  function unusedHandler() { count = 0; }\n",
+  "grammar": "typescript",
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function inc() { count += 1; }",
+     "name": "inc"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function tip(node: HTMLElement) { return {}; }",
+     "name": "tip"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function fly(node: HTMLElement) { return {}; }",
+     "name": "fly"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function slideIn(node: HTMLElement) { return {}; }",
+     "name": "slideIn"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function flip(node: HTMLElement) { return {}; }",
+     "name": "flip"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function neverUsedAction(node: HTMLElement) { return {}; }",
+     "name": "neverUsedAction"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function unusedHandler() { count = 0; }",
+     "name": "unusedHandler"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function inc() { count += 1; }",
+     "body": "{ count += 1; }",
+     "name": "inc"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function tip(node: HTMLElement) { return {}; }",
+     "body": "{ return {}; }",
+     "name": "tip"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function fly(node: HTMLElement) { return {}; }",
+     "body": "{ return {}; }",
+     "name": "fly"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function slideIn(node: HTMLElement) { return {}; }",
+     "body": "{ return {}; }",
+     "name": "slideIn"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function flip(node: HTMLElement) { return {}; }",
+     "body": "{ return {}; }",
+     "name": "flip"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function neverUsedAction(node: HTMLElement) { return {}; }",
+     "body": "{ return {}; }",
+     "name": "neverUsedAction"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function unusedHandler() { count = 0; }",
+     "body": "{ count = 0; }",
+     "name": "unusedHandler"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    41,
+    {
+     "name": "HTMLElement",
+     "ref.ref": "HTMLElement"
+    }
+   ],
+   [
+    41,
+    {
+     "name": "HTMLElement#1",
+     "ref.ref": "HTMLElement"
+    }
+   ],
+   [
+    41,
+    {
+     "name": "HTMLElement#2",
+     "ref.ref": "HTMLElement"
+    }
+   ],
+   [
+    41,
+    {
+     "name": "HTMLElement#3",
+     "ref.ref": "HTMLElement"
+    }
+   ],
+   [
+    41,
+    {
+     "name": "HTMLElement#4",
+     "ref.ref": "HTMLElement"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    0,
+    {
+     "import": "import Child from '$lib/Child.svelte';",
+     "module": "'$lib/Child.svelte'"
+    }
+   ],
+   [
+    1,
+    {
+     "import": "import Child from '$lib/Child.svelte';",
+     "default": "Child",
+     "module": "'$lib/Child.svelte'"
+    }
+   ],
+   [
+    0,
+    {
+     "import": "import { fmt } from '$lib/utils';",
+     "module": "'$lib/utils'"
+    }
+   ],
+   [
+    3,
+    {
+     "import": "import { fmt } from '$lib/utils';",
+     "module": "'$lib/utils'",
+     "name": "fmt"
+    }
+   ]
+  ],
+  "exports": [
+   [
+    1,
+    {
+     "export": "export let name: string;",
+     "name": "name"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    2,
+    {
+     "lit": "'$lib/Child.svelte'"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "'$lib/utils'"
+    }
+   ]
+  ]
+ }
+}

@@ -1,0 +1,11 @@
+package app
+
+object Util {
+  def fmt(i: Int): String = i.toString
+  def neverFmt(i: Int): String = i.toString
+}
+
+object Repo {
+  def save(s: String): Unit = ()
+  def drop(): Unit = ()
+}

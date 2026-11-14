@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "_doc": "graph.artifacts.prune and graph.pages. prune: keep_last = runs kept per project and scope (branch, repo) in the newest-first order of the run directory names (<utc>-<scope>-<head8>, never the mtime), keep_days = every run younger than that is kept too, the run that `latest` points to is never removed; auto_cap = at most that many runs removed by one automatic cleanup (after a stored run), the rest goes on the next one. index: file = the name of the overview page in the data root, summary_gz_max = the largest graph.json.gz (bytes) that the index reads for the languages of a run that has no summary (a bigger one has no languages and the page says so).",
+  "prune": { "keep_last": 10, "keep_days": 14, "auto_cap": 20 },
+  "index": { "file": "index.html", "summary_gz_max": 4194304 }
+}

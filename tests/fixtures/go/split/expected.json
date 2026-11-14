@@ -1,0 +1,18 @@
+{
+ "_doc": "verdict of every def (files are not reported) by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: consts, vars, enums and function values used outside call arguments; methods whose type is declared in another file; trait impls on types that are not a bare identifier.",
+ "closed_world": {
+  "a.go#Circle": "alive",
+  "a.go#ErrNotFound": "alive",
+  "a.go#Max": "alive",
+  "a.go#UnusedVar": "dead",
+  "a.go#code": "alive",
+  "a.go#handler": "alive",
+  "a.go#main": "alive",
+  "b.go#Circle.Dead": "dead",
+  "b.go#Circle.String": "alive"
+ },
+ "library": {
+  "a.go#UnusedVar": "public-unused",
+  "b.go#Circle.Dead": "public-unused"
+ }
+}

@@ -1,0 +1,2 @@
+export function fmt(x) { return x }
+export function unusedUtil() {}

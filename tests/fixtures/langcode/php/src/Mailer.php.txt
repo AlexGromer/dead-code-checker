@@ -1,0 +1,17 @@
+<?php
+namespace App\Service;
+
+interface Sender { public function send(string $m); }
+
+class Mailer implements Sender {
+    use Loud;
+    public function send(string $m) { $this->deliver($m); }
+    private function deliver($m) { echo $m; }
+    private function dead_private() {}
+    public function dead_public() {}
+    public function __toString() { return 'm'; }
+}
+
+trait Loud { public function shout() { return 1; } }
+
+class Unused extends Mailer {}

@@ -1,0 +1,26 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: a cargo workspace of three packages (app, util, crates/shared-lib), the crates import each other by the name of their directory (`use util::net::conn`, `use util::{helper}`, `util::other()` with no use, `shared_lib::Thing` for the directory shared-lib); every package has its own net.rs, and `use crate::net::ping` in shared-lib/src/deep/mod.rs is the net.rs of its own package, not the shorter path of app or util.",
+ "closed_world": {
+  "app/src/main.rs#main": "alive",
+  "app/src/net.rs#app_spare": "dead",
+  "app/src/net.rs#local_conn": "alive",
+  "crates/shared-lib/src/deep/mod.rs#go": "alive",
+  "crates/shared-lib/src/lib.rs#Thing": "alive",
+  "crates/shared-lib/src/lib.rs#Thing.never": "dead",
+  "crates/shared-lib/src/lib.rs#Thing.new": "alive",
+  "crates/shared-lib/src/net.rs#ping": "alive",
+  "crates/shared-lib/src/net.rs#pong": "dead",
+  "util/src/lib.rs#helper": "alive",
+  "util/src/lib.rs#other": "alive",
+  "util/src/lib.rs#unused": "dead",
+  "util/src/net.rs#conn": "alive",
+  "util/src/net.rs#spare": "dead"
+ },
+ "library": {
+  "app/src/net.rs#app_spare": "public-unused",
+  "crates/shared-lib/src/lib.rs#Thing.never": "public-unused",
+  "crates/shared-lib/src/net.rs#pong": "public-unused",
+  "util/src/lib.rs#unused": "public-unused",
+  "util/src/net.rs#spare": "public-unused"
+ }
+}

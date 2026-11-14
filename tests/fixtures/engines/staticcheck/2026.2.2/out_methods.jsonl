@@ -1,0 +1,2 @@
+{"code":"U1000","severity":"error","location":{"file":"/work/meth/meth.go","line":5,"column":11},"end":{"file":"","line":0,"column":0},"message":"func (*t).dead is unused"}
+{"code":"U1000","severity":"error","location":{"file":"/work/meth/meth.go","line":7,"column":10},"end":{"file":"","line":0,"column":0},"message":"func t.dead2 is unused"}

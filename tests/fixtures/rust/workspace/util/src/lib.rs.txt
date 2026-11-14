@@ -1,0 +1,7 @@
+pub mod net;
+
+pub fn helper() {}
+
+pub fn other() {}
+
+pub fn unused() {}

@@ -1,0 +1,288 @@
+{
+ "flake.nix": {
+  "defs": [
+   [
+    2,
+    {
+     "def.func": "outputs = { self, nixpkgs }:\n …./modules/box.nix ]; };\n    };",
+     "name": "outputs",
+     "vis.exported": "outputs = { self, nixpkgs }:\n …./modules/box.nix ]; };\n    };"
+    }
+   ],
+   [
+    1,
+    {
+     "def.var": "lib = import ./lib { };",
+     "name": "lib",
+     "vis.private": "lib = import ./lib { };"
+    }
+   ],
+   [
+    1,
+    {
+     "def.var": "pkgs = nixpkgs.legacyPackages.x86_64-linux;",
+     "name": "pkgs",
+     "vis.private": "pkgs = nixpkgs.legacyPackages.x86_64-linux;"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "import ./lib",
+     "name": "import"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "import",
+     "name": "import"
+    }
+   ],
+   [
+    4,
+    {
+     "name": "./lib",
+     "ref.include": "./lib"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "nixpkgs#3",
+     "name": "nixpkgs"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.ref": "nixpkgs.legacyPackages.x86_64-linux",
+     "member": "legacyPackages",
+     "name": "legacyPackages"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.ref": "nixpkgs.legacyPackages.x86_64-linux",
+     "member": "x86_64-linux",
+     "name": "x86_64-linux"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "pkgs#5",
+     "name": "pkgs"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.ref": "pkgs.callPackage",
+     "member": "callPackage",
+     "name": "callPackage"
+    }
+   ],
+   [
+    4,
+    {
+     "name": "./pkg.nix",
+     "ref.include": "./pkg.nix"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.ref": "lib#2",
+     "name": "lib"
+    }
+   ],
+   [
+    4,
+    {
+     "name": "./modules/box.nix",
+     "ref.include": "./modules/box.nix"
+    }
+   ]
+  ]
+ },
+ "lib/default.nix": {
+  "defs": [
+   [
+    2,
+    {
+     "def.func": "double = x: x * 2;",
+     "name": "double",
+     "vis.exported": "double = x: x * 2;"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "neverUsedHelper = x: x;",
+     "name": "neverUsedHelper",
+     "vis.exported": "neverUsedHelper = x: x;"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    1,
+    {
+     "ref.ref": "x#1",
+     "name": "x"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "x#3",
+     "name": "x"
+    }
+   ]
+  ]
+ },
+ "modules/box.nix": {
+  "defs": [
+   [
+    1,
+    {
+     "def.var": "mkThing = n: n;",
+     "name": "mkThing",
+     "vis.private": "mkThing = n: n;"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "mkThing = n: n;",
+     "name": "mkThing",
+     "vis.private": "mkThing = n: n;"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    1,
+    {
+     "ref.ref": "n#3",
+     "name": "n"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "true",
+     "name": "true"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "lib#1",
+     "name": "lib"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.ref": "lib.double",
+     "member": "double",
+     "name": "double"
+    }
+   ]
+  ]
+ },
+ "modules/stale.nix": {},
+ "pkg.nix": {
+  "defs": [
+   [
+    1,
+    {
+     "def.var": "fmt = x: \"v\" + x;",
+     "name": "fmt",
+     "vis.private": "fmt = x: \"v\" + x;"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "fmt = x: \"v\" + x;",
+     "name": "fmt",
+     "vis.private": "fmt = x: \"v\" + x;"
+    }
+   ],
+   [
+    1,
+    {
+     "def.var": "unusedLocal = y: y;",
+     "name": "unusedLocal",
+     "vis.private": "unusedLocal = y: y;"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "unusedLocal = y: y;",
+     "name": "unusedLocal",
+     "vis.private": "unusedLocal = y: y;"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    1,
+    {
+     "ref.ref": "x#1",
+     "name": "x"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "y#1",
+     "name": "y"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "stdenv#1",
+     "name": "stdenv"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.ref": "stdenv.mkDerivation",
+     "member": "mkDerivation",
+     "name": "mkDerivation"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "fmt \"1\"",
+     "name": "fmt"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "fmt#1",
+     "name": "fmt"
+    }
+   ],
+   [
+    4,
+    {
+     "name": "./src",
+     "ref.include": "./src"
+    }
+   ]
+  ]
+ }
+}

@@ -1,0 +1,7 @@
+pub fn helper() {
+    inner();
+}
+
+fn inner() {}
+
+pub fn lib_unused() {}

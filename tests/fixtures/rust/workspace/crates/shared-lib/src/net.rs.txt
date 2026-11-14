@@ -1,0 +1,3 @@
+pub fn ping() {}
+
+pub fn pong() {}

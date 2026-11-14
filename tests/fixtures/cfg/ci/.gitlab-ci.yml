@@ -1,0 +1,22 @@
+stages: [build, test]
+include:
+  - local: /ci/jobs.yml
+  - project: group/other
+    file: x.yml
+.base:
+  before_script:
+    - ./scripts/prepare.sh
+.unused-template:
+  script: [echo unused]
+build:
+  extends: .base
+  stage: build
+  script:
+    - make all
+test:
+  stage: test
+  needs:
+    - job: build
+  script:
+    - !reference [.base, before_script]
+    - make test

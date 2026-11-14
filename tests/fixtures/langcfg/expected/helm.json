@@ -1,0 +1,243 @@
+{
+ "facts": {
+  "Chart.yaml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     ".helmignore",
+     "include",
+     ""
+    ],
+    [
+     "Chart.lock",
+     "include",
+     ""
+    ],
+    [
+     "charts/**",
+     "include",
+     ""
+    ],
+    [
+     "crds/**",
+     "include",
+     ""
+    ],
+    [
+     "requirements.lock",
+     "include",
+     ""
+    ],
+    [
+     "values.schema.json",
+     "include",
+     ""
+    ],
+    [
+     "values:app",
+     "reads",
+     ""
+    ],
+    [
+     "values:app.*",
+     "reads",
+     ""
+    ],
+    [
+     "values:global",
+     "reads",
+     ""
+    ],
+    [
+     "values:global.*",
+     "reads",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "hard"
+    ]
+   ]
+  },
+  "templates/_helpers.tpl": {
+   "defs": [
+    [
+     "tpl:app%2Elabels",
+     "template",
+     8,
+     15
+    ],
+    [
+     "tpl:app%2Ename",
+     "template",
+     4,
+     6
+    ],
+    [
+     "tpl:app%2Eunused",
+     "template",
+     17,
+     19
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "tpl:app%2Ename",
+     "ref",
+     "tpl:app%2Elabels"
+    ],
+    [
+     "values:extraLabels",
+     "reads",
+     "tpl:app%2Elabels"
+    ],
+    [
+     "values:extraLabels.*",
+     "reads",
+     "tpl:app%2Elabels"
+    ],
+    [
+     "values:nameOverride",
+     "reads",
+     "tpl:app%2Ename"
+    ],
+    [
+     "values:nameOverride.*",
+     "reads",
+     "tpl:app%2Ename"
+    ]
+   ],
+   "roots": []
+  },
+  "templates/configmap.yaml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "tpl:app%2Elabels",
+     "ref",
+     ""
+    ],
+    [
+     "tpl:app%2Ename",
+     "ref",
+     ""
+    ],
+    [
+     "values:*",
+     "reads",
+     ""
+    ],
+    [
+     "values:debug",
+     "reads",
+     ""
+    ],
+    [
+     "values:debug.enabled",
+     "reads",
+     ""
+    ],
+    [
+     "values:debug.enabled.*",
+     "reads",
+     ""
+    ],
+    [
+     "values:motd",
+     "reads",
+     ""
+    ],
+    [
+     "values:motd.*",
+     "reads",
+     ""
+    ],
+    [
+     "values:settings",
+     "reads",
+     ""
+    ],
+    [
+     "values:settings.*",
+     "reads",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "k8s-workload",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "values.yaml": {
+   "defs": [
+    [
+     "values:debug.enabled",
+     "cfgkey",
+     7,
+     7
+    ],
+    [
+     "values:extraLabels",
+     "cfgkey",
+     2,
+     2
+    ],
+    [
+     "values:motd",
+     "cfgkey",
+     5,
+     5
+    ],
+    [
+     "values:nameOverride",
+     "cfgkey",
+     1,
+     1
+    ],
+    [
+     "values:neverRead",
+     "cfgkey",
+     8,
+     8
+    ],
+    [
+     "values:settings.level",
+     "cfgkey",
+     4,
+     4
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": []
+  }
+ },
+ "verdicts": {
+  "helm-values:values.yaml": "weak-alive",
+  "helm-values:values.yaml#values:debug.enabled": "weak-alive",
+  "helm-values:values.yaml#values:extraLabels": "weak-alive",
+  "helm-values:values.yaml#values:motd": "weak-alive",
+  "helm-values:values.yaml#values:nameOverride": "weak-alive",
+  "helm-values:values.yaml#values:neverRead": "weak-alive",
+  "helm-values:values.yaml#values:settings.level": "weak-alive",
+  "yaml:Chart.yaml": "alive",
+  "yaml:templates/_helpers.tpl": "weak-alive",
+  "yaml:templates/_helpers.tpl#tpl:app%2Elabels": "weak-alive",
+  "yaml:templates/_helpers.tpl#tpl:app%2Ename": "weak-alive",
+  "yaml:templates/_helpers.tpl#tpl:app%2Eunused": "dead",
+  "yaml:templates/configmap.yaml": "weak-alive"
+ }
+}

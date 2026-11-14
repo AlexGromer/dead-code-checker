@@ -1,0 +1,21 @@
+{
+ "files": [
+  "v.py"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "vulture",
+    "--min-confidence",
+    "60",
+    "v.py"
+   ],
+   "out": "out.txt",
+   "rc": 3,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "vulture",
+ "version": "2.14"
+}

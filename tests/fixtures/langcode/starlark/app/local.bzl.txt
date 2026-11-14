@@ -1,0 +1,9 @@
+def _impl(ctx):
+    return [DefaultInfo()]
+
+local_rule = rule(implementation = _impl, attrs = {"a": attr.string()})
+
+unused_rule = rule(implementation = _other_impl)
+
+def _other_impl(ctx):
+    pass

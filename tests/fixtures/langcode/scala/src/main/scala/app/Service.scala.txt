@@ -1,0 +1,14 @@
+package app
+
+trait Handler { def handle(s: String): Unit }
+
+class Service(repo: Repo.type) extends Handler {
+  override def handle(s: String): Unit = { audit(s) }
+  private def audit(s: String): Unit = repo.save(s)
+  private def unusedPrivate(): Int = 1
+  def unusedPublic(): Int = 2
+}
+
+class Orphan extends Handler {
+  def handle(s: String): Unit = ()
+}

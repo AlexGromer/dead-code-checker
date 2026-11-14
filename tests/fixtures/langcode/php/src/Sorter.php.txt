@@ -1,0 +1,15 @@
+<?php
+class Sorter {
+    public static function cmp($a, $b) { return 0; }
+    public static function cmp2($a) { return $a; }
+    public static function dead_sort() {}
+}
+
+class Hook {
+    public function fire() {}
+    public function dead_hook() {}
+}
+
+class Task {
+    public function go() {}
+}

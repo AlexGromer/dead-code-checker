@@ -1,0 +1,9 @@
+# fixture: a recipe line that runs a computed recipe
+default:
+    just {{ target }}
+
+other:
+    @echo other
+
+_hidden:
+    @echo hidden

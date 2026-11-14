@@ -1,0 +1,11 @@
+<?php
+require_once 'helpers.php';
+
+function run_app() {
+    log_line('start');
+    register_shutdown_function('on_exit');
+}
+
+function on_exit() {}
+
+function never_called_fn() {}

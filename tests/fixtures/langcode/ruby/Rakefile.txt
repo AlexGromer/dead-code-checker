@@ -1,0 +1,47 @@
+require_relative "lib/auth"
+require_relative "lib/user"
+require_relative "lib/dynamic"
+require_relative "lib/shapes"
+require "json"
+
+module Tools
+  def self.run(arg)
+    greet(arg)
+    Auth.check(arg)
+    [arg].map(&:norm)
+  end
+
+  def self.greet(x)
+    puts x
+  end
+
+  def self.unused_tool; end
+end
+
+class Report
+  def initialize(data)
+    @data = data
+  end
+
+  def to_s
+    format_it
+  end
+
+  def format_it
+    @data.to_json
+  end
+
+  def never_used
+    1
+  end
+
+  def self.build
+    new({})
+  end
+end
+
+Tools.run(ARGV[0])
+puts Report.build
+Dispatcher.new.go("a")
+Circle.new.area(2)
+Circle.new.label

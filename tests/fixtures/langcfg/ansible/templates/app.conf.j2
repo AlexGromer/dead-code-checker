@@ -1,0 +1,9 @@
+{% extends "base.j2" %}
+{% import "macros.j2" as m %}
+{% from "macros.j2" import field as f %}
+{% macro row(x) %}{{ m.cell(x) }}{% endmacro %}
+{% macro unused_macro() %}nothing{% endmacro %}
+{% block body %}
+{{ row(1) }}{{ f("a") }}
+{% include ["part1.j2", "part2.j2"] %}
+{% endblock %}

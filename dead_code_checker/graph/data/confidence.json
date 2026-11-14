@@ -1,0 +1,53 @@
+{
+ "schema": 1,
+ "note": "Data of graph/confidence.py: the numeric confidence (0..100) of a dead-symbol claim, a SECOND AXIS next to the verdict (level and code). It is a deterministic integer sum over facts the run already holds; it never changes a verdict or the confirmation rule of data/verdict.json, and a finding without a claim carries none. score = clamp(base + sources + engine_conf + hazards + coverage + runtime, 0, 100). base: where the claim comes from, as the graph alone would say it (the syntactic graph sees no types, reflection or framework conventions, so the base stays under 50): a claim of the graph (dc.dead, dc.introduced-dead, dc.orphaned-by-branch) 40, a dead cluster 30 (its members vouch only for each other); a dc.suspect takes the base of the code it replaced (verdict.was). sources: the independent corroborations behind the claim, each with its weight (s-tier: the SCIP overlay of the package shows no caller; compiler: a tool of `compilers` says dead_code; engine: any other engine of data/verdict.json engines; lsp: a language server found no reference); the weights are taken strongest first and scaled by diminish (percent, per rank: the second source adds half, the third a quarter), and the sum is capped by sources_max, so more or stronger sources never lower the score. engine_conf: the confidence the engine reports for its hit on this symbol (vulture, percent; Proof.confs), weight times percent / 100, corroborating or not; an engine that reports none adds nothing here (its source weight counts). hazards (all penalties, summed): decorated (a decorator or an annotation registers the symbol in something outside the code: DI, a registry, a route), dynamic (the symbol is flagged dynamic-zone: a getattr / reflection / eval / string dispatch edge reaches its scope), override and protocol (a base class or an interface of a library may call it by name), dyn_site_each per distinct dynamic call site of D tier in the module of the symbol, down to dyn_site_max (the module dispatches by name somewhere, this symbol may be its target). coverage (penalties): own_gap = a language of the same family has no working extractor in this tree (part of the callers is not in the graph), other_gap = another language has none (a caller in it is invisible), no_lang_root = the graph holds no hard production root of the language of the symbol (its entry points are not registered, so `no root reaches it` says little). runtime: only when a runtime result names the symbol (node key, else its file): executed = the code ran in a recorded run (the dead claim is probably wrong), not_executed = a run covered the file and never ran it; no runtime result changes nothing.",
+ "codes": [
+  "dc.dead",
+  "dc.dead-cluster",
+  "dc.introduced-dead",
+  "dc.orphaned-by-branch",
+  "dc.suspect"
+ ],
+ "base": {
+  "default": 30,
+  "dc.dead": 40,
+  "dc.introduced-dead": 40,
+  "dc.orphaned-by-branch": 40,
+  "dc.dead-cluster": 30
+ },
+ "sources": {
+  "s-tier": 25,
+  "compiler": 25,
+  "engine": 20,
+  "lsp": 15
+ },
+ "compilers": [
+  "cargo",
+  "roslyn",
+  "rustc"
+ ],
+ "diminish": [
+  100,
+  50,
+  25
+ ],
+ "sources_max": 45,
+ "engine_conf": 15,
+ "hazards": {
+  "decorated": -15,
+  "dynamic": -20,
+  "override": -15,
+  "protocol": -15,
+  "dyn_site_each": -4,
+  "dyn_site_max": -16
+ },
+ "coverage": {
+  "own_gap": -25,
+  "other_gap": -8,
+  "no_lang_root": -10
+ },
+ "runtime": {
+  "executed": -40,
+  "not_executed": 10
+ }
+}

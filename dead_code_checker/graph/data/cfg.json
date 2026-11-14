@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "_doc": "Rules of graph.extract.cfg (YAML k8s, Helm, CI, Ansible; HCL). ansible: path_modules = task keys whose value (a path, or a mapping / `file=x` string with one of path_params) is a task or vars file read relative to the including file, src_modules = modules whose `src` is a template or file looked up in the tree, role_keys = include_role / import_role (name), list_keys = lists of paths (vars_files). make / just / nginx: the data of graph.extract.cfgts (make.special = special targets that are no recipes, phony = the declaration of commands, goal = the variable of the default goal, file_funcs = functions whose result is files, never recipes (a prerequisite `$(wildcard src/*.c)` makes no dynamic site), public = conventional recipe names that are soft roots; just.private_attrs, mod_files = the files a `mod`/`import` may name, {p} the written path; jinja2.builtins = names that are called but are no macro; nginx.include = the directives that include a file, file_directives = regex of the directives that name a code file of the tree: root, alias and ssl_certificate are no code). (the build tools that CI, shell and docs lines run: data build_tools of frameworks.json, graph.roots.build_targets.) k8s: named_kinds = any mapping {kind: <one of them>, name} is a reference (Flux valuesFrom, a PVC dataSource ...); annotation_refs = metadata.annotations keys (after the last '/') whose value names an object ('ns/name' or 'name'; ingress-nginx); workloads and every kind not listed under consumed/soft_roots are hard roots; consumed kinds are dead without a reader; soft_roots are weak-alive. refs: a key whose value is a mapping (or a sequence of mappings) names an object through `field` (of kind `kind`, '*' = the mapping's own `kind` field); without `field` the key's scalar value is the name. skip: keys whose children are user data, never entered. reader_labels: regex of the label keys by which a controller reads a ConfigMap, Secret or Role (RBAC aggregation, the Grafana sidecar, Argo CD repository secrets): the object is a soft root. dir_refs: a GitOps object (Flux Kustomization, Argo Application) deploys a directory of the tree (dotted path of the field, a sequence is walked). exec_tokens: one capture group, a script path (also behind a $VAR, ${VAR} or ${{ }} prefix); the script an interpreter runs and a python -m module come from the command parser of graph.roots (data frameworks.json interpreters), not from this list. exec_keys: keys of a k8s object or of a YAML file that GitHub Actions and GitLab CI do not own (compose, Ansible, pre-commit, Travis, CircleCI, Azure Pipelines, Taskfile ...) whose value is a command line or an argv list. gha.entry_keys: files of the action directory; gha.container_keys: paths inside the image (the basename is looked up in the tree). helm.file_refs: regexes whose group is a file a template reads; helm.chart_files: names (globs) next to a Chart.yaml that helm reads with no template naming them, include refs of the chart. kustomize: kinds (or, without a kind, marker_keys) of a kustomization; path_keys name the files it builds, path_fields hold them inside a list of mappings. loki.rule_dirs: dotted paths in a plain mapping (a Loki config) whose value is a directory of rule files that a ruler reads (include of `dir/**`). gitlab.root: the root of a GitLab CI file that is not the pipeline by its name. terraform: native_blocks = the block types of Terraform (any other top-level block is another HCL tool: the file is read from outside), file_funcs = functions whose first string argument is a file of the tree, path_prefix = the part of that string that is the directory of the .tf file.",
+  "k8s": {
+    "workloads": ["Deployment", "StatefulSet", "DaemonSet", "Job", "CronJob", "ReplicaSet", "ReplicationController", "Pod"],
+    "consumed": ["ConfigMap", "Secret", "PersistentVolumeClaim", "ServiceAccount", "Role", "ClusterRole"],
+    "soft_roots": ["Service"],
+    "skip": ["data", "stringData", "binaryData", "labels", "annotations"],
+    "refs": {
+      "configMapRef": [{"field": "name", "kind": "ConfigMap"}],
+      "configMapKeyRef": [{"field": "name", "kind": "ConfigMap"}],
+      "configMap": [{"field": "name", "kind": "ConfigMap"}],
+      "secretRef": [{"field": "name", "kind": "Secret"}],
+      "secretKeyRef": [{"field": "name", "kind": "Secret"}],
+      "secret": [{"field": "secretName", "kind": "Secret"}, {"field": "name", "kind": "Secret"}],
+      "imagePullSecrets": [{"field": "name", "kind": "Secret"}],
+      "persistentVolumeClaim": [{"field": "claimName", "kind": "PersistentVolumeClaim"}],
+      "serviceAccountName": [{"kind": "ServiceAccount"}],
+      "serviceAccount": [{"kind": "ServiceAccount"}],
+      "serviceName": [{"kind": "Service"}],
+      "service": [{"field": "name", "kind": "Service"}],
+      "backend": [{"field": "serviceName", "kind": "Service"}],
+      "backendRefs": [{"field": "name", "kind": "Service"}],
+      "scaleTargetRef": [{"field": "name", "kind": "*"}],
+      "roleRef": [{"field": "name", "kind": "*"}],
+      "subjects": [{"field": "name", "kind": "*"}],
+      "nodePublishSecretRef": [{"field": "name", "kind": "Secret"}],
+      "tls": [{"field": "secretName", "kind": "Secret"}],
+      "certificateRefs": [{"field": "name", "kind": "Secret"}],
+      "configMaps": [{"kind": "ConfigMap"}, {"field": "name", "kind": "ConfigMap"}],
+      "secrets": [{"kind": "Secret"}, {"field": "name", "kind": "Secret"}]
+    },
+    "named_kinds": ["ConfigMap", "Secret", "PersistentVolumeClaim", "ServiceAccount", "Role", "ClusterRole"],
+    "annotation_refs": {
+      "auth-secret": "Secret",
+      "auth-tls-secret": "Secret",
+      "proxy-ssl-secret": "Secret",
+      "secure-verify-ca-secret": "Secret"
+    },
+    "patterns": [
+      {"key": "(?i)secretname$|^existingsecret$", "kind": "Secret"},
+      {"key": "(?i)configmapname$|^existingconfigmap$", "kind": "ConfigMap"},
+      {"key": "(?i)serviceaccountname$", "kind": "ServiceAccount"},
+      {"key": "(?i)claimname$|^existingclaim$", "kind": "PersistentVolumeClaim"},
+      {"key": "(?i)secretref$", "field": "name", "kind": "Secret"}
+    ],
+    "selector_kinds": ["ConfigMap", "Secret"],
+    "reader_labels": "aggregate-to-|^grafana_(?:dashboard|datasource|alert|plugin|notifier)$|^argocd\\.argoproj\\.io/secret-type$",
+    "dir_refs": [
+      {"kind": "Kustomization", "path": "spec.path"},
+      {"kind": "Application", "path": "spec.source.path"},
+      {"kind": "Application", "path": "spec.sources.path"},
+      {"kind": "ApplicationSet", "path": "spec.template.spec.source.path"}
+    ]
+  },
+  "gha": {
+    "workflow_call_only": "workflow_call",
+    "entry_keys": ["main", "pre", "post", "image"],
+    "container_keys": ["entrypoint", "pre-entrypoint", "post-entrypoint"],
+    "with_path_keys": ["file", "dockerfile", "config-file", "config_file", "script-file"]
+  },
+  "gitlab": {
+    "reserved": ["stages", "include", "variables", "default", "workflow", "image", "services", "cache", "before_script", "after_script", "spec"],
+    "job_keys": ["script", "trigger", "extends", "stage"],
+    "root": {"kind": "ci-job", "strength": "soft"}
+  },
+  "ansible": {
+    "path_modules": ["include_tasks", "import_tasks", "include", "import_playbook", "include_vars"],
+    "path_params": ["file"],
+    "src_modules": ["template", "copy", "win_template", "win_copy", "assemble", "unarchive"],
+    "role_keys": ["include_role", "import_role"],
+    "list_keys": ["vars_files"]
+  },
+  "make": {
+    "special": "^\\.[A-Z_]+$",
+    "phony": ".PHONY",
+    "goal": ".DEFAULT_GOAL",
+    "file_funcs": ["wildcard"],
+    "public": ["all", "default", "install", "uninstall", "clean", "distclean", "mostlyclean", "maintainer-clean", "test", "tests", "check", "build", "dist", "help", "lint", "fmt", "format", "run", "docs", "doc", "deps", "setup", "release"]
+  },
+  "just": {
+    "private_attrs": ["private"],
+    "mod_files": ["{p}", "{p}/justfile", "{p}/Justfile", "{p}/mod.just", "{p}.just"]
+  },
+  "nginx": {
+    "include": ["include"],
+    "file_directives": "js_import|js_include|load_module|perl_require|[a-z_]+_by_lua_file"
+  },
+  "jinja2": {
+    "builtins": ["range", "lipsum", "dict", "cycler", "joiner", "namespace", "loop", "caller", "super", "varargs", "self", "cycle"]
+  },
+  "helm": {
+    "chart_files": ["values.schema.json", "Chart.lock", "requirements.lock", ".helmignore", "crds/**", "charts/**"],
+    "file_refs": ["\\.Files\\.\\w+\\s*\\(?\\s*(?:printf\\s+)?\"([^\"]+)\"", "\\.Template\\.BasePath\\s+\"([^\"]+)\""]
+  },
+  "loki": {"rule_dirs": ["ruler.storage.local.directory"]},
+  "kustomize": {
+    "kinds": ["Kustomization", "Component"],
+    "marker_keys": ["resources", "bases", "components", "patchesStrategicMerge", "patchesJson6902", "configMapGenerator", "secretGenerator", "helmCharts", "generators", "transformers"],
+    "path_keys": ["resources", "bases", "components", "crds", "generators", "transformers", "configurations", "patchesStrategicMerge", "patches", "patchesJson6902", "replacements", "configMapGenerator", "secretGenerator", "helmCharts", "openapi"],
+    "path_fields": ["path", "valuesFile", "additionalValuesFiles", "files", "envs", "env"],
+    "files": ["kustomization.yaml", "kustomization.yml", "Kustomization"]
+  },
+  "exec_keys": ["command", "commands", "cmds", "cmd", "run", "entry", "script", "scripts", "args", "entrypoint", "shell", "bash", "pwsh", "powershell", "before_install", "install", "before_deploy", "after_success"],
+  "exec_tokens": "(?:(?<![\\w/.$-])|\\$(?:\\{[\\w.]+\\}|\\w+)/)(\\./[\\w./-]*[\\w-]|(?:bin|scripts?|tools|ci)/[\\w./-]*[\\w-]|\\.?[\\w-]+(?:/[\\w.-]+)*/[\\w-]+\\.(?:sh|bash|zsh|ps1|py|rb|pl)\\b|[\\w-]+\\.(?:sh|bash|zsh|ps1)\\b)",
+  "terraform": {
+    "keywords": ["var", "local", "data", "module", "each", "count", "self", "path", "terraform"],
+    "module_meta": ["source", "version", "count", "for_each", "providers", "depends_on"],
+    "effect_blocks": ["import", "check", "moved", "removed", "terraform"],
+    "native_blocks": ["variable", "locals", "output", "data", "resource", "module", "provider"],
+    "file_funcs": "\\b(file|templatefile|filebase64|filebase64sha\\d+|filemd5|filesha\\d+|fileexists|fileset)\\(\\s*\"([^\"]+)\"",
+    "path_prefix": "^(?:\\$\\{path\\.\\w+\\}|path\\.\\w+)/?"
+  }
+}

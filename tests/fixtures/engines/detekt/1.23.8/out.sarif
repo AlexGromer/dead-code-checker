@@ -1,0 +1,287 @@
+{
+ "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+ "runs": [
+  {
+   "results": [
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 15,
+         "endLine": 6,
+         "startColumn": 7,
+         "startLine": 6
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "The file name 'A' does not match the name of the single top-level declaration 'my_class'."
+     },
+     "ruleId": "detekt.naming.MatchingDeclarationName"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 33,
+         "endLine": 6,
+         "startColumn": 16,
+         "startLine": 6
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Constructor parameter names should match the pattern: [a-z][A-Za-z0-9]*"
+     },
+     "ruleId": "detekt.naming.ConstructorParameterNaming"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 15,
+         "endLine": 6,
+         "startColumn": 7,
+         "startLine": 6
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Class and Object names should match the pattern: [A-Z][a-zA-Z0-9]*"
+     },
+     "ruleId": "detekt.naming.ClassNaming"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 17,
+         "endLine": 9,
+         "startColumn": 9,
+         "startLine": 9
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
+     },
+     "ruleId": "detekt.naming.FunctionNaming"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 41,
+         "endLine": 9,
+         "startColumn": 32,
+         "startLine": 9
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Variable names should match the pattern: [a-z][A-Za-z0-9]*"
+     },
+     "ruleId": "detekt.naming.VariableNaming"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 22,
+         "endLine": 3,
+         "startColumn": 1,
+         "startLine": 3
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "The import 'java.util.List' is unused."
+     },
+     "ruleId": "detekt.style.UnusedImports"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 20,
+         "endLine": 4,
+         "startColumn": 1,
+         "startLine": 4
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "The import 'java.io.File' is unused."
+     },
+     "ruleId": "detekt.style.UnusedImports"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 28,
+         "endLine": 8,
+         "startColumn": 27,
+         "startLine": 8
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Function parameter `x` is unused."
+     },
+     "ruleId": "detekt.style.UnusedParameter"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 19,
+         "endLine": 9,
+         "startColumn": 18,
+         "startLine": 9
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Function parameter `p` is unused."
+     },
+     "ruleId": "detekt.style.UnusedParameter"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 21,
+         "endLine": 12,
+         "startColumn": 1,
+         "startLine": 12
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Private class Hidden is unused."
+     },
+     "ruleId": "detekt.style.UnusedPrivateClass"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 26,
+         "endLine": 8,
+         "startColumn": 17,
+         "startLine": 8
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Private function `unusedFun` is unused."
+     },
+     "ruleId": "detekt.style.UnusedPrivateMember"
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/A.kt"
+        },
+        "region": {
+         "endColumn": 27,
+         "endLine": 7,
+         "startColumn": 17,
+         "startLine": 7
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Private property `unusedProp` is unused."
+     },
+     "ruleId": "detekt.style.UnusedPrivateProperty"
+    }
+   ],
+   "tool": {
+    "driver": {
+     "downloadUri": "https://github.com/detekt/detekt/releases/download/v1.23.8/detekt",
+     "fullName": "detekt",
+     "guid": "022ca8c2-f6a2-4c95-b107-bb72c43263f3",
+     "informationUri": "https://detekt.dev",
+     "language": "en",
+     "name": "detekt",
+     "organization": "detekt",
+     "semanticVersion": "1.23.8",
+     "version": "1.23.8"
+    }
+   }
+  }
+ ],
+ "version": "2.1.0"
+}

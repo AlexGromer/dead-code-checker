@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "_doc": "Data of graph/roots.py: which files register entry points and how a command line is read. schema_run_files: regexes of the paths of SQL files that a tool runs by itself (Flyway / Liquibase / Rails migrations, Spring schema.sql and data.sql, the init scripts of a database image): each is a soft root of its file, so the objects it alters are used (graph.extract.schema). Regex strings are matched against the repo-relative POSIX path (search). interpreters: value_flags take an argument, code_flags mean inline code (no script), file_flags name the script, module_flag names a module, subcommands are skipped before the script (`deno run x.ts`). bare_script: the first plain argument is a file even without an extension (`node server`, npm scripts only). launchers: a tool that runs the command after its subcommand (`poetry run python x.py`, `bundle exec ruby x.rb`); without that subcommand the tool itself is the command. dangling: per root kind, the kinds of unresolved path that are a finding (relative = project-relative path, mapped = absolute path under an anchored path_map, sibling = file next to the config); anything else that does not resolve is outside the repository and silent. build_tools: what graph.roots.build_targets reads in a command line of CI, shell, docs and recipes: aliases = spellings of the tool word (`$(MAKE)`), tools = command -> profile, profiles = per tool the quals tag of its arguments (`recipe:x`), the options that take a value (option_args) and those that take one only when a number follows (`make -j all`: all is a recipe, `make -j 4 all`: 4 is the value), stage_tools = the image builders whose stage_flag (`--target`) names a Dockerfile stage (`stage:x`), option_vars = regex of the variables that stand for options (`$(MAKEFLAGS)`), any other computed word is a glob that the caller makes a dynamic site of. action_root_files / action_nested_files: the path of a GitHub action.yml (hard root at the repository root, soft below it) when its text matches action_text.",
+  "systemd_files": "\\.(service|timer)$",
+  "systemd_exec_keys": ["ExecStart", "ExecStartPre", "ExecStartPost", "ExecStop", "ExecStopPost", "ExecReload", "ExecCondition"],
+  "cron_files": "(^|/)(crontab|[^/]*\\.cron(tab)?|cron\\.d/[^/]+)$",
+  "task_xml_files": "\\.xml$",
+  "npm_files": "(^|/)package\\.json$",
+  "npm_entry_keys": ["main", "module", "browser", "exports", "types", "typings", "source", "unpkg", "jsdelivr", "umd:main", "jsnext:main", "esnext", "es2015", "svelte", "react-native"],
+  "npm_dep_keys": ["dependencies", "devDependencies", "peerDependencies"],
+  "js_frameworks": {
+    "next": ["./pages/*", "./app/*", "./src/pages/*", "./src/app/*", "./middleware.*", "./src/middleware.*", "./instrumentation.*", "./src/instrumentation.*", "./next.config.*"],
+    "nuxt": ["./pages/*", "./layouts/*", "./middleware/*", "./plugins/*", "./server/*", "./composables/*", "./utils/*", "./components/*", "./stores/*", "./modules/*", "./app.vue", "./error.vue", "./app.config.*", "./app/*", "./nuxt.config.*"],
+    "@remix-run/react": ["./app/routes/*", "./app/root.*", "./app/entry.*"],
+    "@sveltejs/kit": ["./src/routes/*", "./src/hooks.*", "./src/hooks/*", "./src/params/*", "./src/service-worker.*", "./src/service-worker/*", "./svelte.config.*"],
+    "@angular/core": ["./src/main.*", "./src/polyfills.*"],
+    "vite": ["./src/main.*", "./vite.config.*"],
+    "webpack": ["./src/index.*", "./webpack.config.*"],
+    "react-scripts": ["./src/index.*", "./src/setupTests.*", "./src/setupProxy.*"],
+    "@vue/cli-service": ["./src/main.*", "./vue.config.*"],
+    "@nestjs/core": ["./src/main.*"],
+    "gatsby": ["./src/pages/*", "./src/templates/*", "./src/api/*", "./gatsby-config.*", "./gatsby-node.*", "./gatsby-browser.*", "./gatsby-ssr.*"],
+    "react-native": ["./index.*", "./App.*", "./app.config.*"],
+    "expo": ["./index.*", "./App.*", "./app/*", "./src/app/*", "./app.config.*"],
+    "astro": ["./src/pages/*", "./src/middleware.*", "./src/actions/*", "./src/content.config.*", "./src/content/config.*", "./astro.config.*"],
+    "@docusaurus/core": ["./src/pages/*", "./src/theme/*", "./src/plugins/*", "./docusaurus.config.*", "./sidebars.*"],
+    "@react-router/dev": ["./app/routes/*", "./app/routes.*", "./app/root.*", "./app/entry.*", "./react-router.config.*"],
+    "@builder.io/qwik": ["./src/routes/*", "./src/entry.*", "./src/root.*"],
+    "@solidjs/start": ["./src/routes/*", "./src/entry-*", "./src/app.*", "./app.config.*"],
+    "vuepress": ["./.vuepress/config.*", "./.vuepress/client.*", "./.vuepress/enhanceApp.*", "./.vuepress/theme/*", "./docs/.vuepress/config.*", "./docs/.vuepress/client.*", "./docs/.vuepress/enhanceApp.*", "./docs/.vuepress/theme/*"],
+    "vitepress": ["./.vitepress/config.*", "./.vitepress/theme/*", "./docs/.vitepress/config.*", "./docs/.vitepress/theme/*"],
+    "electron": ["./main.*", "./preload.*", "./electron/*", "./src/main/*", "./src/preload/*"],
+    "wrangler": ["./src/index.*", "./worker/*"],
+    "cypress": ["./cypress/e2e/*", "./cypress/component/*", "./cypress/support/*", "./cypress/plugins/*"]
+  },
+  "js_tool_entry_keys": ["entry", "entries", "entryPoints", "entryFile", "input", "inputs"],
+  "js_alias_roots": {
+    "@/": ["src/"],
+    "~/": ["src/", ""],
+    "$lib/": ["src/lib/"]
+  },
+  "js_sfc": {
+    "_doc": "Single-file components: no extractor reads them, graph.roots reads the imports of their script blocks (SfcRoots). files = path pattern, blocks = regexes whose group 1 is the code (`<script>` of Vue / Svelte / Astro, the frontmatter of Astro). The prefixes of js_alias_roots (import prefix -> project-relative directories, no tsconfig is read) name a directory of the project.",
+    "files": "\\.(vue|svelte|astro)$",
+    "blocks": ["<script\\b[^>]*>(.*?)</script\\s*>", "\\A---\\r?\\n(.*?)\\r?\\n---"]
+  },
+  "js_build": {
+    "_doc": "A built entry of package.json (dist/esm/index.js, lib/index.d.ts) is compiled from a source that is usually not built into the tree: graph.roots adds <src_dirs>/<rest> in every src_exts spelling (and the built path itself with an in_place_exts extension: a build next to its source; a path without an extension or a directory, as Node resolves it, is <path><src_ext> and <path>/<index><src_ext>). out_dirs are the build output directories, variant_dirs the build flavours that may follow one (dual builds: dist/esm, dist/cjs, dist/types); rest is what is left; flavours are the suffixes a bundler puts in the file name (index.esm.js, mylib.umd.min.js: the source is index / mylib), and a file at the top of an out dir may also be a bundle of <src_dir>/<index> (dist/bundle.js). A candidate that is not in the tree is silent (kind export does not dangle).",
+    "out_dirs": ["dist", "build", "out", "output", "lib", "compiled", "esm", "cjs", "es", "umd", "types", "typings"],
+    "variant_dirs": ["esm", "cjs", "es", "es5", "es6", "es2015", "es2017", "es2018", "es2019", "es2020", "es2021", "es2022", "esnext", "commonjs", "module", "umd", "iife", "browser", "node", "web", "types", "typings", "dts", "legacy", "modern"],
+    "src_dirs": ["src", "source"],
+    "index": "index",
+    "src_exts": [".ts", ".tsx", ".mts", ".cts", ".js", ".jsx", ".mjs", ".cjs"],
+    "in_place_exts": [".ts", ".tsx", ".mts", ".cts"],
+    "flavours": [".esm", ".cjs", ".umd", ".iife", ".amd", ".system", ".min", ".browser", ".node", ".web", ".development", ".production", ".dev", ".prod", ".module", ".es", ".es5", ".es6", ".modern", ".legacy", ".global", ".common", ".bundle", ".bundled", ".runtime", ".esm-bundler", ".esm-browser"]
+  },
+  "js_manifest": {
+    "_doc": "A WebExtension manifest (manifest.json with a manifest_version) names the scripts the browser loads, nobody imports them: graph.roots (ManifestRoots) makes each an entry (kind export: a built one that is not in the tree is no dangling root; the sources of a built one as js_build says). keys = dotted paths into the document, a list on the way is walked (content_scripts.js = the js of every content script). The pages it names (popup, options) are html files: their scripts are entries through html_files.",
+    "files": "(^|/)manifest\\.json$",
+    "keys": ["background.service_worker", "background.scripts", "content_scripts.js"]
+  },
+  "js_tool_files": [
+    "(^|/)[\\w.-]*\\.(config|conf)\\.[cm]?[jt]s$",
+    "(^|/)\\.[\\w-]+rc\\.[cm]?js$",
+    "(^|/)(knexfile|serverless|vitest\\.workspace|vite\\.workspace)\\.[cm]?[jt]s$",
+    "(^|/)(gulpfile|Gruntfile|Jakefile)(\\.babel)?\\.[cm]?[jt]s$",
+    "(^|/)\\.storybook/(main|preview|manager)\\.[cm]?[jt]sx?$",
+    "(^|/)\\.(vuepress|vitepress)/(config|client|enhanceApp)\\.[cm]?[jt]s$",
+    "(^|/)(jest|vitest|karma)\\.setup\\.[cm]?[jt]s$",
+    "(^|/)setup-?[tT]ests\\.[cm]?[jt]s$",
+    "\\.(stories|story)\\.[cm]?[jt]sx?$",
+    "(^|/)__mocks__/[^/]+\\.[cm]?[jt]sx?$"
+  ],
+  "js_ambient_files": "\\.d\\.[cm]?ts$",
+  "js_members": {
+    "_doc": "Methods that a runtime or a framework calls on a class, nobody in the tree: the extractor flags them protocol, so a live class keeps them alive (link rule protocol). `any`: names with no other meaning (JS protocols, React / Web Components / Angular / Stencil lifecycle, `render`). `by_module`: generic names that count only in a file that imports the module (a glob; a subpath counts).",
+    "any": ["toJSON", "valueOf", "handleEvent", "then", "next", "observedAttributes", "render", "componentWillMount", "componentDidMount", "componentWillReceiveProps", "shouldComponentUpdate", "componentWillUpdate", "componentDidUpdate", "componentWillUnmount", "componentDidCatch", "getSnapshotBeforeUpdate", "getDerivedStateFromProps", "getDerivedStateFromError", "getChildContext", "UNSAFE_componentWillMount", "UNSAFE_componentWillReceiveProps", "UNSAFE_componentWillUpdate", "connectedCallback", "disconnectedCallback", "attributeChangedCallback", "adoptedCallback", "ngOnChanges", "ngOnInit", "ngDoCheck", "ngAfterContentInit", "ngAfterContentChecked", "ngAfterViewInit", "ngAfterViewChecked", "ngOnDestroy", "ngDoBootstrap", "componentWillLoad", "componentDidLoad", "componentWillRender", "componentDidRender", "componentShouldUpdate", "onModuleInit", "onModuleDestroy", "onApplicationBootstrap", "onApplicationShutdown", "beforeApplicationShutdown"],
+    "by_module": {
+      "@angular/*": ["canActivate", "canActivateChild", "canDeactivate", "canMatch", "canLoad", "resolve", "intercept", "transform", "writeValue", "registerOnChange", "registerOnTouched", "setDisabledState", "validate", "registerOnValidatorChange", "handleError", "preload"],
+      "@nestjs/*": ["canActivate", "intercept", "transform", "catch", "use", "validate", "resolve"],
+      "vue": ["data", "setup", "beforeCreate", "created", "beforeMount", "mounted", "beforeUpdate", "updated", "beforeUnmount", "unmounted", "beforeDestroy", "destroyed", "activated", "deactivated", "errorCaptured", "renderTracked", "renderTriggered", "serverPrefetch"],
+      "vue-class-component": ["data", "created", "mounted", "beforeMount", "beforeUpdate", "updated", "beforeDestroy", "destroyed", "activated", "deactivated", "errorCaptured"],
+      "lit": ["properties", "styles", "shouldUpdate", "willUpdate", "update", "firstUpdated", "updated", "performUpdate", "createRenderRoot", "getUpdateComplete", "scheduleUpdate"],
+      "lit-element": ["properties", "styles", "shouldUpdate", "willUpdate", "update", "firstUpdated", "updated", "performUpdate", "createRenderRoot", "getUpdateComplete", "scheduleUpdate"],
+      "backbone": ["initialize", "preinitialize", "parse", "validate", "defaults"]
+    }
+  },
+  "js_template_decorators": ["Component", "Directive"],
+  "js_safe_decorators": ["deprecated", "bind", "autobind", "boundMethod", "memoize", "memo", "debounce", "throttle", "once", "sealed", "frozen", "log", "logged", "measure", "readonly", "enumerable", "nonenumerable", "final"],
+  "html_files": "\\.html?$",
+  "gitlab_files": "(^|/)\\.gitlab-ci\\.ya?ml$",
+  "action_root_files": "^action\\.ya?ml$",
+  "action_nested_files": "/action\\.ya?ml$",
+  "action_text": "(?:^|\\n)runs:",
+  "doc_files": "\\.(md|markdown)$",
+  "doc_fences": ["bash", "sh", "shell", "zsh", "console", "pwsh", "powershell", "ps1", "cmd", "bat", "shell-session", "terminal"],
+  "bin_dirs": ["bin"],
+  "bin_win_ext": [".cmd", ".ps1", ".bat"],
+  "schema_run_files": [
+    "(^|/)(db/(migration|migrate|migrations)|migrations?|flyway|liquibase|changelogs?|docker-entrypoint-initdb\\.d|initdb)/[^/]*\\.sql$",
+    "(^|/)V[\\w.]+__[^/]*\\.sql$",
+    "(^|/)(schema|data|import)(-[\\w]+)?\\.sql$"
+  ],
+  "template_ext": [".j2", ".jinja", ".jinja2", ".tmpl", ".tpl", ".in", ".erb", ".gotmpl"],
+  "test_dirs": ["tests", "test", "__tests__", "spec", "specs", "testdata", "fixtures", "e2e", "cypress"],
+  "test_names": ["^test_.*\\.py$", "_test\\.(py|go|rs|c|cc|cpp)$", "\\.(test|spec|cy)\\.[cm]?[jt]sx?$", "^conftest\\.py$", "Tests?\\.(java|kt|cs)$", "(Tests?|Spec|Suite|IT)\\.(scala|groovy)$", "(_test|_spec)\\.(rb|lua)$", "^test_.*\\.(rb|lua)$", "Tests?\\.php$", "\\.Tests?\\.ps1$", "^test_.*\\.sh$"],
+  "path_maps": [],
+  "dangling": {
+    "main": ["relative", "mapped", "sibling"],
+    "systemd": ["mapped", "sibling"],
+    "cron": ["mapped"]
+  },
+  "script_ext": [".py", ".sh", ".bash", ".zsh", ".js", ".mjs", ".cjs", ".ts", ".rb", ".pl", ".ps1", ".cmd", ".bat", ".php"],
+  "shells": ["sh", "bash", "dash", "zsh", "ksh", "ash"],
+  "interpreters": {
+    "python": {"value_flags": ["-W", "-X", "-Q"], "code_flags": ["-c"], "module_flag": "-m"},
+    "tsx": {"value_flags": ["--tsconfig", "-r", "--require", "--import"], "code_flags": ["-e", "--eval", "-p", "--print"]},
+    "ts-node": {"value_flags": ["-r", "--require", "--project", "-P"], "code_flags": ["-e", "--eval", "-p", "--print"], "bare_script": true},
+    "node": {"value_flags": ["-r", "--require", "--import", "--loader", "--env-file"], "code_flags": ["-e", "-p", "--eval", "--print"], "bare_script": true},
+    "nodejs": {"value_flags": ["-r", "--require"], "code_flags": ["-e", "-p", "--eval", "--print"], "bare_script": true},
+    "deno": {"value_flags": ["--config", "-c"], "code_flags": ["eval"], "subcommands": ["run"]},
+    "bun": {"value_flags": ["--config"], "code_flags": ["-e", "--eval"], "subcommands": ["run"]},
+    "ruby": {"value_flags": ["-r", "-I"], "code_flags": ["-e"]},
+    "perl": {"value_flags": ["-I", "-M"], "code_flags": ["-e", "-E"]},
+    "php": {"value_flags": ["-c", "-d"], "code_flags": ["-r"]},
+    "pwsh": {"value_flags": ["-ExecutionPolicy", "-WindowStyle", "-NonInteractive"], "code_flags": ["-Command", "-command", "-c", "-EncodedCommand"], "file_flags": ["-File", "-file", "-f"]},
+    "powershell": {"value_flags": ["-ExecutionPolicy", "-WindowStyle"], "code_flags": ["-Command", "-command", "-c", "-EncodedCommand"], "file_flags": ["-File", "-file", "-f"]}
+  },
+  "wrappers": ["env", "nice", "nohup", "timeout", "sudo", "command", "exec", "time", "stdbuf", "setsid", "ionice", "taskset", "npx", "bunx", "xvfb-run"],
+  "launchers": {"poetry": ["run"], "pipenv": ["run"], "pdm": ["run"], "hatch": ["run"], "uv": ["run"], "bundle": ["exec"], "pnpm": ["exec"], "yarn": ["exec"], "coverage": ["run"], "dotenv": ["run"]},
+  "build_tools": {"aliases": {"$(MAKE)": "make", "${MAKE}": "make"}, "tools": {"make": "make", "gmake": "make", "just": "just"}, "profiles": {"make": {"tag": "recipe", "option_args": ["-C", "-f", "-I", "-o", "-W", "-E", "--directory", "--file", "--makefile", "--include-dir", "--old-file", "--new-file", "--what-if", "--eval"], "option_numeric": ["-j", "-l", "--jobs", "--load-average"]}, "just": {"tag": "recipe", "option_args": ["-f", "-d", "-E", "--justfile", "--working-directory", "--set", "--shell", "--shell-arg", "--chooser", "--color", "--command-color", "--dotenv-filename", "--dotenv-path", "--dump-format", "--list-heading", "--list-prefix", "--unsorted-sort"], "option_numeric": []}}, "stage_tools": ["docker", "podman", "buildah", "nerdctl"], "stage_flag": "--target", "option_vars": "^(?:AM_)?(?:MAKE)?(?:FLAGS|OPTS|OPTIONS|OVERRIDES)$|^MFLAGS$|^JUST_?(?:FLAGS|OPTS)$"},
+  "wrapper_value_flags": ["-s", "-k", "-n", "-c", "-u", "-g", "-p", "-C", "-S"],
+  "builtins": ["test", "[", "[[", "echo", "printf", "cd", "true", "false", ":", "set", "export", "unset", "read", "exit", "return", "trap", "wait", "sleep", "pwd", "kill", "eval", "shift", "local", "if", "then", "else", "fi", "do", "done", "for", "while", "case", "esac", "cat", "ls", "rm", "mkdir", "cp", "mv", "ln", "chmod", "chown", "touch", "grep", "sed", "awk", "head", "tail", "sort", "uniq", "wc", "tee", "find", "xargs", "git", "curl", "wget", "tar", "sh", "bash", "apt", "pip", "npm", "make", "docker", "ssh", "scp", "sudo", "systemctl", "journalctl", "pytest", "go", "cargo", "dotnet"],
+  "lang_rules": {
+    "_doc": "Read by graph.extract.lang_rules for languages whose queries declare modifiers (@mods), typed variables (types.scm) and imports. import: regex (named groups m = module, star = '.*', as = alias) over the text of an import statement. vis: modifier word -> visibility, 'default' when none is written. flags: modifier or annotation word -> model.FLAG_NAMES key. this: a call without receiver is also tried as this.<name> (inherited members). main: names / mods (all must be present) / toplevel of a method that is a main root (and its class); toplevel excludes a method of a class unless it has one of the annotations in ann (@JvmStatic). A rule with accessors: true roots the public accessors of its class (lang_rules.<lang>.accessors = name prefixes; reflection binds them). src_root: regex of the source-set part of a directory (removed) that is no part of the package, so src/main/java/p and src/test/java/p are one package scope. A rule with targets: \"string\" names, in its annotation's string arguments, methods of the same class that live as long as the annotated method (@MethodSource(\"provider\")); targets: \"member\" names methods of any class, the type that a factory method returns (@Bean(initMethod = \"start\")), as the ref *.m; attrs limits the strings to those attributes (a bare string is value). A rule with on: param matches an annotated parameter and roots the method that has it (CDI @Observes). di: inject = annotations that mark an injection point, ctor = every constructor parameter injects, wrappers = generic types whose last argument is the injected type, param_rules = a method matched by one of these framework rule ids injects its parameters. ext_calls: a call with a receiver may also be a call of a top-level extension function of that name (Kotlin). protocol: names of the methods that the language or the JDK calls itself (Java serialization hooks, close for try-with-resources, iterator for for-each, provider of a module service provider): the class owns them, no use site names them. meta_mods: modifier words that make a definition an annotation type (Kotlin: annotation; the Java @interface is a query capture, @meta): the rules of its annotations are handed on to every definition that uses it (composed stereotypes, see graph.extract.lang_rules). frameworks: the framework rule sets that apply. A framework rule matches by ann (annotation simple names) or by mod (modifier words: Kotlin operator, infix, which have no name use site either).",
+    "java": {
+      "import": "^\\s*import\\s+(?P<static>static\\s+)?(?P<m>[\\w.]+?)(?P<star>\\.\\*)?\\s*;?\\s*$",
+      "vis": {"private": "private", "protected": "package", "public": "public", "default": "package"},
+      "flags": {"abstract": "abstract", "Override": "override"},
+      "this": true,
+      "protocol": ["readObject", "writeObject", "readObjectNoData", "readResolve", "writeReplace", "readExternal", "writeExternal", "close", "iterator", "finalize", "clone", "provider", "premain", "agentmain"],
+      "accessors": ["get", "set", "is"],
+      "src_root": "(?:^|/)src/[\\w-]+/(?:java|kotlin)(?=/|$)",
+      "main": {"names": ["main"], "mods": ["static"], "toplevel": false, "ann": []},
+      "di": {"inject": ["Autowired", "Inject", "Resource"], "ctor": true, "wrappers": ["List", "Set", "Collection", "Iterable", "Optional", "Map", "Provider", "ObjectProvider", "ObjectFactory"], "param_rules": ["spring.bean-method"]},
+      "frameworks": ["spring", "junit", "jakarta", "jackson", "dagger", "micronaut", "events", "jvm", "android", "schema"]
+    },
+    "kotlin": {
+      "import": "^\\s*import\\s+(?P<m>[\\w.]+?)(?P<star>\\.\\*)?(?:\\s+as\\s+(?P<as>\\w+))?\\s*;?\\s*$",
+      "vis": {"private": "private", "protected": "package", "internal": "package", "public": "public", "default": "public"},
+      "flags": {"abstract": "abstract", "override": "override", "Override": "override"},
+      "this": true,
+      "ext_calls": true,
+      "meta_mods": ["annotation"],
+      "protocol": ["readObject", "writeObject", "readObjectNoData", "readResolve", "writeReplace", "close", "finalize", "provider", "premain", "agentmain"],
+      "src_root": "(?:^|/)src/[\\w-]+/(?:java|kotlin)(?=/|$)",
+      "main": {"names": ["main"], "mods": [], "toplevel": true, "ann": ["JvmStatic"]},
+      "di": {"inject": ["Autowired", "Inject", "Resource"], "ctor": true, "wrappers": ["List", "Set", "Collection", "Iterable", "Optional", "Map", "Provider", "ObjectProvider", "ObjectFactory", "Lazy"], "param_rules": ["spring.bean-method"]},
+      "frameworks": ["spring", "junit", "kotlin", "jakarta", "jackson", "dagger", "micronaut", "events", "jvm", "android", "schema"]
+    }
+  },
+  "class_registries": {
+    "_doc": "Read by graph.classreg: files that are no code and name classes (service providers, auto-configuration, web and persistence descriptors, Android components). A rule: files = regex of the repo-relative path; need = regex that the text must contain (a cheap gate for a name-less file kind); read = lines (one class per line, # comments), props (key=a.B,c.D values, backslash continues a line), match (re: group 1 is a comma separated class list; comments are blanked), xml (text: tags whose text is a class; attrs: tag -> attributes that hold a class; members: attributes of the same element that name a method of that class; tag * = any element; tags \"qualified\" = an element named like a class, <com.acme.View>), dotted (properties and YAML: every dotted name in a value; name = regex that a class name must fullmatch, the values of a configuration file are of all sorts). A leading dot (Android: .MainActivity) is dropped and $ is a nesting dot. The class is a root of kind classreg (selector class:<name>[#method]), bound to the class nodes of the tree by graph.classreg.bind: a name that is no class of the tree is a library class and gives no root.",
+    "rules": [
+      {"id": "jvm.service", "files": "(^|/)META-INF/services/[^/]+$", "read": "lines", "why": "a ServiceLoader provider: the file named after the service interface lists the implementation classes"},
+      {"id": "jvm.provides", "files": "(^|/)module-info\\.java$", "read": "match", "re": "\\bprovides\\s+[\\w.$]+\\s+with\\s+([^;]+);", "why": "a module service provider: `provides S with C` registers C with ServiceLoader"},
+      {"id": "spring.factories", "files": "(^|/)META-INF/spring\\.factories$", "read": "props", "why": "a Spring Boot factory: spring.factories lists auto-configuration, listener and initializer classes"},
+      {"id": "spring.imports", "files": "(^|/)META-INF/spring/[^/]+\\.imports$", "read": "lines", "why": "a Spring Boot auto-configuration or import class listed in an .imports file"},
+      {"id": "gradle.plugin", "files": "(^|/)META-INF/gradle-plugins/[^/]+\\.properties$", "read": "props", "why": "a Gradle plugin: the properties file of the plugin id names its implementation class"},
+      {"id": "servlet.web-xml", "files": "(^|/)WEB-INF/web\\.xml$", "read": "xml", "text": ["servlet-class", "filter-class", "listener-class"], "why": "a servlet, filter or listener of the web descriptor: the container instantiates it"},
+      {"id": "jpa.persistence-xml", "files": "(^|/)META-INF/persistence\\.xml$", "read": "xml", "text": ["class", "provider"], "why": "an entity or provider class of the persistence unit"},
+      {"id": "spring.beans-xml", "files": "\\.xml$", "need": "<beans[\\s>]", "read": "xml", "attrs": {"bean": ["class"]}, "members": ["init-method", "destroy-method", "factory-method"], "why": "a Spring XML bean: the container instantiates the class and calls its init, destroy and factory methods"},
+      {"id": "android.manifest", "files": "(^|/)AndroidManifest\\.xml$", "read": "xml", "attrs": {"application": ["android:name", "android:backupAgent", "android:appComponentFactory"], "instrumentation": ["android:name"], "activity": ["android:name", "android:parentActivityName"], "activity-alias": ["android:name"], "service": ["android:name"], "receiver": ["android:name"], "provider": ["android:name"]}, "why": "an Android component: the system instantiates it from the manifest"},
+      {"id": "jvm.manifest", "files": "(^|/)META-INF/MANIFEST\\.MF$", "read": "match", "re": "(?m)^(?:Main|Premain|Agent|Launcher-Agent)-Class:[ \\t]*([\\w.$]+)", "why": "the main or agent class of a jar manifest: the JVM starts it by name (an agent's premain and agentmain are protocol methods)"},
+      {"id": "gradle.plugin-impl", "files": "(^|/)build\\.gradle(\\.kts)?$", "read": "match", "re": "implementationClass\\s*(?:=|\\.set\\()\\s*\"([\\w.$]+)\"", "why": "the implementation class of a Gradle plugin that the build script declares: Gradle instantiates it by name"},
+      {"id": "android.res", "files": "(^|/)res/[\\w.-]+/[^/]+\\.xml$", "read": "xml", "tags": "qualified", "attrs": {"*": ["android:name", "android:fragment", "android:targetClass", "app:layout_behavior", "class"], "variable": ["type"], "import": ["type"]}, "why": "a view, fragment, behavior or data-binding type that a layout, navigation graph, menu or preference file names: the inflater instantiates it by name"},
+      {"id": "hibernate.cfg", "files": "(^|/)hibernate\\.cfg\\.xml$", "read": "xml", "attrs": {"mapping": ["class"]}, "why": "an entity class that the Hibernate configuration maps"},
+      {"id": "jpa.orm-xml", "files": "(^|/)META-INF/orm[\\w-]*\\.xml$", "read": "xml", "attrs": {"entity": ["class"], "mapped-superclass": ["class"], "embeddable": ["class"], "converter": ["class"], "entity-listener": ["class"]}, "why": "an entity, mapped superclass, embeddable, converter or listener class of the ORM mapping file"},
+      {"id": "cdi.beans-xml", "files": "(^|/)(META-INF|WEB-INF)/beans\\.xml$", "read": "xml", "text": ["class", "stereotype"], "why": "an alternative, interceptor, decorator or stereotype that beans.xml enables: the container instantiates it"},
+      {"id": "jsf.faces-config", "files": "(^|/)(WEB-INF/|META-INF/[\\w.-]*)?faces-config\\.xml$", "read": "xml", "text": ["managed-bean-class", "converter-class", "validator-class", "renderer-class", "component-class", "behavior-class", "phase-listener", "action-listener", "navigation-handler", "view-handler", "el-resolver", "system-event-listener-class", "application-factory", "exception-handler-factory"], "why": "a JSF bean, converter, validator, renderer, component or listener that faces-config.xml names"},
+      {"id": "spring.application-config", "files": "(^|/)(application|bootstrap)(-[\\w.]+)?\\.(properties|ya?ml)$", "read": "dotted", "name": "^(?:[\\w$]+\\.)+[A-Z][\\w$]*$", "why": "a class that the application configuration names as a value (a strategy, handler or listener): the container instantiates it by name"}
+    ]
+  },
+  "frameworks": {
+    "spring": {"rules": [
+      {"id": "spring.boot-app", "on": "class", "ann": ["SpringBootApplication"], "why": "the application class: Spring Boot starts it and scans its package"},
+      {"id": "spring.controller", "on": "class", "ann": ["RestController", "Controller", "ControllerAdvice", "RestControllerAdvice"], "bean": true, "why": "a web controller: the container instantiates it and routes requests to its mapping methods"},
+      {"id": "spring.mapping", "on": "method", "ann": ["RequestMapping", "GetMapping", "PostMapping", "PutMapping", "DeleteMapping", "PatchMapping", "MessageMapping", "SubscribeMapping", "QueryMapping", "MutationMapping", "SubscriptionMapping", "SchemaMapping", "BatchMapping"], "why": "a request mapping: the dispatcher calls the method for a matching HTTP request"},
+      {"id": "spring.bean", "on": "class", "ann": ["Component", "Service", "Repository", "Configuration", "Mapper", "FeignClient"], "bean": true, "why": "a stereotype bean: the container instantiates it at start-up"},
+      {"id": "spring.properties", "on": "class", "ann": ["ConfigurationProperties"], "bean": true, "accessors": true, "why": "a properties bean: the container instantiates it and binds the configuration through its setters (and reads it through its getters)"},
+      {"id": "spring.entity", "on": "class", "ann": ["Entity", "Embeddable", "MappedSuperclass", "Document", "Table"], "accessors": true, "why": "a persistence entity: the ORM instantiates it by reflection and reads and writes its properties through the accessors"},
+      {"id": "spring.aspect", "on": "class", "ann": ["Aspect"], "why": "an aspect: the AOP framework instantiates it and weaves its advice"},
+      {"id": "spring.advice", "on": "method", "ann": ["Around", "Before", "After", "AfterReturning", "AfterThrowing", "Pointcut"], "why": "an AOP advice or pointcut: the proxy calls it around a matching method"},
+      {"id": "spring.inject-method", "on": "method", "ann": ["Autowired", "Inject", "Resource"], "why": "an injection method (setter injection): the container calls it with the beans of its parameter types"},
+      {"id": "spring.bean-method", "on": "method", "ann": ["Bean"], "targets": "member", "attrs": ["initMethod", "destroyMethod"], "why": "a bean factory method: the container calls it, injects its parameters and calls the init and destroy methods that it names on the bean"},
+      {"id": "spring.scheduled", "on": "method", "ann": ["Scheduled"], "why": "a scheduled task: the scheduler calls the method on its trigger"},
+      {"id": "spring.listener", "on": "method", "ann": ["KafkaListener", "KafkaHandler", "RabbitListener", "RabbitHandler", "JmsListener", "SqsListener", "PulsarListener", "StreamListener", "EventListener", "TransactionalEventListener"], "why": "a message or event listener: the container calls the method for each message or event"},
+      {"id": "spring.lifecycle", "on": "method", "ann": ["PostConstruct", "PreDestroy"], "why": "a bean lifecycle callback: the container calls it after creation and before destruction"},
+      {"id": "spring.handler", "on": "method", "ann": ["ExceptionHandler", "Async", "InitBinder", "ModelAttribute", "Retryable", "Recover"], "why": "an exception handler, binder, model attribute, async or retried method: the container invokes it through a proxy"}
+    ]},
+    "junit": {"rules": [
+      {"id": "junit.test", "on": "method", "ann": ["Test", "ParameterizedTest", "RepeatedTest", "TestFactory", "TestTemplate", "BeforeEach", "AfterEach", "BeforeAll", "AfterAll", "Before", "After", "BeforeClass", "AfterClass", "BeforeMethod", "AfterMethod", "BeforeSuite", "AfterSuite", "BeforeTest", "AfterTest", "BeforeGroups", "AfterGroups", "DataProvider", "Benchmark"], "kind": "test", "why": "a test method: the test framework calls it (a test root: reached only by tests)"},
+      {"id": "junit.provider", "on": "method", "ann": ["MethodSource"], "kind": "test", "targets": "string", "why": "a parameterized test: its @MethodSource names the provider methods it calls"},
+      {"id": "junit.condition", "on": "method", "ann": ["EnabledIf", "DisabledIf"], "kind": "test", "targets": "string", "attrs": ["value"], "why": "a conditional test: its @EnabledIf or @DisabledIf names the condition method that the engine calls"},
+      {"id": "junit.nested", "on": "class", "ann": ["Nested"], "kind": "test", "why": "a nested test class: the test framework instantiates it and runs its tests"}
+    ]},
+    "kotlin": {"rules": [
+      {"id": "kotlin.operator", "on": "method", "mod": ["operator", "infix"], "why": "an operator or infix function: the syntax a + b or a f b calls it, no name use site shows it"}
+    ]},
+    "jakarta": {"rules": [
+      {"id": "jakarta.resource", "on": "class", "ann": ["Path", "Provider", "ApplicationPath", "WebServlet", "WebFilter", "WebListener", "ServerEndpoint"], "why": "a web resource (JAX-RS, servlet, websocket): the container instantiates it and routes requests to it"},
+      {"id": "jakarta.resource-method", "on": "method", "ann": ["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH", "Path", "OnOpen", "OnMessage", "OnClose", "OnError"], "why": "a resource method: the container calls it for a matching HTTP request or websocket event"},
+      {"id": "jakarta.cdi-bean", "on": "class", "ann": ["ApplicationScoped", "RequestScoped", "SessionScoped", "ConversationScoped", "Dependent", "Singleton", "Named", "Stateless", "Stateful", "MessageDriven", "Startup", "ConfigMapping"], "bean": true, "why": "a CDI or EJB bean: the container instantiates it"},
+      {"id": "jakarta.producer", "on": "method", "ann": ["Produces", "PostActivate", "PrePassivate", "Schedule", "Timeout", "Asynchronous"], "why": "a CDI producer, EJB callback or timer: the container calls it"},
+      {"id": "jakarta.callback", "on": "method", "ann": ["PrePersist", "PostPersist", "PreUpdate", "PostUpdate", "PreRemove", "PostRemove", "PostLoad"], "why": "an entity lifecycle callback: the persistence provider calls it"},
+      {"id": "jakarta.validation", "on": "method", "ann": ["AssertTrue", "AssertFalse"], "why": "a bean validation predicate: the validator calls it by reflection"},
+      {"id": "jakarta.converter", "on": "class", "ann": ["Converter", "FacesConverter", "FacesValidator", "FacesRenderer", "FacesComponent", "FacesBehavior", "FacesConfig", "WebService", "WebServiceProvider"], "why": "a persistence attribute converter (autoApply), a JSF component, converter or validator, a web service: the container discovers and instantiates it by its annotation"},
+      {"id": "jakarta.faces-bean", "on": "class", "ann": ["ManagedBean", "ViewScoped", "FlowScoped"], "bean": true, "why": "a JSF managed bean: the container instantiates it and the pages call its methods by expression"}
+    ]},
+    "jackson": {"rules": [
+      {"id": "jackson.type", "on": "class", "ann": ["JsonDeserialize", "JsonSerialize", "JsonRootName", "JsonTypeName", "JsonIgnoreProperties", "JsonInclude", "XmlRootElement", "XmlType"], "accessors": true, "why": "a data-binding type: the mapper instantiates it by reflection and reads and writes its properties through the accessors"},
+      {"id": "jackson.member", "on": "method", "ann": ["JsonProperty", "JsonCreator", "JsonGetter", "JsonSetter", "JsonValue", "JsonAnyGetter", "JsonAnySetter", "XmlElement", "XmlAttribute"], "why": "a data-binding member: the mapper calls it by reflection"}
+    ]},
+    "dagger": {"rules": [
+      {"id": "dagger.module", "on": "class", "ann": ["Module", "Subcomponent"], "why": "a dependency graph module or component: the annotation processor wires it"},
+      {"id": "dagger.provides", "on": "method", "ann": ["Provides", "Binds", "BindsInstance", "BindsOptionalOf", "Multibinds"], "why": "a binding method: the generated component calls it"}
+    ]},
+    "micronaut": {"rules": [
+      {"id": "micronaut.route", "on": "method", "ann": ["Get", "Post", "Put", "Delete", "Patch", "Head", "Options", "Trace", "Error", "RequestFilter", "ResponseFilter", "Executable"], "why": "a route, error handler or filter method: the router or the filter chain calls it"},
+      {"id": "micronaut.bean", "on": "class", "ann": ["Factory", "Prototype", "Context", "ConfigurationReader", "EachProperty", "EachBean", "Filter", "ServerFilter", "ClientFilter"], "bean": true, "why": "a bean, filter or configuration reader: the container instantiates it"},
+      {"id": "micronaut.data", "on": "class", "ann": ["Introspected", "Serdeable", "ReflectiveAccess"], "accessors": true, "why": "an introspected or serializable type: the framework instantiates it and reads and writes its properties through the accessors"}
+    ]},
+    "events": {"rules": [
+      {"id": "events.subscriber", "on": "method", "ann": ["Subscribe", "Incoming", "Outgoing", "ConsumeEvent"], "why": "an event or message subscriber: the bus calls the method for each event"},
+      {"id": "events.observer", "on": "param", "ann": ["Observes", "ObservesAsync"], "why": "a CDI observer: the container calls the method that has an @Observes parameter for each event of its type"}
+    ]},
+    "jvm": {"rules": [
+      {"id": "jvm.autoservice", "on": "class", "ann": ["AutoService"], "why": "a service provider: the annotation processor writes it into META-INF/services and ServiceLoader instantiates it"},
+      {"id": "jvm.build-plugin", "on": "class", "ann": ["Mojo"], "why": "a Maven plugin goal: Maven instantiates it and calls execute"},
+      {"id": "jvm.build-task", "on": "method", "ann": ["TaskAction"], "why": "a Gradle task action: Gradle calls the method when the task runs"},
+      {"id": "jvm.keep", "on": "class", "ann": ["Keep", "RegisterForReflection", "UsedByReflection", "UsedByNative"], "why": "a class that is kept on purpose (shrinker keep, reflection registration): the code asks for it by name at run time"},
+      {"id": "jvm.keep-member", "on": "method", "ann": ["Keep", "UsedByReflection", "UsedByNative"], "why": "a member that is kept on purpose (shrinker keep, reflection, native code): the code asks for it by name at run time"}
+    ]},
+    "schema": {"rules": [
+      {"id": "schema.jpa-table", "on": "class", "ann": ["Table"], "ref_only": true, "schema": {"group": "sql", "attrs": ["name"]}, "why": "a JPA table mapping: the table it names is read by the ORM"},
+      {"id": "schema.jpa-entity", "on": "class", "ann": ["Entity"], "ref_only": true, "schema": {"group": "sql", "self": true, "snake": true, "unless": ["Table"]}, "why": "a JPA entity without @Table: the ORM reads the table that the class name gives (as written and in snake_case)"},
+      {"id": "schema.graphql-query", "on": "method", "ann": ["QueryMapping", "DgsQuery"], "ref_only": true, "schema": {"group": "graphql", "type": "Query", "attrs": ["name", "value", "field"], "self": true}, "why": "a resolver of a field of the type Query (Spring GraphQL, DGS): the field it names is served by this method"},
+      {"id": "schema.graphql-mutation", "on": "method", "ann": ["MutationMapping", "DgsMutation"], "ref_only": true, "schema": {"group": "graphql", "type": "Mutation", "attrs": ["name", "value", "field"], "self": true}, "why": "a resolver of a field of the type Mutation: the field it names is served by this method"},
+      {"id": "schema.graphql-subscription", "on": "method", "ann": ["SubscriptionMapping", "DgsSubscription"], "ref_only": true, "schema": {"group": "graphql", "type": "Subscription", "attrs": ["name", "value", "field"], "self": true}, "why": "a resolver of a field of the type Subscription: the field it names is served by this method"},
+      {"id": "schema.graphql-field", "on": "method", "ann": ["SchemaMapping", "BatchMapping", "DgsData"], "ref_only": true, "schema": {"group": "graphql", "type_attrs": ["typeName", "parentType"], "attrs": ["field", "value"], "self": true}, "why": "a resolver of a field of a GraphQL type: the field it names (typeName and field, else the type and the method name) is served by this method"},
+      {"id": "schema.graphql-entity", "on": "method", "ann": ["DgsEntityFetcher"], "ref_only": true, "schema": {"group": "graphql", "attrs": ["name"]}, "why": "an entity fetcher of a federated GraphQL type: the type it names is served by this method"}
+    ]},
+    "android": {"rules": [
+      {"id": "android.preview", "on": "method", "ann": ["Preview", "PreviewLightDark", "PreviewFontScale", "PreviewScreenSizes", "PreviewDynamicColors"], "why": "a Compose preview: the IDE calls the function to draw it, no code names it"},
+      {"id": "android.generated-call", "on": "method", "ann": ["BindingAdapter", "InverseBindingAdapter", "BindingConversion", "TypeConverter"], "why": "a method that generated code calls by name (data binding adapters, Room type converters): no source line names it"},
+      {"id": "android.hilt", "on": "class", "ann": ["HiltAndroidApp", "AndroidEntryPoint", "HiltViewModel", "EntryPoint", "TestInstallIn", "InstallIn"], "bean": true, "why": "a Hilt application, entry point or view model: the framework instantiates it and generates its injection code"}
+    ]}
+  },
+  "py_class_roots": {
+    "_doc": "Read by graph.extract.py: a top-level Python class that a framework instantiates by its NAME and calls by contract (the plugin classes of Ansible, found by the loader in filter_plugins/, lookup_plugins/, ... and ansible.cfg paths: no code names them). A rule: class = the class name; methods = the contract methods; bases = base classes (last name of the dotted base) of the contract. The class qualifies when it defines one of the methods or has one of the bases (a rule with neither methods nor bases is qualified by the class name alone: ModuleDocFragment; a class named FilterModule that has no filters() method is no plugin). The class and each contract method it defines get a hard root of kind annotation:<id> (convention): what the methods name or call is used with them (`filters()` returns the dict of the filter functions). The roots are made by graph.extract.py from the text alone (a shard is keyed by the blob); graph.link keeps them only for a file that is an Ansible plugin: `scope` dirs = a directory name of the path that matches one of these globs (filter_plugins/, action_plugins/, ... and the plugins/ of a collection), or `scope` imports = a module of the file that starts with one of these top-level names (`from ansible.plugins.lookup import LookupBase`). Any other file with a class named ActionModule that has a run() is no plugin and gets no root.",
+    "scope": {"dirs": ["*_plugins", "plugins"], "imports": ["ansible", "ansible_collections"]},
+    "rules": [
+      {"id": "ansible.filter", "class": "FilterModule", "methods": ["filters"], "bases": [], "why": "an Ansible filter plugin: the loader instantiates FilterModule and calls filters() for the dict of filter functions"},
+      {"id": "ansible.test", "class": "TestModule", "methods": ["tests"], "bases": [], "why": "an Ansible test plugin: the loader instantiates TestModule and calls tests() for the dict of test functions"},
+      {"id": "ansible.lookup", "class": "LookupModule", "methods": ["run"], "bases": ["LookupBase"], "why": "an Ansible lookup plugin: the loader instantiates LookupModule and calls run()"},
+      {"id": "ansible.action", "class": "ActionModule", "methods": ["run"], "bases": ["ActionBase"], "why": "an Ansible action plugin: the executor instantiates ActionModule and calls run()"},
+      {"id": "ansible.callback", "class": "CallbackModule", "methods": [], "bases": ["CallbackBase"], "why": "an Ansible callback plugin: the executor instantiates CallbackModule and calls its v2_* event methods"},
+      {"id": "ansible.inventory", "class": "InventoryModule", "methods": ["parse", "verify_file"], "bases": ["BaseInventoryPlugin"], "why": "an Ansible inventory plugin: the inventory manager instantiates InventoryModule and calls verify_file() and parse()"},
+      {"id": "ansible.strategy", "class": "StrategyModule", "methods": ["run"], "bases": ["StrategyBase"], "why": "an Ansible strategy plugin: the play executor instantiates StrategyModule and calls run()"},
+      {"id": "ansible.vars", "class": "VarsModule", "methods": ["get_vars"], "bases": ["BaseVarsPlugin"], "why": "an Ansible vars plugin: the variable manager instantiates VarsModule and calls get_vars()"},
+      {"id": "ansible.cache", "class": "CacheModule", "methods": [], "bases": ["BaseCacheModule"], "why": "an Ansible cache plugin: the fact cache instantiates CacheModule and calls its get/set/keys methods"},
+      {"id": "ansible.connection", "class": "Connection", "methods": [], "bases": ["ConnectionBase"], "why": "an Ansible connection plugin: the executor instantiates Connection and calls its exec_command/put_file/fetch_file methods"},
+      {"id": "ansible.become", "class": "BecomeModule", "methods": [], "bases": ["BecomeBase"], "why": "an Ansible become plugin: the executor instantiates BecomeModule and calls build_become_command()"},
+      {"id": "ansible.shell", "class": "ShellModule", "methods": [], "bases": ["ShellBase"], "why": "an Ansible shell plugin: the executor instantiates ShellModule to build the remote commands"},
+      {"id": "ansible.docfragment", "class": "ModuleDocFragment", "methods": [], "bases": [], "why": "an Ansible documentation fragment: ansible-doc reads the class attributes of ModuleDocFragment"}
+    ]
+  }
+}

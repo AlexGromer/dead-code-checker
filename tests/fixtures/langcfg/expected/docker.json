@@ -1,0 +1,85 @@
+{
+ "facts": {
+  "Dockerfile": {
+   "defs": [
+    [
+     "stage:3",
+     "resource",
+     13,
+     15
+    ],
+    [
+     "stage:builder",
+     "resource",
+     2,
+     6
+    ],
+    [
+     "stage:test",
+     "resource",
+     7,
+     9
+    ],
+    [
+     "stage:unused-tools",
+     "resource",
+     10,
+     12
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "stage:3",
+     "ref",
+     ""
+    ],
+    [
+     "stage:builder",
+     "ref",
+     "stage:3"
+    ],
+    [
+     "stage:builder",
+     "ref",
+     "stage:test"
+    ],
+    [
+     "stage:builder",
+     "ref",
+     "stage:unused-tools"
+    ]
+   ],
+   "roots": []
+  },
+  "docker-compose.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "stage:test",
+     "ref",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "dockerfile:Dockerfile": "weak-alive",
+  "dockerfile:Dockerfile#stage:3": "weak-alive",
+  "dockerfile:Dockerfile#stage:builder": "weak-alive",
+  "dockerfile:Dockerfile#stage:test": "weak-alive",
+  "dockerfile:Dockerfile#stage:unused-tools": "dead",
+  "file:Dockerfile.old": "dead",
+  "yaml:docker-compose.yml": "weak-alive"
+ }
+}

@@ -1,0 +1,65 @@
+{
+  "main.go": {
+    "defs": [
+      [6, {"def.class": "Worker struct{}", "name": "Worker"}],
+      [1, {"def.method": "func (w *Worker) String() string { return \"w\" }", "recv": "Worker", "name": "String"}],
+      [10, {"def.var": "_ fmt.Stringer = (*Worker)(nil)", "name": "_"}],
+      [4, {"def.func": "func runtimeHook() { println(\"hook\") }", "name": "runtimeHook"}],
+      [4, {"def.func": "func main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [8, {"import": "\"fmt\""}],
+      [8, {"import": "\"example.com/app/api/v1\""}],
+      [8, {"import": "\"example.com/app/lib/v2\""}],
+      [8, {"import": "util \"example.com/app/helpers/v3\""}],
+      [6, {"ref.ref": "Worker#2", "name": "Worker"}],
+      [4, {"ref.ref": "_", "name": "_"}],
+      [1, {"ref.call": "println(\"hook\")", "name": "println"}],
+      [1, {"ref.call": "v1.NewThing()", "obj": "v1", "name": "NewThing"}],
+      [1, {"ref.call": "lib.Open()", "obj": "lib", "name": "Open"}],
+      [1, {"ref.call": "util.Help()", "obj": "util", "name": "Help"}]
+    ],
+    "roots": [
+      [0, {"root.marker": "//go:linkname runtimeHook runtime.hook"}],
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func runtimeHook() { println(\"hook\") }", "name": "runtimeHook"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}]
+    ],
+    "stub": []
+  },
+  "api/v1/v1.go": {
+    "defs": [
+      [4, {"def.func": "func NewThing() {}", "name": "NewThing"}],
+      [4, {"def.func": "func Unused() {}", "name": "Unused"}]
+    ],
+    "refs": [],
+    "roots": [
+      [1, {"pkg": "v1"}],
+      [2, {"root.cand": "func NewThing() {}", "name": "NewThing"}],
+      [2, {"root.cand": "func Unused() {}", "name": "Unused"}]
+    ],
+    "stub": []
+  },
+  "lib/v2/lib.go": {
+    "defs": [
+      [4, {"def.func": "func Open() {}", "name": "Open"}]
+    ],
+    "refs": [],
+    "roots": [
+      [1, {"pkg": "lib"}],
+      [2, {"root.cand": "func Open() {}", "name": "Open"}]
+    ],
+    "stub": []
+  },
+  "helpers/v3/h.go": {
+    "defs": [
+      [4, {"def.func": "func Help() {}", "name": "Help"}]
+    ],
+    "refs": [],
+    "roots": [
+      [1, {"pkg": "helpers"}],
+      [2, {"root.cand": "func Help() {}", "name": "Help"}]
+    ],
+    "stub": []
+  }
+}

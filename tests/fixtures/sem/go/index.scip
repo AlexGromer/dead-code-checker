@@ -1,0 +1,28 @@
+
+?&
+scip-go0.2.9--output
+index.scipfile:///repo/sem/go Ç
+main.goKAscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/BTHscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/B YGscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/use().BRClocal 0B	
+THscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/B[Oscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#Blocal 0B'(`Tscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#Ping.B)-THscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/B28]Qscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Helper().B9?ZHscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/main().B	R'SGscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/use().BTHscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/BZNscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Alpha#B"u
+Gscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/use().(2use:#"go*func use(p shapes.Pinger) inte
+Hscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/main().(2main:"go*func main()_
+Ascip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo`/(#2main:"go*package main"
+local 0(=2p:"go*var p Pinger"go0ü
+shapes/shapes.goRHscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/B`Nscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Alpha#B
+RZNscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Alpha#BgUscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Alpha#Ping().BR$_Mscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Beta#B	RYMscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Beta#B
+fTscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Beta#Ping().BR#cQscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Helper().B
+R
+cQscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/unused().BRaOscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#BR#hTscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#Ping.BR!Ø
+Uscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Alpha#Ping()."X
+Tscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#Ping.(2Ping:"go*func (Alpha).Ping() intÖ
+Tscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Beta#Ping()."X
+Tscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#Ping.(2Ping:"go*func (Beta).Ping() int†
+Oscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#(2Pinger:)"go*#type Pinger interface{ Ping() int }~
+Tscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#Ping.(C2Ping:"go*func (Pinger).Ping() intv
+Qscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Helper().(2Helper:"go*func Helper() intv
+Qscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/unused().(2unused:"go*func unused() intj
+Hscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/(#2shapes:"go*package shapesÉ
+Nscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Alpha#"S
+Oscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#(12Alpha:"go*type Alpha struct{}Æ
+Mscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Beta#"S
+Oscip-go gomod example.com/fixgo 51628207c247 `example.com/fixgo/shapes`/Pinger#(12Beta:"go*type Beta struct{}"go0

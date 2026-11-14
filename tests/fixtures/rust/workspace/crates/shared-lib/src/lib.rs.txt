@@ -1,0 +1,13 @@
+mod deep;
+mod net;
+
+pub struct Thing;
+
+impl Thing {
+    pub fn never() {}
+
+    pub fn new() -> Thing {
+        deep::go();
+        Thing
+    }
+}

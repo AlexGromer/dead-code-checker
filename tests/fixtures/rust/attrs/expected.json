@@ -1,0 +1,19 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: a method called only with a turbofish (c.via_turbofish::<u8>()), a function named only in an attribute string (serde default), entry attributes (pymodule, pyclass, panic_handler, cortex_m_rt::entry, wasm_bindgen_test). Never-called generic method and unused default stay dead.",
+ "closed_world": {
+  "src/main.rs#Config": "alive",
+  "src/main.rs#Ctx": "alive",
+  "src/main.rs#Ctx.get": "weak-alive",
+  "src/main.rs#Ctx.never_called": "dead",
+  "src/main.rs#Ctx.via_turbofish": "weak-alive",
+  "src/main.rs#Handle": "alive",
+  "src/main.rs#default_port": "alive",
+  "src/main.rs#main": "alive",
+  "src/main.rs#native": "alive",
+  "src/main.rs#on_panic": "alive",
+  "src/main.rs#start": "alive",
+  "src/main.rs#unused_default": "dead",
+  "src/main.rs#web_case": "weak-alive"
+ },
+ "library": {}
+}

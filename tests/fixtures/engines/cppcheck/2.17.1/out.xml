@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results version="2">
+    <cppcheck version="2.17.1"/>
+    <errors>
+        <error id="unusedFunction" severity="style" msg="The function &apos;unused_fn&apos; is never used." verbose="The function &apos;unused_fn&apos; is never used." cwe="561">
+            <location file="c.cpp" line="1" column="0"/>
+            <symbol>unused_fn</symbol>
+        </error>
+    </errors>
+</results>

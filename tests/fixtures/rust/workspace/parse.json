@@ -1,0 +1,106 @@
+{
+  "app/src/main.rs": {
+    "defs": [
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [16, {"import": "mod net;"}],
+      [15, {"import": "use util::{helper};"}],
+      [15, {"import": "use util::net::conn;"}],
+      [15, {"import": "use shared_lib::Thing;"}],
+      [0, {"ref.call": "helper()", "name": "helper"}],
+      [0, {"ref.call": "conn()", "name": "conn"}],
+      [1, {"ref.call": "util::other()", "name": "util::other"}],
+      [1, {"ref.call": "Thing::new()", "name": "Thing::new"}],
+      [1, {"ref.call": "net::local_conn()", "name": "net::local_conn"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn main() {…\n}", "name": "main", "body": "{…\n}"}]
+    ]
+  },
+  "app/src/net.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn local_conn() {}", "vis": "pub", "name": "local_conn"}],
+      [4, {"def.func": "pub fn app_spare() {}", "vis": "pub", "name": "app_spare"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn local_conn() {}", "name": "local_conn", "body": "{}"}],
+      [0, {"stub.def": "pub fn app_spare() {}", "name": "app_spare", "body": "{}"}]
+    ]
+  },
+  "util/src/lib.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn helper() {}", "vis": "pub", "name": "helper"}],
+      [4, {"def.func": "pub fn other() {}", "vis": "pub", "name": "other"}],
+      [4, {"def.func": "pub fn unused() {}", "vis": "pub", "name": "unused"}]
+    ],
+    "refs": [
+      [16, {"import": "pub mod net;"}]
+    ],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn helper() {}", "name": "helper", "body": "{}"}],
+      [0, {"stub.def": "pub fn other() {}", "name": "other", "body": "{}"}],
+      [0, {"stub.def": "pub fn unused() {}", "name": "unused", "body": "{}"}]
+    ]
+  },
+  "util/src/net.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn conn() {}", "vis": "pub", "name": "conn"}],
+      [4, {"def.func": "pub fn spare() {}", "vis": "pub", "name": "spare"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn conn() {}", "name": "conn", "body": "{}"}],
+      [0, {"stub.def": "pub fn spare() {}", "name": "spare", "body": "{}"}]
+    ]
+  },
+  "crates/shared-lib/src/lib.rs": {
+    "defs": [
+      [6, {"def.class": "pub struct Thing;", "vis": "pub", "name": "Thing"}],
+      [1, {"def.method": "pub fn never() {}", "vis": "pub", "recv": "<Thing", "name": "never"}],
+      [1, {"def.method": "    pub fn new() -> Thing {…\n    }", "vis": "pub", "recv": "<Thing", "name": "new"}]
+    ],
+    "refs": [
+      [16, {"import": "mod deep;"}],
+      [16, {"import": "mod net;"}],
+      [1, {"ref.call": "deep::go()", "name": "deep::go"}]
+    ],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn never() {}", "name": "never", "body": "{}"}],
+      [0, {"stub.def": "    pub fn new() -> Thing {…\n    }", "name": "new", "body": "{…\n    }"}]
+    ]
+  },
+  "crates/shared-lib/src/deep/mod.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn go() {…\n}", "vis": "pub", "name": "go"}]
+    ],
+    "refs": [
+      [15, {"import": "use crate::net::ping;"}],
+      [0, {"ref.call": "ping()", "name": "ping"}]
+    ],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn go() {…\n}", "name": "go", "body": "{…\n}"}]
+    ]
+  },
+  "crates/shared-lib/src/net.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn ping() {}", "vis": "pub", "name": "ping"}],
+      [4, {"def.func": "pub fn pong() {}", "vis": "pub", "name": "pong"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn ping() {}", "name": "ping", "body": "{}"}],
+      [0, {"stub.def": "pub fn pong() {}", "name": "pong", "body": "{}"}]
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "_doc": "Rules of the C++ extractor (keys: see ts_generic.rules_of). static = private; virtual = dispatch (flag abstract: base.m reaches the overrides, link.py); override/final = override. `static` is private only on a function of a file or namespace (defs.scm), never on a class member; an anonymous namespace is private. Access sections (`private:`) are not read: every member is public, a `static` member too (documented gap: closed-world verdicts are not affected, library mode keeps every member as API). A function under `template<>` has no @mod (public). strip_angles: `Foo<T>::get` is Foo.get (a template member written out of the class). protocol: an operator (out of class: `Foo::operator==` is never called by name) and the members the language calls by convention (range-for begin/end, coroutine promise members, ADL swap/to_json) are alive with their class; a free function of such a name is a root (annotation.adl). A weak, section, interrupt, alias or naked function is a link-time or hardware entry (annotation.c-attribute); the entry points of a loader (DllMain, JNI_OnLoad, Java_*, PyInit_*) are roots (main). annotation.cpp-hook: a member that a framework or a registry calls by name or by a string (a URI) and nothing in the tree calls: the singleton factory `instance()`, the route registration `getRoutes()` that hands `this` to a router, the entry `execute()` of a command; soft roots, the list is data (a class built by such a factory is reached from outside the tree).",
+  "stub_tag": "c",
+  "vis_mods": {
+    "static": "private"
+  },
+  "flag_mods": {
+    "virtual": "abstract",
+    "override": "override",
+    "final": "override"
+  },
+  "default_vis": {
+    "*": "public"
+  },
+  "name_map": [
+    [
+      "->",
+      "."
+    ],
+    [
+      "::",
+      "."
+    ]
+  ],
+  "dotted_names": true,
+  "roots": {
+    "main": {
+      "re": "^(main|wmain|WinMain|wWinMain|DllMain|_tmain|DllRegisterServer|DllUnregisterServer|DllCanUnloadNow|DllGetClassObject|DriverEntry|ServiceMain|_start|JNI_OnLoad|JNI_OnUnload|Java_\\w+|PyInit_\\w+|Init_\\w+|luaopen_\\w+|napi_register_module_v\\d+)$"
+    },
+    "annotation.c-attribute": {
+      "re": "\\b(constructor|destructor|used|retain|externally_visible|dllexport|weak|section|interrupt|naked|alias|ifunc|signal)\\b|visibility\\s*\\(\\s*\"default\"\\s*\\)"
+    },
+    "annotation.extern-c": {},
+    "test": {
+      "re": "^(TEST|TEST_F|TEST_P|TYPED_TEST|TYPED_TEST_P|TEST_CASE|SCENARIO|BOOST_AUTO_TEST_CASE|BOOST_AUTO_TEST_CASE_TEMPLATE|BOOST_FIXTURE_TEST_CASE|BOOST_AUTO_TEST_SUITE)$"
+    },
+    "annotation.adl": {
+      "re": "^(swap|begin|end|cbegin|cend|rbegin|rend|to_json|from_json|tag_invoke|hash_value|format_as)$"
+    },
+    "annotation.cpp-hook": {
+      "re": "^(instance|getInstance|get_instance|Instance|getRoutes|get_routes|registerRoutes|register_routes|execute)$",
+      "strength": "soft"
+    }
+  },
+  "strip_angles": true,
+  "protocol": [
+    {
+      "re": "(^|\\.)operator\\b|(^|\\.)(begin|end|cbegin|cend|rbegin|rend|swap|get_return_object|initial_suspend|final_suspend|return_void|return_value|yield_value|unhandled_exception|await_ready|await_suspend|await_resume|await_transform|to_json|from_json|tag_invoke|hash_value|format_as)$"
+    }
+  ]
+}

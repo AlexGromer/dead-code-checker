@@ -1,0 +1,68 @@
+{
+ "facts": {
+  "lib/inner.libsonnet": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": []
+  },
+  "lib/orphan.libsonnet": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": []
+  },
+  "lib/util.libsonnet": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "inner.libsonnet",
+     "include",
+     ""
+    ]
+   ],
+   "roots": []
+  },
+  "main.jsonnet": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "data.json",
+     "include",
+     ""
+    ],
+    [
+     "lib/util.libsonnet",
+     "include",
+     ""
+    ],
+    [
+     "notes.txt",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "file:notes.txt": "weak-alive",
+  "json:data.json": "weak-alive",
+  "jsonnet:main.jsonnet": "weak-alive",
+  "libsonnet:lib/inner.libsonnet": "weak-alive",
+  "libsonnet:lib/orphan.libsonnet": "dead",
+  "libsonnet:lib/util.libsonnet": "weak-alive"
+ }
+}

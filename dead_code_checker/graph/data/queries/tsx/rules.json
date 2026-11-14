@@ -1,0 +1,18 @@
+{
+  "_doc": "Rules of the JavaScript / TypeScript extractor (keys: see ts_generic.rules_of). roots main-toplevel: a call statement at the top level of a file (`main();`, `main().catch(..)`, `(async () => { .. })();`, `await run();`) is a statement of a script (soft main on the file): the functions that the statements call are used; a file with no such statement is a library and gets no root, and graph.link drops the statements of a test file. main-guard: `if (require.main === module) { .. }` and `if (import.meta.main) { .. }` make the file a script the same way.",
+  "roots": {
+    "main-toplevel": {
+      "kinds": [
+        ""
+      ],
+      "strength": "soft"
+    },
+    "main-guard": {
+      "re": "^\\(\\s*(?:require\\.main\\s*===?\\s*module|import\\.meta\\.main)\\s*\\)$",
+      "kinds": [
+        ""
+      ],
+      "strength": "soft"
+    }
+  }
+}

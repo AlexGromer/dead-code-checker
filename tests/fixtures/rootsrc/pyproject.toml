@@ -1,0 +1,26 @@
+[project]
+name = "demo"
+version = "1.0"
+
+[project.scripts]
+demo = "demo.cli:main"
+tool-x = "demo.tools.x:run [extra]"
+
+[project.gui-scripts]
+demo-gui = "demo.gui"
+
+[project.entry-points."demo.plugins"]
+alpha = "demo.plug.alpha:Plugin"
+
+[project.entry-points.console_scripts]
+legacy = "demo.legacy:main"
+
+[tool.poetry.scripts]
+poet = "demo.poet:cli"
+filed = { reference = "scripts/run.sh", type = "file" }
+
+[tool.poetry.plugins."poet.plugins"]
+beta = "demo.plug.beta:B"
+
+[tool.setuptools]
+script-files = ["scripts/old.sh"]

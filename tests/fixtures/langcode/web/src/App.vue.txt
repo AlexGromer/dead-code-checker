@@ -1,0 +1,21 @@
+<template>
+  <div>
+    <MyComp :prop="val" @click="handler($event)" />
+    <p>{{ msg }} {{ fmt(n) }}</p>
+    <button @click=onBare>bare</button>
+    <router-link to="/x">x</router-link>
+  </div>
+</template>
+
+<script setup lang="ts">
+import MyComp from './MyComp.vue'
+import { fmt } from './utils'
+const msg = 'hi'
+function handler(e: Event) { fmt(1) }
+function neverUsed() { fmt(2) }
+function onBare() { fmt(3) }
+</script>
+
+<style scoped>
+.a { color: red }
+</style>

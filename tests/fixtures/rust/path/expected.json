@@ -1,0 +1,32 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: `#[path = \"sys/unix.rs\"] mod imp;` imports that file (relative to the directory of main.rs) and binds it as imp, the cfg-gated pair of `mod imp;` binds both files (imp::f() reaches the f of each by name: weak), `#[cfg_attr(cond, path = ...)]` names a file too (both variants of `other`), a doc comment between attributes does not matter, a plain `mod local;` is local.rs; the `mod` and `use` declarations inside a cfg_if! block (raw tokens to the grammar) are imports as well: `use unix as plat; use win as plat;` bind both platform files, with a path attribute inside the block for win/mod.rs.",
+ "closed_world": {
+  "src/alt.rs#alt_only": "dead",
+  "src/alt.rs#run": "weak-alive",
+  "src/gen/data.rs#load": "alive",
+  "src/gen/data.rs#spare": "dead",
+  "src/local.rs#gone": "dead",
+  "src/local.rs#here": "alive",
+  "src/main.rs#main": "alive",
+  "src/plain.rs#plain_only": "dead",
+  "src/plain.rs#run": "weak-alive",
+  "src/sys/unix.rs#f": "weak-alive",
+  "src/sys/unix.rs#g": "dead",
+  "src/sys/windows.rs#f": "weak-alive",
+  "src/sys/windows.rs#h": "dead",
+  "src/unix.rs#start": "weak-alive",
+  "src/unix.rs#unix_only": "dead",
+  "src/win/mod.rs#start": "weak-alive",
+  "src/win/mod.rs#win_only": "dead"
+ },
+ "library": {
+  "src/alt.rs#alt_only": "public-unused",
+  "src/gen/data.rs#spare": "public-unused",
+  "src/local.rs#gone": "public-unused",
+  "src/plain.rs#plain_only": "public-unused",
+  "src/sys/unix.rs#g": "public-unused",
+  "src/sys/windows.rs#h": "public-unused",
+  "src/unix.rs#unix_only": "public-unused",
+  "src/win/mod.rs#win_only": "public-unused"
+ }
+}

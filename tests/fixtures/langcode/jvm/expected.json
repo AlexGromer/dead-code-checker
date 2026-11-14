@@ -1,0 +1,26 @@
+{
+ "_doc": "JVM closed world: Java, Scala and Groovy are one link group, so a Scala object that extends App (entry) keeps the Java class and the method it calls by name, and a Groovy class it instantiates keeps its Java callee; members nobody calls and a Java class nobody uses are dead.",
+ "roots": [
+  [
+   "main",
+   "src/main/scala/app/Main.scala#Main"
+  ]
+ ],
+ "closed_world": {
+  "src/main/groovy/app/Tool.groovy#Tool": "weak-alive",
+  "src/main/groovy/app/Tool.groovy#Tool.idle": "dead",
+  "src/main/groovy/app/Tool.groovy#Tool.run": "weak-alive",
+  "src/main/java/app/Greeter.java#Greeter": "weak-alive",
+  "src/main/java/app/Greeter.java#Greeter.hello": "weak-alive",
+  "src/main/java/app/Greeter.java#Greeter.neverCalled": "dead",
+  "src/main/java/app/Greeter.java#Greeter.shout": "weak-alive",
+  "src/main/java/app/Lone.java#Lone": "dead",
+  "src/main/scala/app/Main.scala#Main": "alive"
+ },
+ "files": {
+  "src/main/groovy/app/Tool.groovy": "weak-alive",
+  "src/main/java/app/Greeter.java": "dead",
+  "src/main/java/app/Lone.java": "dead",
+  "src/main/scala/app/Main.scala": "alive"
+ }
+}

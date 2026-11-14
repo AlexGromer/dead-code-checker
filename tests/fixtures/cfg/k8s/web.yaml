@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels: {app: web}
+spec:
+  template:
+    spec:
+      serviceAccountName: web-sa
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: app
+          image: example/web:1
+          envFrom:
+            - configMapRef:
+                name: app-cfg
+          env:
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef: {name: api-token, key: token}
+      volumes:
+        - name: tls
+          secret:
+            secretName: tls-cert
+        - name: data
+          persistentVolumeClaim:
+            claimName: web-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: web-svc
+                port: {number: 80}

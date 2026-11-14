@@ -1,0 +1,57 @@
+{
+  "_doc": "Single-file component (vue / svelte). embed: the <script> block is extracted as TypeScript (lang=ts / tsx) or JavaScript; its imports are the dependencies of the component and the template calls its definitions by name (the words of every template expression are uses, no root is needed: a definition that no word of the template or the script names is dead). a directive attribute (use:tip, transition:fly|local, in:, out:, animate:, bind:, class:, style:) names a function or a variable of the script (path_sub.call keeps the name after the colon and drops a modifier after |). component_tags: a tag is a use of the component of that name (<MyComp>, <my-comp> is MyComp), a plain element (<b>, <div>) is not. ref_cmd.include: <img src>, <script src> and a form action name a file of ours (a quoted or a bare value) (path_sub drops URLs and fragments). ref_cmd.scan: the words of a template expression are uses (they are read as the plain words of the text, no JS parse).",
+  "ref_cmd": {
+    "include": "^(src|href|poster|action|formaction)$"
+  },
+  "path_sub": {
+    "call": [
+      [
+        "^(?!(?:use|transition|in|out|animate|bind|class|style):).*$",
+        ""
+      ],
+      [
+        "^[a-z]+:",
+        ""
+      ],
+      [
+        "\\|.*$",
+        ""
+      ]
+    ],
+    "include": [
+      [
+        "^(?:[A-Za-z][A-Za-z0-9+.-]*:|//|#).*$",
+        ""
+      ],
+      [
+        "[?#].*$",
+        ""
+      ],
+      [
+        "^/+",
+        ""
+      ]
+    ]
+  },
+  "embed": {
+    "lang": [
+      [
+        "\\blang\\s*=\\s*[\"']?tsx\\b",
+        "tsx"
+      ],
+      [
+        "\\blang\\s*=\\s*[\"']?ts\\b",
+        "typescript"
+      ],
+      [
+        "\\bsrc\\s*=",
+        ""
+      ],
+      [
+        "<script",
+        "javascript"
+      ]
+    ]
+  },
+  "component_tags": true
+}

@@ -1,0 +1,6 @@
+package app
+
+object Main extends App {
+  println(new Greeter().hello())
+  new Tool().run()
+}

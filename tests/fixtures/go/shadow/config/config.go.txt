@@ -1,0 +1,11 @@
+package config
+
+type Config struct{}
+
+func (c *Config) Validate() {}
+
+func (c *Config) Load() {}
+
+func (c *Config) Unused() {}
+
+func Load() {}

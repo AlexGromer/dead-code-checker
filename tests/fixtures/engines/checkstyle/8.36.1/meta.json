@@ -1,0 +1,24 @@
+{
+ "files": [
+  "A.java",
+  "cfg.xml"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "checkstyle",
+    "-c",
+    "cfg.xml",
+    "-f",
+    "xml",
+    "A.java"
+   ],
+   "out": "out.xml",
+   "rc": 1,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "checkstyle",
+ "version": "8.36.1"
+}

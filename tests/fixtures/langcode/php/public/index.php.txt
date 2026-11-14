@@ -1,0 +1,9 @@
+<?php
+require __DIR__ . '/../src/bootstrap.php';
+require "../src/callbacks.php";
+use App\Service\Mailer;
+
+$mailer = new Mailer();
+$mailer->send('hi');
+run_app();
+sort_all([], null);

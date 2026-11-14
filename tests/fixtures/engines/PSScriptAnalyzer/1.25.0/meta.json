@@ -1,0 +1,22 @@
+{
+ "files": [
+  "x.ps1"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "pwsh",
+    "-NoProfile",
+    "-NonInteractive",
+    "-Command",
+    "$ErrorActionPreference='Stop'; Invoke-ScriptAnalyzer -Path ./x.ps1 -IncludeRule PSUseDeclaredVarsMoreThanAssignments | Select-Object RuleName,Severity,Line,Column,Message,ScriptName,ScriptPath | ConvertTo-Json"
+   ],
+   "out": "out.json",
+   "rc": 0,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "PSScriptAnalyzer",
+ "version": "1.25.0"
+}

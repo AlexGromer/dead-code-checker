@@ -1,0 +1,39 @@
+pub trait Shape {
+    fn area(&self) -> f64;
+    fn label(&self) -> String {
+        String::from("shape")
+    }
+}
+
+pub struct Square {
+    side: f64,
+}
+
+impl Shape for Square {
+    fn area(&self) -> f64 {
+        self.side * self.side
+    }
+}
+
+impl Square {
+    pub fn new() -> Square {
+        Square { side: 1.0 }
+    }
+
+    fn dead_method(&self) {}
+}
+
+pub struct Unused;
+
+#[no_mangle]
+pub extern "C" fn ffi_entry() {}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn square_area() {
+        assert_helper();
+    }
+
+    fn assert_helper() {}
+}

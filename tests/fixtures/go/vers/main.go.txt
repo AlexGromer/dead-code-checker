@@ -1,0 +1,24 @@
+package main
+
+import (
+	"fmt"
+
+	"example.com/app/api/v1"
+	"example.com/app/lib/v2"
+	util "example.com/app/helpers/v3"
+)
+
+type Worker struct{}
+
+func (w *Worker) String() string { return "w" }
+
+var _ fmt.Stringer = (*Worker)(nil)
+
+//go:linkname runtimeHook runtime.hook
+func runtimeHook() { println("hook") }
+
+func main() {
+	v1.NewThing()
+	lib.Open()
+	util.Help()
+}

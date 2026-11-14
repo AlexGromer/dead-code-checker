@@ -1,0 +1,19 @@
+{
+  "_doc": "Scala. implicit: an implicit definition (def, val, class, object) and a named given carry the flag implicit (flag_mods, defs.scm); dyn.implicit: `import app.Imp._`, `.given`, `.{a, b}` or `.a` is the dynamic site implicit:Imp, which makes the implicit members of Imp used (N, link.py): an implicit is used without a name, so the import is its only trace. private = private, protected = package, no modifier = public. override: the method reaches/is reached through its base (flag override). self_word: a bare name inside a class, trait or object is also this.name (a member of the type or of its ancestors: a subclass calls base_m, a class calls a method of its trait) unless a parameter or a lambda / pattern variable binds it. roots.main has host: the object that holds main is an entry with it (Main alive through Main.main). A live member keeps its type alive only through the linker's file_init and owner rules; apply/unapply/unapplySeq/update/main/run and the members of the stdlib typeclasses are called by the language (protocol). roots.main: a method named main, an object that extends App, IOApp or a ZIO app (the runtime starts them); main-app. path_roots: Play calls controllers, filters and modules by convention.",
+  "stub_tag": "scala",
+  "self_word": "this",
+  "vis_mods": {"private": "private", "protected": "package"},
+  "flag_mods": {"override": "override", "implicit": "implicit"},
+  "dyn": {"implicit": {"re": "^([A-Za-z_]\\w*)$"}},
+  "default_vis": {"*": "public"},
+  "roots": {
+    "main": {"re": "^main$", "kinds": ["func", "method"], "host": true},
+    "main-app": {"re": "^(App|IOApp|IOApp\\.Simple|ZIOApp|ZIOAppDefault|CatsApp|ResourceApp)$", "kinds": ["class"]}
+  },
+  "protocol": [
+    {"re": "\\.(apply|unapply|unapplySeq|update|run|toString|equals|hashCode|compare|compareTo|iterator|foreach|map|flatMap|filter|withFilter|unary_[-+!~]|[-+*/%<>=!&|^:]+)$", "kinds": ["func", "method"]}
+  ],
+  "path_roots": [
+    {"path": "(^|/)app/(controllers|filters|modules|actions)/", "kind": "annotation:scala-framework", "kinds": ["class", "iface", "func", "method"]}
+  ]
+}

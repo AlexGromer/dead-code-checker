@@ -1,0 +1,1732 @@
+{
+ "Rakefile": {
+  "defs": [
+   [
+    1,
+    {
+     "def.module": "module Tools\n  def self.run(ar… def self.unused_tool; end\nend",
+     "name": "Tools"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.run(arg)\n    greet(arg)\n    Auth.check(arg)\n    [arg].map(&:norm)\n  end",
+     "name": "run"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.greet(x)\n    puts x\n  end",
+     "name": "greet"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.unused_tool; end",
+     "name": "unused_tool"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Report\n  def initialize(…lf.build\n    new({})\n  end\nend",
+     "name": "Report"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def initialize(data)\n    @data = data\n  end",
+     "name": "initialize"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def to_s\n    format_it\n  end",
+     "name": "to_s"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def format_it\n    @data.to_json\n  end",
+     "name": "format_it"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def never_used\n    1\n  end",
+     "name": "never_used"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.build\n    new({})\n  end",
+     "name": "build"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "require_relative \"lib/auth\"",
+     "name": "require_relative"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "require_relative",
+     "ref.ref": "require_relative",
+     "self": "require_relative"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "require_relative \"lib/auth\"",
+     "cmd": "require_relative",
+     "name": "lib/auth"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "require_relative \"lib/user\"",
+     "name": "require_relative"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "require_relative#1",
+     "ref.ref": "require_relative",
+     "self": "require_relative"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "require_relative \"lib/user\"",
+     "cmd": "require_relative",
+     "name": "lib/user"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "require_relative \"lib/dynamic\"",
+     "name": "require_relative"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "require_relative#2",
+     "ref.ref": "require_relative",
+     "self": "require_relative"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "require_relative \"lib/dynamic\"",
+     "cmd": "require_relative",
+     "name": "lib/dynamic"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "require_relative \"lib/shapes\"",
+     "name": "require_relative"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "require_relative#3",
+     "ref.ref": "require_relative",
+     "self": "require_relative"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "require_relative \"lib/shapes\"",
+     "cmd": "require_relative",
+     "name": "lib/shapes"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "require \"json\"",
+     "name": "require"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "require#4",
+     "ref.ref": "require",
+     "self": "require"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "require \"json\"",
+     "cmd": "require",
+     "name": "json"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Tools",
+     "ref.ref": "Tools"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "run",
+     "ref.ref": "run",
+     "self": "run"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "arg"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "arg",
+     "ref.ref": "arg",
+     "self": "arg"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "greet(arg)",
+     "name": "greet"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "greet",
+     "ref.ref": "greet",
+     "self": "greet"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "greet(arg)",
+     "cmd": "greet",
+     "dyn": "arg"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "(arg)#1",
+     "name": "arg"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "arg#1",
+     "ref.ref": "arg",
+     "self": "arg"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Auth",
+     "ref.ref": "Auth"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Auth.check(arg)",
+     "name": "check"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Auth.check(arg)",
+     "member": "check",
+     "name": "check"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "check",
+     "ref.ref": "check",
+     "self": "check"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "Auth.check(arg)",
+     "cmd": "check",
+     "dyn": "arg"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "(arg)#2",
+     "name": "arg"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "arg#2",
+     "ref.ref": "arg",
+     "self": "arg"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "arg#3",
+     "ref.ref": "arg",
+     "self": "arg"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "[arg].map(&:norm)",
+     "name": "map"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "[arg].map(&:norm)",
+     "member": "map",
+     "name": "map"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "map",
+     "ref.ref": "map",
+     "self": "map"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.ref": "&:norm",
+     "member": ":norm",
+     "name": ":norm"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "greet#1",
+     "ref.ref": "greet",
+     "self": "greet"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "x"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "x",
+     "ref.ref": "x",
+     "self": "x"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "puts x",
+     "name": "puts"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "puts",
+     "ref.ref": "puts",
+     "self": "puts"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "puts x",
+     "cmd": "puts",
+     "dyn": "x"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "x#1",
+     "name": "x"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "x#1",
+     "ref.ref": "x",
+     "self": "x"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "unused_tool",
+     "ref.ref": "unused_tool",
+     "self": "unused_tool"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Report",
+     "ref.ref": "Report"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "initialize",
+     "ref.ref": "initialize",
+     "self": "initialize"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "data"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "data",
+     "ref.ref": "data",
+     "self": "data"
+    }
+   ],
+   [
+    10,
+    {
+     "ref.ref": "@data = data",
+     "name": "data#1"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "data#2",
+     "ref.ref": "data",
+     "self": "data"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "to_s",
+     "ref.ref": "to_s",
+     "self": "to_s"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.call": "format_it",
+     "name": "format_it"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "format_it",
+     "ref.ref": "format_it",
+     "self": "format_it"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "format_it#1",
+     "ref.ref": "format_it",
+     "self": "format_it"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "@data.to_json",
+     "name": "to_json"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "@data.to_json",
+     "member": "to_json",
+     "name": "to_json"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "to_json",
+     "ref.ref": "to_json",
+     "self": "to_json"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "never_used",
+     "ref.ref": "never_used",
+     "self": "never_used"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "build",
+     "ref.ref": "build",
+     "self": "build"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "new({})",
+     "name": "new"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "new",
+     "ref.ref": "new",
+     "self": "new"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Tools#1",
+     "ref.ref": "Tools"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Tools.run(ARGV[0])",
+     "name": "run"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Tools.run(ARGV[0])",
+     "member": "run",
+     "name": "run"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "run#1",
+     "ref.ref": "run",
+     "self": "run"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "ARGV",
+     "ref.ref": "ARGV"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "puts Report.build",
+     "name": "puts"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "puts#1",
+     "ref.ref": "puts",
+     "self": "puts"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "puts Report.build",
+     "cmd": "puts",
+     "dyn": "Report.build"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Report#1",
+     "ref.ref": "Report"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Report.build",
+     "name": "build"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Report.build",
+     "member": "build",
+     "name": "build"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "build#1",
+     "ref.ref": "build",
+     "self": "build"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Dispatcher",
+     "ref.ref": "Dispatcher"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Dispatcher.new",
+     "name": "new"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Dispatcher.new",
+     "member": "new",
+     "name": "new"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "new#1",
+     "ref.ref": "new",
+     "self": "new"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Dispatcher.new.go(\"a\")",
+     "name": "go"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Dispatcher.new.go(\"a\")",
+     "member": "go",
+     "name": "go"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "go",
+     "ref.ref": "go",
+     "self": "go"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "Dispatcher.new.go(\"a\")",
+     "cmd": "go",
+     "name": "a#1"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Circle",
+     "ref.ref": "Circle"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Circle.new",
+     "name": "new"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Circle.new",
+     "member": "new",
+     "name": "new"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "new#2",
+     "ref.ref": "new",
+     "self": "new"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Circle.new.area(2)",
+     "name": "area"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Circle.new.area(2)",
+     "member": "area",
+     "name": "area"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "area",
+     "ref.ref": "area",
+     "self": "area"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Circle#1",
+     "ref.ref": "Circle"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Circle.new#1",
+     "name": "new"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Circle.new#1",
+     "member": "new",
+     "name": "new"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "new#3",
+     "ref.ref": "new",
+     "self": "new"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Circle.new.label",
+     "name": "label"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Circle.new.label",
+     "member": "label",
+     "name": "label"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "label",
+     "ref.ref": "label",
+     "self": "label"
+    }
+   ]
+  ]
+ },
+ "app/controllers/application_controller.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class ApplicationController\n  def helper_for_all; end\nend",
+     "name": "ApplicationController"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def helper_for_all; end",
+     "name": "helper_for_all"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "ApplicationController",
+     "ref.ref": "ApplicationController"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "helper_for_all",
+     "ref.ref": "helper_for_all",
+     "self": "helper_for_all"
+    }
+   ]
+  ]
+ },
+ "app/controllers/users_controller.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class UsersController < Applic… Auth.check(request)\n  end\nend",
+     "name": "UsersController"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def index\n    @users = User.recent\n    render json: @users\n  end",
+     "name": "index"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def authenticate\n    Auth.check(request)\n  end",
+     "name": "authenticate"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "UsersController",
+     "ref.ref": "UsersController"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.inherit": "class UsersController < Applic… Auth.check(request)\n  end\nend",
+     "name": "ApplicationController",
+     "scope": "UsersController"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "ApplicationController",
+     "ref.ref": "ApplicationController"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "before_action :authenticate",
+     "name": "before_action"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "before_action",
+     "ref.ref": "before_action",
+     "self": "before_action"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": ":authenticate",
+     "name": ":authenticate"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "index",
+     "ref.ref": "index",
+     "self": "index"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "User#1",
+     "ref.ref": "User"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "User.recent",
+     "name": "recent"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "User.recent",
+     "member": "recent",
+     "name": "recent"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "recent",
+     "ref.ref": "recent",
+     "self": "recent"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "render json: @users",
+     "name": "render"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "render",
+     "ref.ref": "render",
+     "self": "render"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "authenticate#1",
+     "ref.ref": "authenticate",
+     "self": "authenticate"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Auth",
+     "ref.ref": "Auth"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Auth.check(request)",
+     "name": "check"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Auth.check(request)",
+     "member": "check",
+     "name": "check"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "check",
+     "ref.ref": "check",
+     "self": "check"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "Auth.check(request)",
+     "cmd": "check",
+     "dyn": "request"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "(request)",
+     "name": "request"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "request",
+     "ref.ref": "request",
+     "self": "request"
+    }
+   ]
+  ]
+ },
+ "app/models/comment.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class Comment < ApplicationRecord\n  belongs_to :post\nend",
+     "name": "Comment"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "Comment",
+     "ref.ref": "Comment"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.inherit": "class Comment < ApplicationRecord\n  belongs_to :post\nend",
+     "name": "ApplicationRecord",
+     "scope": "Comment"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "ApplicationRecord",
+     "ref.ref": "ApplicationRecord"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "belongs_to :post",
+     "name": "belongs_to"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "belongs_to",
+     "ref.ref": "belongs_to",
+     "self": "belongs_to"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": ":post",
+     "name": ":post"
+    }
+   ]
+  ]
+ },
+ "app/models/post.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class Post < ApplicationRecord\n  has_many :comments\nend",
+     "name": "Post"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "Post",
+     "ref.ref": "Post"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.inherit": "class Post < ApplicationRecord\n  has_many :comments\nend",
+     "name": "ApplicationRecord",
+     "scope": "Post"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "ApplicationRecord",
+     "ref.ref": "ApplicationRecord"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "has_many :comments",
+     "name": "has_many"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "has_many",
+     "ref.ref": "has_many",
+     "self": "has_many"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": ":comments",
+     "name": ":comments"
+    }
+   ]
+  ]
+ },
+ "lib/auth.rb": {
+  "defs": [
+   [
+    1,
+    {
+     "def.module": "module Auth\n  def self.check(r…\n  def self.dead_auth; end\nend",
+     "name": "Auth"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.check(req)\n    verify(req)\n  end",
+     "name": "check"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.verify(req); end",
+     "name": "verify"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.dead_auth; end",
+     "name": "dead_auth"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "Auth",
+     "ref.ref": "Auth"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "check",
+     "ref.ref": "check",
+     "self": "check"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "req"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "req",
+     "ref.ref": "req",
+     "self": "req"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "verify(req)",
+     "name": "verify"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "verify",
+     "ref.ref": "verify",
+     "self": "verify"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "verify(req)",
+     "cmd": "verify",
+     "dyn": "req"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "(req)#1",
+     "name": "req"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "req#1",
+     "ref.ref": "req",
+     "self": "req"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "verify#1",
+     "ref.ref": "verify",
+     "self": "verify"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "req#2"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "req#2",
+     "ref.ref": "req",
+     "self": "req"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "dead_auth",
+     "ref.ref": "dead_auth",
+     "self": "dead_auth"
+    }
+   ]
+  ]
+ },
+ "lib/dynamic.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class Dispatcher\n  def go(name…; end\n\n  def handle_b; end\nend",
+     "name": "Dispatcher"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def go(name)\n    send(\"handle_#{name}\")\n  end",
+     "name": "go"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def handle_a; end",
+     "name": "handle_a"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def handle_b; end",
+     "name": "handle_b"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "Dispatcher",
+     "ref.ref": "Dispatcher"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "go",
+     "ref.ref": "go",
+     "self": "go"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "name"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "name",
+     "ref.ref": "name",
+     "self": "name"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "send(\"handle_#{name}\")",
+     "name": "send"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "send",
+     "ref.ref": "send",
+     "self": "send"
+    }
+   ],
+   [
+    13,
+    {
+     "ref.include": "send(\"handle_#{name}\")",
+     "cmd": "send",
+     "name": "handle_"
+    }
+   ],
+   [
+    14,
+    {
+     "block": "send(\"handle_#{name}\")",
+     "cmd": "send",
+     "dyn": "\"handle_#{name}\""
+    }
+   ],
+   [
+    15,
+    {
+     "name": "name#1",
+     "ref.ref": "name",
+     "self": "name"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "handle_a",
+     "ref.ref": "handle_a",
+     "self": "handle_a"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "handle_b",
+     "ref.ref": "handle_b",
+     "self": "handle_b"
+    }
+   ]
+  ]
+ },
+ "lib/orphan.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class Orphan; end",
+     "name": "Orphan"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "Orphan",
+     "ref.ref": "Orphan"
+    }
+   ]
+  ]
+ },
+ "lib/shapes.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class Shape\n  def base_area\n    1\n  end\n\n  def never_called; end\nend",
+     "name": "Shape"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def base_area\n    1\n  end",
+     "name": "base_area"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def never_called; end",
+     "name": "never_called"
+    }
+   ],
+   [
+    1,
+    {
+     "def.module": "module Printable\n  def print_it; end\n\n  def uses_host\n    host_hook\n  end\nend",
+     "name": "Printable"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def print_it; end",
+     "name": "print_it"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def uses_host\n    host_hook\n  end",
+     "name": "uses_host"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Circle < Shape\n  include… end\n\n  def host_hook; end\nend",
+     "name": "Circle"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def area(scale)\n    scale + base_area + print_it\n  end",
+     "name": "area"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def label\n    uses_host\n  end",
+     "name": "label"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def host_hook; end",
+     "name": "host_hook"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "Shape",
+     "ref.ref": "Shape"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "base_area",
+     "ref.ref": "base_area",
+     "self": "base_area"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "never_called",
+     "ref.ref": "never_called",
+     "self": "never_called"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Printable",
+     "ref.ref": "Printable"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "print_it",
+     "ref.ref": "print_it",
+     "self": "print_it"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "uses_host",
+     "ref.ref": "uses_host",
+     "self": "uses_host"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.call": "host_hook",
+     "name": "host_hook"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "host_hook",
+     "ref.ref": "host_hook",
+     "self": "host_hook"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Circle",
+     "ref.ref": "Circle"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.inherit": "class Circle < Shape\n  include… end\n\n  def host_hook; end\nend",
+     "name": "Shape",
+     "scope": "Circle"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Shape#1",
+     "ref.ref": "Shape"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "include Printable",
+     "name": "include"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "include",
+     "ref.ref": "include",
+     "self": "include"
+    }
+   ],
+   [
+    3,
+    {
+     "name": "Printable#1",
+     "ref.ref": "Printable"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "area#1",
+     "ref.ref": "area",
+     "self": "area"
+    }
+   ],
+   [
+    16,
+    {
+     "local": "scale"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "scale",
+     "ref.ref": "scale",
+     "self": "scale"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "scale#1",
+     "ref.ref": "scale",
+     "self": "scale"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "base_area#1",
+     "ref.ref": "base_area",
+     "self": "base_area"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "print_it#1",
+     "ref.ref": "print_it",
+     "self": "print_it"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "label",
+     "ref.ref": "label",
+     "self": "label"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.call": "uses_host#1",
+     "name": "uses_host"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "uses_host#1",
+     "ref.ref": "uses_host",
+     "self": "uses_host"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "host_hook#1",
+     "ref.ref": "host_hook",
+     "self": "host_hook"
+    }
+   ]
+  ]
+ },
+ "lib/user.rb": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class User\n  def self.recent; end\n  def old_method; end\n  def norm; end\nend",
+     "name": "User"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def self.recent; end",
+     "name": "recent"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def old_method; end",
+     "name": "old_method"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "def norm; end",
+     "name": "norm"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    3,
+    {
+     "name": "User",
+     "ref.ref": "User"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "recent",
+     "ref.ref": "recent",
+     "self": "recent"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "old_method",
+     "ref.ref": "old_method",
+     "self": "old_method"
+    }
+   ],
+   [
+    15,
+    {
+     "name": "norm",
+     "ref.ref": "norm",
+     "self": "norm"
+    }
+   ]
+  ]
+ }
+}

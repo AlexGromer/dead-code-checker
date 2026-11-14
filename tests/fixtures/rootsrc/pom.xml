@@ -1,0 +1,7 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <properties><exec.mainClass>com.example.Exec</exec.mainClass></properties>
+  <build><plugins>
+    <plugin><artifactId>spring-boot-maven-plugin</artifactId>
+      <configuration><mainClass>com.example.Boot</mainClass></configuration></plugin>
+  </plugins></build>
+</project>

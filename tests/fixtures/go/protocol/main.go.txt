@@ -1,0 +1,43 @@
+package main
+
+type stringList []string
+
+func (s *stringList) String() string { return "" }
+
+func (s *stringList) Set(v string) error { return nil }
+
+func (s *stringList) Unused() {}
+
+type guard struct{}
+
+func (g *guard) Lock() {}
+
+func (g *guard) Unlock() {}
+
+type walker struct{}
+
+func (w walker) Visit(n int) int { return n }
+
+func (w walker) Spare() {}
+
+type clock struct{}
+
+func (c clock) Deadline() int { return 0 }
+
+func (c clock) Done() {}
+
+func (c clock) Err() error { return nil }
+
+func (c clock) Reset() {}
+
+func (c clock) Idle() {}
+
+func main() {
+	var l stringList
+	var g guard
+	var w walker
+	var c clock
+	use(&l, &g, w, c)
+}
+
+func use(args ...any) {}

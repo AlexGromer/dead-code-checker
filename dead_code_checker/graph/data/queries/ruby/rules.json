@@ -1,0 +1,17 @@
+{
+  "_doc": "Ruby. self_word: a bare identifier inside a class or module is also self.name (a method of the superclass, of an included module or of the host class that a module calls) unless a parameter, a block parameter, an assignment or a rescue variable of the method binds it (@local). name_map: A::B is A.B, a symbol :x is the name x. ref_cmd and path_sub: require 'a/b' includes a/b.rb (require_relative and load too; a name with an extension keeps it). protocol: methods that the language or a library calls by name (initialize, to_s, each, call, method_missing ...). path_roots: Rails calls the controllers, helpers, jobs, mailers, channels, migrations, initializers and rake tasks by convention (hard), models by name (an association symbol, autoload: the class is soft), models, views and services by their methods in templates (soft).",
+  "name_map": [["::", "."], [":", ""]],
+  "self_word": "self",
+  "ref_cmd": {"include": "^(require|require_relative|load)$", "dyn": "^(send|public_send|__send__|try|define_method|instance_variable_get|const_get|constantize|safe_constantize|method)$"},
+  "path_sub": {"include": [["^(?!.*\\.rb$)(.+)$", "\\1.rb"]]},
+  "protocol": [
+    {"re": "\\.(initialize|initialize_copy|to_s|to_str|to_a|to_ary|to_h|to_hash|to_i|to_f|to_proc|to_json|as_json|inspect|each|call|method_missing|respond_to_missing\\?|hash|eql\\?|coerce|succ|<=>|==|===|=~|<<|\\[\\]|\\[\\]=|\\+|-|\\*|/|%|<|>|<=|>=|!|inherited|included|extended|prepended|method_added|const_missing)$", "kinds": ["func", "method"]}
+  ],
+  "path_roots": [
+    {"path": "(^|/)app/(controllers|helpers|mailers|jobs|channels|policies|serializers|decorators|workers|validators)/", "kind": "annotation:rails", "kinds": ["class", "module", "func", "method"]},
+    {"path": "(^|/)(db/(migrate|seeds)|config/(initializers|environments|application|routes|boot))", "kind": "annotation:rails", "kinds": ["class", "module", "func", "method"]},
+    {"path": "(^|/)lib/tasks/", "kind": "annotation:rails", "kinds": ["class", "module", "func", "method"]},
+    {"path": "(^|/)app/models/", "kind": "annotation:rails", "kinds": ["class", "module"], "strength": "soft"},
+    {"path": "(^|/)app/(models|views|components|services)/", "kind": "annotation:rails", "kinds": ["func", "method"], "strength": "soft"}
+  ]
+}

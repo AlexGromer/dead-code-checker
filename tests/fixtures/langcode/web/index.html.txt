@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/site.css?v=1">
+  <script src="js/app.js"></script>
+  <script src=js/late.js></script>
+  <script type="module" src="src/main.js"></script>
+  <script type="module">import { a } from './mod.js'; a();</script>
+  <script>function onGo() { go(); }</script>
+  <script type="application/json">{"x": 1}</script>
+</head>
+<body>
+  <a href="about.html#top">about</a>
+  <a href="https://example.com/x">ext</a>
+  <a href="javascript:jj()">act</a>
+  <a href=javascript:kk(1)>act2</a>
+  <img src="/img/logo.png">
+  <button onclick="onGo()">go</button>
+  <form action=submit.php><button>send</button></form>
+</body>
+</html>

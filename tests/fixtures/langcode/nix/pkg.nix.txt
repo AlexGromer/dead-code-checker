@@ -1,0 +1,8 @@
+{ lib, stdenv }:
+let
+  fmt = x: "v" + x;
+  unusedLocal = y: y;
+in stdenv.mkDerivation {
+  name = fmt "1";
+  src = ./src;
+}

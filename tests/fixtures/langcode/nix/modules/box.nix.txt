@@ -1,0 +1,7 @@
+{ config, lib, ... }:
+let
+  mkThing = n: n;
+in {
+  services.foo.enable = true;
+  value = lib.double 2;
+}

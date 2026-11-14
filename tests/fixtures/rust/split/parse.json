@@ -1,0 +1,74 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [6, {"def.class": "pub struct Foo;", "vis": "pub", "name": "Foo"}],
+      [7, {"def.class": "pub enum Color {…\n}", "vis": "pub", "name": "Color"}],
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}],
+      [4, {"def.func": "fn handler() {}", "name": "handler"}],
+      [4, {"def.func": "fn index() {}", "name": "index"}]
+    ],
+    "refs": [
+      [16, {"import": "mod consts;"}],
+      [16, {"import": "mod imp;"}],
+      [15, {"import": "use consts::LIMIT;"}],
+      [10, {"ref.ref": "Foo#1", "name": "Foo"}],
+      [10, {"ref.ref": "LIMIT#1", "name": "LIMIT"}],
+      [11, {"ref.ref": "consts::MAX", "name": "consts::MAX"}],
+      [11, {"ref.ref": "Color::Red", "name": "Color::Red"}],
+      [10, {"ref.ref": "handler", "name": "handler"}],
+      [0, {"ref.call": "g()", "name": "g"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}],
+      [1, {"root.cand": "fn handler() {}", "name": "handler"}],
+      [1, {"root.cand": "fn index() {}", "name": "index"}],
+      [2, {"root.attr": "#[get(\"/\")]", "attr": "get"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn handler() {}", "name": "handler", "body": "{}"}],
+      [0, {"stub.def": "fn index() {}", "name": "index", "body": "{}"}]
+    ]
+  },
+  "src/consts.rs": {
+    "defs": [
+      [10, {"def.const": "pub const LIMIT: i32 = 5;", "vis": "pub", "name": "LIMIT"}],
+      [10, {"def.const": "pub const MAX: i32 = 9;", "vis": "pub", "name": "MAX"}],
+      [10, {"def.const": "pub const UNUSED: i32 = 0;", "vis": "pub", "name": "UNUSED"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": []
+  },
+  "src/imp.rs": {
+    "defs": [
+      [8, {"def.iface": "pub trait Shape {…\n}", "vis": "pub", "name": "Shape"}],
+      [5, {"def.func": "fn area(&self) -> f64;", "flag.abstract": "fn area(&self) -> f64;", "name": "area"}],
+      [0, {"def.method": "fn fmt(&self) {}", "flag.protocol": "fn fmt(&self) {}", "recv": "<Foo", "name": "fmt"}],
+      [1, {"def.method": "fn fmt(&self) {}", "recv": "<Foo", "name": "fmt"}],
+      [0, {"def.method": "fn area(&self) -> f64 { 1.0 }", "flag.protocol": "fn area(&self) -> f64 { 1.0 }", "recv": "<f64", "name": "area"}],
+      [1, {"def.method": "fn area(&self) -> f64 { 1.0 }", "recv": "<f64", "name": "area"}],
+      [0, {"def.method": "fn area(&self) -> f64 { 2.0 }", "flag.protocol": "fn area(&self) -> f64 { 2.0 }", "recv": "<&Foo", "name": "area"}],
+      [1, {"def.method": "fn area(&self) -> f64 { 2.0 }", "recv": "<&Foo", "name": "area"}],
+      [6, {"def.class": "struct Py;", "name": "Py"}],
+      [1, {"def.method": "fn exposed(&self) {}", "recv": "<Py", "name": "exposed"}]
+    ],
+    "refs": [
+      [15, {"import": "use crate::Foo;"}],
+      [8, {"ref.impl": "impl std::fmt::Display for Foo {…\n}", "name": "std::fmt::Display", "scope": "Foo"}],
+      [8, {"ref.impl": "impl Shape for f64 {…\n}", "name": "Shape", "scope": "f64"}],
+      [8, {"ref.impl": "impl Shape for &Foo {…\n}", "name": "Shape", "scope": "&Foo"}],
+      [13, {"ref.ref": "Foo#1", "name": "Foo"}]
+    ],
+    "roots": [
+      [2, {"root.attr": "#[pymethods]", "attr": "pymethods"}],
+      [3, {"root.span": "impl std::fmt::Display for Foo {…\n}"}],
+      [3, {"root.span": "impl Shape for f64 {…\n}"}],
+      [3, {"root.span": "impl Shape for &Foo {…\n}"}],
+      [3, {"root.span": "impl Py {…\n}"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn fmt(&self) {}", "name": "fmt", "body": "{}"}],
+      [0, {"stub.def": "fn exposed(&self) {}", "name": "exposed", "body": "{}"}]
+    ]
+  }
+}

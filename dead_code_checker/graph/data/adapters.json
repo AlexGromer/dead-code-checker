@@ -1,0 +1,778 @@
+{
+ "schema": 1,
+ "note": "Output parsers of the dead-code engines: DATA read by graph/adapters.py. Every format has a recording of the real engine in tests/fixtures/engines/<tool>/<version>/ and a contract test; a field no recording shows is not mapped (knip: files and exports only). Claims for rule ids that no recording shows come from the engine documentation (unverified). A field path: name | name[] | name[key] (items whose key is truthy) | [] ; '.' joins steps, '' is the document, '=text' a constant, 'a|b' the first non-empty, a leading '^' reads the outer row (rows/each); xml: @attr, child/@attr, child, '.'. A json format states the shape it expects (top: list|object, need: keys of an object, fail: a list that must be empty, e.g. tflint errors[]) and an xml format its root element, a text format the line of an engine error (fail_re, e.g. tsc error TS5058 without a file): output of another shape is an AdapterError, never an empty list. ok_rc: the exit codes of a healthy run (0 and the findings code, as the recordings show; tsc 2 is from the tsc documentation, unverified); an engine without ok_rc has an exit code that counts something or that no recording pins down, so it is not checked. claims: [rule regex, claim kind | {message regex: claim kind}]; claim_nodes: the graph node kinds a claim may be about; no_dispute: claims that are evidence only.",
+ "claim_nodes": {
+  "func": [
+   "func",
+   "method"
+  ],
+  "method": [
+   "method",
+   "func"
+  ],
+  "class": [
+   "class",
+   "iface"
+  ],
+  "var": [
+   "var",
+   "const"
+  ],
+  "const": [
+   "const",
+   "var"
+  ],
+  "member": [
+   "func",
+   "method",
+   "var",
+   "const",
+   "class"
+  ],
+  "file": [
+   "file",
+   "module"
+  ],
+  "cfgkey": [
+   "cfgkey"
+  ],
+  "tfvar": [
+   "tfvar",
+   "var"
+  ],
+  "resource": [
+   "resource"
+  ],
+  "export": [
+   "func",
+   "method",
+   "class",
+   "iface",
+   "var",
+   "const"
+  ]
+ },
+ "no_dispute": [
+  "export"
+ ],
+ "alive_claims": [],
+ "templates": {
+  "sarif": {
+   "kind": "json",
+   "top": "object",
+   "need": [
+    "runs"
+   ],
+   "rows": "runs[].results[]",
+   "file": "locations[].physicalLocation.artifactLocation.uri",
+   "line": "locations[].physicalLocation.region.startLine",
+   "col": "locations[].physicalLocation.region.startColumn",
+   "rule": "ruleId",
+   "msg": "message.text"
+  }
+ },
+ "tools": {
+  "ruff": {
+   "ok_rc": [
+    0,
+    1
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "list",
+     "rows": "[]",
+     "file": "filename",
+     "line": "location.row",
+     "col": "location.column",
+     "rule": "code",
+     "msg": "message"
+    }
+   },
+   "name_re": "`(?P<name>[^`]+)`",
+   "claims": [
+    [
+     "F401",
+     "import"
+    ],
+    [
+     "F841",
+     "local"
+    ]
+   ]
+  },
+  "vulture": {
+   "ok_rc": [
+    0,
+    3
+   ],
+   "default": "text",
+   "formats": {
+    "text": {
+     "kind": "text",
+     "re": "^(?P<file>.+?):(?P<line>\\d+): (?P<msg>unused (?P<what>[a-z]+(?: [a-z]+)*) '(?P<name>[^']+)' \\((?P<conf>\\d+)% confidence\\))$",
+     "rule_fmt": "unused-{what}"
+    }
+   },
+   "claims": [
+    [
+     "unused-function",
+     "func"
+    ],
+    [
+     "unused-method",
+     "method"
+    ],
+    [
+     "unused-property",
+     "method"
+    ],
+    [
+     "unused-class",
+     "class"
+    ],
+    [
+     "unused-variable",
+     "var"
+    ],
+    [
+     "unused-attribute",
+     "var"
+    ],
+    [
+     "unused-import",
+     "import"
+    ]
+   ]
+  },
+  "shellcheck": {
+   "ok_rc": [
+    0,
+    1
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "list",
+     "rows": "[]",
+     "file": "file",
+     "line": "line",
+     "col": "column",
+     "rule": "code",
+     "rule_fmt": "SC{v}",
+     "msg": "message"
+    },
+    "json1": {
+     "kind": "json",
+     "top": "object",
+     "need": [
+      "comments"
+     ],
+     "rows": "comments[]",
+     "file": "file",
+     "line": "line",
+     "col": "column",
+     "rule": "code",
+     "rule_fmt": "SC{v}",
+     "msg": "message"
+    }
+   },
+   "name_re": "^(?P<name>\\w+) appears unused",
+   "claims": [
+    [
+     "SC2034",
+     "var"
+    ]
+   ]
+  },
+  "rustc": {
+   "ok_rc": [
+    0
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "lines": true,
+     "top": "object",
+     "need": [
+      "message",
+      "spans"
+     ],
+     "rows": "",
+     "file": "spans[is_primary].file_name",
+     "line": "spans[is_primary].line_start",
+     "col": "spans[is_primary].column_start",
+     "rule": "code.code",
+     "msg": "message"
+    }
+   },
+   "name_re": "`(?P<name>[^`]+)`",
+   "claims": [
+    [
+     "dead_code",
+     {
+      "^(associated )?function": "func",
+      "^method": "method",
+      "^(struct|enum|trait|union|type alias)": "class",
+      "^(constant|static)": "const",
+      "": "var"
+     }
+    ],
+    [
+     "unused_imports",
+     "import"
+    ],
+    [
+     "unused_variables",
+     "local"
+    ]
+   ]
+  },
+  "cargo": {
+   "ok_rc": [
+    0
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "lines": true,
+     "top": "object",
+     "need": [
+      "reason"
+     ],
+     "rows": "message",
+     "file": "spans[is_primary].file_name",
+     "line": "spans[is_primary].line_start",
+     "col": "spans[is_primary].column_start",
+     "rule": "code.code",
+     "msg": "message"
+    }
+   },
+   "name_re": "`(?P<name>[^`]+)`",
+   "claims": [
+    [
+     "dead_code",
+     {
+      "^(associated )?function": "func",
+      "^method": "method",
+      "^(struct|enum|trait|union|type alias)": "class",
+      "^(constant|static)": "const",
+      "": "var"
+     }
+    ],
+    [
+     "unused_imports",
+     "import"
+    ],
+    [
+     "unused_variables",
+     "local"
+    ]
+   ]
+  },
+  "staticcheck": {
+   "ok_rc": [
+    0,
+    1
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "lines": true,
+     "top": "object",
+     "need": [
+      "code",
+      "location"
+     ],
+     "rows": "",
+     "file": "location.file",
+     "line": "location.line",
+     "col": "location.column",
+     "rule": "code",
+     "msg": "message"
+    }
+   },
+   "name_re": "^\\w+ (?P<name>\\S+) is unused",
+   "claims": [
+    [
+     "U1000",
+     {
+      "^func ": "func",
+      "^method ": "method",
+      "^type ": "class",
+      "^const ": "const",
+      "": "var"
+     }
+    ]
+   ]
+  },
+  "go-deadcode": {
+   "ok_rc": [
+    0
+   ],
+   "default": "json",
+   "reach": [
+    "go"
+   ],
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "list",
+     "rows": "[]",
+     "each": "Funcs[]",
+     "skip": "Generated",
+     "file": "Position.File",
+     "line": "Position.Line",
+     "col": "Position.Col",
+     "rule": "=unreachable",
+     "name": "Name",
+     "msg_fmt": "unreachable function {name} (not reachable from main)"
+    }
+   },
+   "claims": [
+    [
+     "unreachable",
+     "func"
+    ]
+   ]
+  },
+  "knip": {
+   "ok_rc": [
+    0,
+    1
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "object",
+     "need": [
+      "issues"
+     ],
+     "rows": "issues[]",
+     "groups": [
+      "files",
+      "exports"
+     ],
+     "file": "file",
+     "line": "line",
+     "col": "col",
+     "name": "name",
+     "msg_fmt": "unused {rule} {name}"
+    }
+   },
+   "claims": [
+    [
+     "files",
+     "file"
+    ],
+    [
+     "exports",
+     "export"
+    ]
+   ]
+  },
+  "tsc": {
+   "ok_rc": [
+    0,
+    1,
+    2
+   ],
+   "default": "text",
+   "formats": {
+    "text": {
+     "kind": "text",
+     "re": "^(?P<file>.+?)\\((?P<line>\\d+),(?P<col>\\d+)\\): (?:error|warning) (?P<rule>TS\\d+): (?P<msg>.*)$",
+     "fail_re": "^error TS\\d+: "
+    }
+   },
+   "name_re": "'(?P<name>[^']+)'",
+   "claims": [
+    [
+     "TS6133",
+     "local"
+    ],
+    [
+     "TS6196",
+     "class"
+    ],
+    [
+     "TS6192",
+     "import"
+    ],
+    [
+     "TS6198",
+     "local"
+    ],
+    [
+     "TS6199",
+     "local"
+    ],
+    [
+     "TS6205",
+     "local"
+    ]
+   ]
+  },
+  "pmd": {
+   "ok_rc": [
+    0,
+    4
+   ],
+   "default": "xml",
+   "formats": {
+    "xml": {
+     "kind": "xml",
+     "root": [
+      "pmd"
+     ],
+     "rows": "file",
+     "each": "violation",
+     "file": "^@name",
+     "line": "@beginline",
+     "col": "@begincolumn",
+     "rule": "@rule",
+     "msg": ".",
+     "name": "@variable|@method"
+    },
+    "json": {
+     "kind": "json",
+     "top": "object",
+     "need": [
+      "files"
+     ],
+     "rows": "files[]",
+     "each": "violations[]",
+     "file": "^filename",
+     "line": "beginline",
+     "col": "begincolumn",
+     "rule": "rule",
+     "msg": "description",
+     "name_re": "'(?P<name>[^']+?)(?:\\(\\))?'"
+    }
+   },
+   "claims": [
+    [
+     "UnusedPrivateField",
+     "var"
+    ],
+    [
+     "UnusedPrivateMethod",
+     "method"
+    ],
+    [
+     "UnusedLocalVariable",
+     "local"
+    ],
+    [
+     "UnusedAssignment",
+     "local"
+    ],
+    [
+     "UnusedFormalParameter",
+     "param"
+    ]
+   ]
+  },
+  "checkstyle": {
+   "engine": null,
+   "default": "xml",
+   "formats": {
+    "xml": {
+     "kind": "xml",
+     "root": [
+      "checkstyle"
+     ],
+     "rows": "file",
+     "each": "error",
+     "file": "^@name",
+     "line": "@line",
+     "col": "@column",
+     "rule": "@source",
+     "rule_tail": true,
+     "msg": "@message"
+    }
+   },
+   "name_re": "Unused import - (?P<name>.+?)\\.?$",
+   "claims": [
+    [
+     "UnusedImportsCheck",
+     "import"
+    ]
+   ]
+  },
+  "detekt": {
+   "default": "xml",
+   "formats": {
+    "xml": {
+     "kind": "xml",
+     "root": [
+      "checkstyle"
+     ],
+     "rows": "file",
+     "each": "error",
+     "file": "^@name",
+     "line": "@line",
+     "col": "@column",
+     "rule": "@source",
+     "rule_tail": true,
+     "msg": "@message"
+    },
+    "sarif": {
+     "use": "sarif",
+     "rule_tail": true
+    }
+   },
+   "name_re": "(?:function|property|class|member|import|parameter) [`']?(?P<name>[\\w.]+)[`']?",
+   "claims": [
+    [
+     "UnusedPrivateMember",
+     "func"
+    ],
+    [
+     "UnusedPrivateProperty",
+     "var"
+    ],
+    [
+     "UnusedPrivateClass",
+     "class"
+    ],
+    [
+     "UnusedImports",
+     "import"
+    ],
+    [
+     "UnusedParameter",
+     "param"
+    ]
+   ]
+  },
+  "tflint": {
+   "ok_rc": [
+    0,
+    2
+   ],
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "object",
+     "need": [
+      "issues"
+     ],
+     "fail": "errors[]",
+     "rows": "issues[]",
+     "file": "range.filename",
+     "line": "range.start.line",
+     "col": "range.start.column",
+     "rule": "rule.name",
+     "msg": "message"
+    }
+   },
+   "name_re": "(?:variable \"|local\\.|data\\.|module\\.|provider \")(?P<name>[\\w.-]+)",
+   "claims": [
+    [
+     "terraform_unused_declarations",
+     {
+      "^variable": "tfvar",
+      "^(data|module|provider)": "resource",
+      "": "var"
+     }
+    ],
+    [
+     "terraform_unused_required_providers",
+     "dep"
+    ]
+   ]
+  },
+  "deadvalues": {
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "object",
+     "need": [
+      "keys"
+     ],
+     "rows": "keys[]",
+     "file": "origins[].file",
+     "line": "origins[].line",
+     "rule": "status",
+     "name": "key",
+     "msg": "detail"
+    },
+    "sarif": {
+     "use": "sarif",
+     "name_re": "^\\S+: (?P<name>\\S+) "
+    }
+   },
+   "claims": [
+    [
+     "dead",
+     "cfgkey"
+    ]
+   ]
+  },
+  "cppcheck": {
+   "default": "xml",
+   "formats": {
+    "xml": {
+     "kind": "xml",
+     "root": [
+      "results"
+     ],
+     "rows": "errors/error",
+     "file": "location/@file",
+     "line": "location/@line",
+     "col": "location/@column",
+     "rule": "@id",
+     "msg": "@msg",
+     "name": "symbol"
+    }
+   },
+   "claims": [
+    [
+     "unusedFunction",
+     "func"
+    ],
+    [
+     "unusedPrivateFunction",
+     "method"
+    ],
+    [
+     "unusedVariable",
+     "var"
+    ],
+    [
+     "unusedStructMember",
+     "var"
+    ],
+    [
+     "unreadVariable",
+     "local"
+    ]
+   ]
+  },
+  "clang-tidy": {
+   "ok_rc": [
+    0
+   ],
+   "default": "text",
+   "formats": {
+    "text": {
+     "kind": "text",
+     "re": "^(?P<file>.+?):(?P<line>\\d+):(?P<col>\\d+): (?:warning|error): (?P<msg>.*) \\[(?P<rule>[\\w.,-]+)\\]$"
+    }
+   },
+   "name_re": "'(?P<name>[^']+)'",
+   "claims": [
+    [
+     "misc-unused-parameters",
+     "param"
+    ],
+    [
+     "misc-unused-using-decls",
+     "import"
+    ],
+    [
+     "clang-diagnostic-unused-function",
+     "func"
+    ],
+    [
+     "clang-diagnostic-unused-private-field",
+     "var"
+    ],
+    [
+     "clang-diagnostic-unused-const-variable",
+     "const"
+    ],
+    [
+     "clang-diagnostic-unused-(but-set-)?variable",
+     "local"
+    ]
+   ]
+  },
+  "PSScriptAnalyzer": {
+   "default": "json",
+   "formats": {
+    "json": {
+     "kind": "json",
+     "top": "list|object",
+     "need": [
+      "RuleName"
+     ],
+     "rows": "[]",
+     "file": "ScriptPath",
+     "line": "Line",
+     "col": "Column",
+     "rule": "RuleName",
+     "msg": "Message"
+    }
+   },
+   "name_re": "(?:variable|parameter) '(?P<name>[^']+)'",
+   "claims": [
+    [
+     "PSUseDeclaredVarsMoreThanAssignments",
+     "local"
+    ],
+    [
+     "PSReviewUnusedParameter",
+     "param"
+    ]
+   ]
+  },
+  "roslyn": {
+   "engine": "dotnet",
+   "default": "sarif",
+   "formats": {
+    "sarif": {
+     "use": "sarif"
+    },
+    "msbuild": {
+     "kind": "text",
+     "re": "^(?P<file>.+?)\\((?P<line>\\d+),(?P<col>\\d+)\\): (?:warning|error) (?P<rule>[A-Za-z]+\\d+): (?P<msg>.*?)(?: \\(https?://[^)]*\\))? \\[[^\\]]+\\]$"
+    }
+   },
+   "name_re": "'(?P<name>[^']+)'",
+   "claims": [
+    [
+     "CS0219",
+     "local"
+    ],
+    [
+     "CS0168",
+     "local"
+    ],
+    [
+     "CS0169",
+     "var"
+    ],
+    [
+     "CS0414",
+     "var"
+    ],
+    [
+     "CS8019",
+     "import"
+    ],
+    [
+     "IDE0005",
+     "import"
+    ],
+    [
+     "IDE0051",
+     "member"
+    ],
+    [
+     "IDE0052",
+     "var"
+    ]
+   ]
+  }
+ }
+}

@@ -1,0 +1,12 @@
+class UsersController < ApplicationController
+  before_action :authenticate
+
+  def index
+    @users = User.recent
+    render json: @users
+  end
+
+  def authenticate
+    Auth.check(request)
+  end
+end

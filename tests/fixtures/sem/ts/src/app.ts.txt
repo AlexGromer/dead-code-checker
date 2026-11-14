@@ -1,0 +1,9 @@
+import { Alpha, helper } from "./shapes";
+
+function use(a: Alpha): number {
+  return a.ping() + helper();
+}
+
+export function main(): number {
+  return use(new Alpha());
+}

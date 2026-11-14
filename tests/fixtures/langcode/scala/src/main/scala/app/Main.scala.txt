@@ -1,0 +1,7 @@
+package app
+
+object Main extends App {
+  val svc = new Service(Repo)
+  svc.handle("x")
+  println(Util.fmt(1))
+}

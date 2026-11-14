@@ -1,0 +1,40 @@
+{
+ "files": [
+  "a.ts",
+  "m.ts"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "tsc",
+    "--noEmit",
+    "--noUnusedLocals",
+    "--noUnusedParameters",
+    "--pretty",
+    "false",
+    "a.ts",
+    "m.ts"
+   ],
+   "out": "out.txt",
+   "rc": 1,
+   "stream": "stdout"
+  },
+  {
+   "argv": [
+    "tsc",
+    "--noEmit",
+    "--pretty",
+    "false",
+    "-p",
+    "nodir"
+   ],
+   "out": "out_error.txt",
+   "rc": 1,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "tsc",
+ "trimmed": "sarif: runs[].tool.driver.rules",
+ "version": "7.0.2"
+}

@@ -1,0 +1,28 @@
+{
+ "_doc": "Groovy (loose grammar) closed world: the Jenkinsfile is an entry (entry_re), vars/*.groovy of a shared library are rooted (path_roots: pipelines of other repositories call them), a method is a command with a signature block, a class is a command whose keyword word is class (def_kw); every word is a weak use, so only a name no word mentions is dead.",
+ "roots": [
+  [
+   "annotation:jenkins-library",
+   "vars/notify.groovy#call"
+  ]
+ ],
+ "closed_world": {
+  "Jenkinsfile#deployApp": "alive",
+  "Jenkinsfile#staleHelper": "dead",
+  "lib/Tools.groovy#Greeter": "weak-alive",
+  "lib/Tools.groovy#Impl": "weak-alive",
+  "lib/Tools.groovy#Impl.greet": "weak-alive",
+  "lib/Tools.groovy#Tools": "weak-alive",
+  "lib/Tools.groovy#Tools.describe": "dead",
+  "lib/Tools.groovy#Tools.helper": "weak-alive",
+  "lib/Tools.groovy#Tools.hidden": "dead",
+  "lib/Tools.groovy#Tools.run": "weak-alive",
+  "vars/notify.groovy#call": "alive",
+  "vars/notify.groovy#unusedInSteps": "alive"
+ },
+ "files": {
+  "Jenkinsfile": "alive",
+  "lib/Tools.groovy": "weak-alive",
+  "vars/notify.groovy": "alive"
+ }
+}

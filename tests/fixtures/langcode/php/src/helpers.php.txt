@@ -1,0 +1,3 @@
+<?php
+function log_line($m) { echo $m; }
+function unused_helper() {}

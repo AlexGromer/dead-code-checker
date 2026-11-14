@@ -1,0 +1,25 @@
+package main
+
+import (
+	"example.com/app/config"
+	"example.com/app/user"
+)
+
+func run(config *config.Config) {
+	config.Validate()
+}
+
+func save() {
+	user := user.New()
+	user.Save()
+}
+
+func plain() {
+	config.Load()
+}
+
+func main() {
+	run(nil)
+	save()
+	plain()
+}

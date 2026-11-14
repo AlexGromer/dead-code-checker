@@ -1,0 +1,314 @@
+{
+ "app/BUILD.bazel": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "load(\"//tools:defs.bzl\", \"my_macro\", renamed = \"other\")",
+     "name": "load"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.include": "load(\"//tools:defs.bzl\", \"my_macro\", renamed = \"other\")",
+     "cmd": "load",
+     "name": "//tools:defs.bzl"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "load(\"//tools:defs.bzl\", \"my_macro\", renamed = \"other\")",
+     "cmd": "load",
+     "name": "//tools:defs.bzl"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "load(\"//tools:defs.bzl\", \"my_macro\", renamed = \"other\")",
+     "cmd": "load",
+     "name": "my_macro"
+    }
+   ],
+   [
+    10,
+    {
+     "ref.ref": "load(\"//tools:defs.bzl\", \"my_macro\", renamed = \"other\")",
+     "cmd": "load",
+     "name": "other"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "load(\"@rules_cc//cc:defs.bzl\", \"cc_library\")",
+     "name": "load"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.include": "load(\"@rules_cc//cc:defs.bzl\", \"cc_library\")",
+     "cmd": "load",
+     "name": "@rules_cc//cc:defs.bzl"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "load(\"@rules_cc//cc:defs.bzl\", \"cc_library\")",
+     "cmd": "load",
+     "name": "@rules_cc//cc:defs.bzl"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "load(\"@rules_cc//cc:defs.bzl\", \"cc_library\")",
+     "cmd": "load",
+     "name": "cc_library"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "load(\":local.bzl\", \"local_rule\")",
+     "name": "load"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.include": "load(\":local.bzl\", \"local_rule\")",
+     "cmd": "load",
+     "name": ":local.bzl"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "load(\":local.bzl\", \"local_rule\")",
+     "cmd": "load",
+     "name": ":local.bzl"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "load(\":local.bzl\", \"local_rule\")",
+     "cmd": "load",
+     "name": "local_rule"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "cc_library(name = \"lib\", srcs = [\"a.cc\"], deps = [\":other\"])",
+     "name": "cc_library"
+    }
+   ],
+   [
+    10,
+    {
+     "ref.ref": "cc_library(name = \"lib\", srcs = [\"a.cc\"], deps = [\":other\"])",
+     "cmd": "cc_library",
+     "name": "lib#1"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "my_macro(name = \"m\")",
+     "name": "my_macro"
+    }
+   ],
+   [
+    10,
+    {
+     "ref.ref": "my_macro(name = \"m\")",
+     "cmd": "my_macro",
+     "name": "m#3"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "renamed(name = \"o\")",
+     "name": "renamed"
+    }
+   ],
+   [
+    10,
+    {
+     "ref.ref": "renamed(name = \"o\")",
+     "cmd": "renamed",
+     "name": "o"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "local_rule(name = \"l\")",
+     "name": "local_rule"
+    }
+   ],
+   [
+    10,
+    {
+     "ref.ref": "local_rule(name = \"l\")",
+     "cmd": "local_rule",
+     "name": "l#3"
+    }
+   ]
+  ]
+ },
+ "app/local.bzl": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "def _impl(ctx):\n    return [DefaultInfo()]",
+     "name": "_impl"
+    }
+   ],
+   [
+    1,
+    {
+     "def.var": "local_rule = rule(implementation = _impl, attrs = {\"a\": attr.string()})",
+     "name": "local_rule"
+    }
+   ],
+   [
+    1,
+    {
+     "def.var": "unused_rule = rule(implementation = _other_impl)",
+     "name": "unused_rule"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "def _other_impl(ctx):\n    pass",
+     "name": "_other_impl"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "DefaultInfo()",
+     "name": "DefaultInfo"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "rule(implementation = _impl, attrs = {\"a\": attr.string()})",
+     "name": "rule"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.ref": "implementation = _impl",
+     "name": "_impl"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "attr.string()",
+     "member": "string",
+     "name": "string"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "rule(implementation = _other_impl)",
+     "name": "rule"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.ref": "implementation = _other_impl",
+     "name": "_other_impl"
+    }
+   ]
+  ]
+ },
+ "tools/defs.bzl": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "def my_macro(name, **kwargs):\n…rgs)\n    _private_helper(name)",
+     "name": "my_macro"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "def other(name):\n    pass",
+     "name": "other"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "def _private_helper(n):\n    pass",
+     "name": "_private_helper"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "def never_loaded():\n    pass",
+     "name": "never_loaded"
+    }
+   ],
+   [
+    1,
+    {
+     "def.var": "_UNUSED = 1",
+     "name": "_UNUSED"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    1,
+    {
+     "ref.call": "native.cc_library(name = name, **kwargs)",
+     "member": "cc_library",
+     "name": "cc_library"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.ref": "name = name",
+     "name": "name#1"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "_private_helper(name)",
+     "name": "_private_helper"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.ref": "(name)",
+     "name": "name"
+    }
+   ]
+  ]
+ }
+}

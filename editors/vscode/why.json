@@ -1,0 +1,13 @@
+{
+  "unreferenced-symbol": "Nothing else in the repository mentions this name. Remove it, or use it; `deadcode: ignore` on the line marks a dynamic use.",
+  "unreferenced-public-symbol": "An exported symbol nothing in the tree references; it may be API for other projects. See --public-api.",
+  "test-only-symbol": "Only tests use this symbol; production code never calls it.",
+  "unreferenced-file": "No import, registry, document, test or unit file mentions this file.",
+  "stub-function": "The body does nothing (pass, ..., return None, NotImplementedError).",
+  "todo-stub": "The body is only a TODO.",
+  "stub-hook": "A registered hook ignores its input and prints a constant.",
+  "config-key-unread": "No code reads this config key.",
+  "env-unread": "No code reads this environment variable.",
+  "cli-flag-unused": "The flag is defined and never read.",
+  "bad-config": "Fix .dead-code-checker.toml: an unknown key or a bad value."
+}

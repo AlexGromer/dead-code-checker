@@ -1,0 +1,36 @@
+#[cfg(unix)]
+fn platform() -> u8 { 1 }
+
+#[cfg(not(unix))]
+fn platform() -> u8 { 2 }
+
+#[unsafe(no_mangle)]
+pub extern "C" fn ffi_2024() {}
+
+#[cfg_attr(feature = "python", pyclass)]
+struct PyThing;
+
+#[cfg_attr(feature = "ffi", unsafe(no_mangle))]
+extern "C" fn conditional_export() {}
+
+#[cfg_attr(test, test)]
+fn gated_test() {}
+
+#[used]
+static KEEP: u8 = 1;
+
+#[global_allocator]
+static ALLOC: Alloc = Alloc;
+
+struct Alloc;
+
+const _: () = ();
+
+#[derive(Debug)]
+struct Plain;
+
+fn unused_helper() {}
+
+fn main() {
+    platform();
+}

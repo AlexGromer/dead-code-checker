@@ -1,0 +1,29 @@
+class Shape
+  def base_area
+    1
+  end
+
+  def never_called; end
+end
+
+module Printable
+  def print_it; end
+
+  def uses_host
+    host_hook
+  end
+end
+
+class Circle < Shape
+  include Printable
+
+  def area(scale)
+    scale + base_area + print_it
+  end
+
+  def label
+    uses_host
+  end
+
+  def host_hook; end
+end

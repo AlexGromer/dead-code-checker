@@ -1,0 +1,19 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: a struct that embeds a type of another package (`pb.UnimplementedGreeterServer`, `*pb.UnimplementedGreeterServer`) has an external base, so its methods (SayHello, Serve) are kept for the interface it satisfies; embedding the project type *Base is an inherit edge to it and keeps nothing else; quiet embeds nothing, its unused method stays dead.",
+ "closed_world": {
+  "main.go#Base": "alive",
+  "main.go#Base.Hello": "dead",
+  "main.go#derived": "alive",
+  "main.go#main": "alive",
+  "main.go#ptrServer": "alive",
+  "main.go#ptrServer.Serve": "weak-alive",
+  "main.go#quiet": "alive",
+  "main.go#quiet.Run": "dead",
+  "main.go#server": "alive",
+  "main.go#server.SayHello": "weak-alive"
+ },
+ "library": {
+  "main.go#Base.Hello": "public-unused",
+  "main.go#quiet.Run": "public-unused"
+ }
+}

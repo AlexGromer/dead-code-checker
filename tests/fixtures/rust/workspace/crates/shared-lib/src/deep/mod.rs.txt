@@ -1,0 +1,5 @@
+use crate::net::ping;
+
+pub fn go() {
+    ping();
+}

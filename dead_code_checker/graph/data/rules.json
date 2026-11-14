@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "_doc": "Per-language rules of graph.extract.ts_generic (code: graph.extract.ts_lang), keyed by the langs.json lang name. vis_name / vis_cap: [regex, vis] lists tried on the def name / on the @vis capture text (first hit wins), vis_default otherwise. roots: top-level functions by name (pkg = regex on the package name the file declares). blank_names: names that bind nothing (`var _ I = (*T)(nil)`, `const _: () = ...`): a def of such a name is not a definition and a use of it is not a use. attrs: [regex on the path of the @attr text (and of the attributes wrapped in it, attr_wrap: wrapper -> number of leading arguments that are no attribute, so `unsafe(no_mangle)` and `cfg_attr(feature = \"py\", pyclass)` root like the plain attribute), kind] roots of the def that follows the attribute. comment_roots: group 1 of the regex is the name of a top-level def (//export, //go:linkname: a symbol another object file or the runtime links to). comment_exec: group 1 are the command words of a directive comment, the ones that look like paths become exec refs. strip_groups: [prefix, closing character] pairs, each balanced group that starts with the prefix is removed from a ref name before name_sub (the last character of the prefix opens the group: rust `::<` drops the turbofish `::<Vec<u8>>` of `Wrapper::<Vec<u8>>::new`, which no regex can balance). name_sub: [regex, replacement] applied to ref names in order (rust: a string literal inside an attribute, the quoted function name of a serde default or deserialize_with, is a weak use of that name; a qualified path `<T as Trait>::f` or `<T>::f` names no path, it is a member f of some type: `_.f`). dyn_prefix: prepended to the text of a @dyn site. recv_sub: [regex, replacement] applied in order to the type of an impl header (the qual of its methods is Type.method; a type with no name becomes _). import: parser of the @import capture (rust-use: use / mod declarations -> Import facts, go-alias: import specs -> package aliases whose x.F calls are written as the bare F; the package name is read from the last path element, `lib/v2` -> lib and v2 (a module major version or a directory `package v2`), `go-foo` -> foo: a package whose name differs from its directory is not known to a one-file extractor; bare_unknown_recv (go): a plain receiver that is no alias and no local of the definition may be such a package (`import '.../internal/store'`, `package storage`, `storage.New()`), so its x.F is recorded as the bare F as well; a local, parameter or range variable of the same name as an alias shadows the package inside its function, the extractor then records both F and x.F, queries @local). mod_path: regex (group 1 = the file) of a path attribute among the attributes that sit right before a `mod x;` declaration, also inside cfg_attr: `#[path = \"sys/unix.rs\"] mod imp;` imports that file relative to the directory of the declaring file and binds it as imp (the plain `mod imp;` imports imp.rs / imp/mod.rs); every path found is an import (`#[cfg_attr(unix, path = \"a.rs\")] #[cfg_attr(not(unix), path = \"b.rs\")]`); a path attribute inside an inline module is read from the directory of the file, the names of the inline modules are not added. item_macros: regex of the macros whose body holds items (`cfg_if::cfg_if! { if #[cfg(unix)] { mod unix; use unix as plat; } else { .. } }`): the body is raw tokens to the grammar, so its `mod x;` and `use ..;` declarations (with the attributes before them) are read from the text of the body and are imports like those outside a macro; the fn, struct and other items in such a body are no definitions (an item that is missing is never reported dead). protocol_names: methods of a type with these names satisfy an interface of the stdlib or a library, grouped in the list by interface (container/heap, net/http, io, sql, encoding, fmt, flag and pflag Value, sync.Locker, go/ast.Visitor, hash.Hash, log/slog.Handler, net.Listener and net.Conn, context.Context, io/fs, crypto.Signer, logrus, prometheus, zap, gorm, k8s and controller-runtime); they are called through the interface and never by name in the project (flag protocol; the linker already knows String, Error, Len, Less, Swap, Read, Write, Close ... for every language). A method is protocol by its name alone: a type that implements an interface the list does not know keeps its methods only through a caller by name. Every rule may carry strength (default hard) and trust (default convention). A def-level root also roots the file of the def (link.py), so an in-file #[test] must not be kind test: the test group seeds every node of the rooted file and would turn all dead code of a file with a tests module into test-only; it is the soft annotation root annotation:rust-test (alive only weakly) instead. Every ts_generic lang needs an entry; {} = none here (c, cpp, csharp keep their rules in queries/<grammar>/rules.json).",
+  "shell": {},
+  "lua": {},
+  "ruby": {},
+  "php": {},
+  "scala": {},
+  "groovy": {},
+  "nix": {},
+  "starlark": {},
+  "html": {},
+  "vue": {},
+  "svelte": {},
+  "c": {},
+  "cpp": {},
+  "csharp": {},
+  "javascript": {},
+  "typescript": {},
+  "tsx": {},
+  "java": {},
+  "kotlin": {},
+  "go": {
+    "blank_names": ["_"],
+    "vis_name": [["^[A-Z]", "exported"]],
+    "vis_default": "package",
+    "roots": [
+      {"name": "^main$", "pkg": "^main$", "kind": "main"},
+      {"name": "^init$", "kind": "init"}
+    ],
+    "protocol_names": [
+      "Push", "Pop",
+      "Header", "WriteHeader", "Flush", "Hijack", "CloseNotify",
+      "RoundTrip", "Cookies", "SetCookies",
+      "Seek", "ReadAt", "WriteAt", "ReadFrom", "WriteTo", "ReadByte", "UnreadByte", "WriteByte", "ReadRune", "UnreadRune", "WriteString",
+      "Scan", "Value",
+      "MarshalText", "UnmarshalText", "MarshalBinary", "UnmarshalBinary", "GobEncode", "GobDecode", "IsZero",
+      "MarshalYAML", "UnmarshalYAML", "MarshalXML", "UnmarshalXML", "MarshalBSON", "UnmarshalBSON", "MarshalTOML", "UnmarshalTOML",
+      "GoString", "Format", "LogValue", "Is", "As", "Timeout", "Temporary",
+      "Set", "Type",
+      "Lock", "Unlock", "RLock", "RUnlock", "TryLock", "RLocker",
+      "Visit",
+      "Reset", "Size", "BlockSize", "Sum", "Sum32", "Sum64", "Int63", "Uint64", "Seed",
+      "Enabled", "Handle", "WithAttrs", "WithGroup", "Level",
+      "Accept", "Addr", "Network", "LocalAddr", "RemoteAddr", "SetDeadline", "SetReadDeadline", "SetWriteDeadline",
+      "Deadline", "Done", "Err",
+      "ModTime", "IsDir", "Sys", "Stat", "ReadDir",
+      "Public", "Sign",
+      "Levels", "Fire", "Describe", "Collect", "MarshalLogObject", "MarshalLogArray", "TableName",
+      "Reconcile", "Default", "ValidateCreate", "ValidateUpdate", "ValidateDelete", "DeepCopyObject", "GetObjectKind"
+    ],
+    "comment_roots": [
+      {"re": "^//export\\s+([A-Za-z_]\\w*)", "kind": "export"},
+      {"re": "^//go:linkname\\s+([A-Za-z_]\\w*)", "kind": "export"}
+    ],
+    "comment_exec": "^//go:generate\\s+(.*)$",
+    "bare_unknown_recv": true,
+    "import": "go-alias"
+  },
+  "rust": {
+    "blank_names": ["_"],
+    "vis_cap": [["^pub\\s*\\(", "package"], ["^pub\\b", "public"]],
+    "vis_default": "private",
+    "roots": [{"name": "^main$", "kind": "main"}],
+    "attr_wrap": {"unsafe": 0, "cfg_attr": 1},
+    "attrs": [
+      {"re": "^((\\w+::)*(test|bench)|rstest|test_case|quickcheck|proptest|wasm_bindgen_test)$", "kind": "annotation:rust-test", "strength": "soft"},
+      {"re": "^(\\w+::)*(main|launch)$", "kind": "main"},
+      {"re": "^(no_mangle|export_name|macro_export|proc_macro|proc_macro_derive|proc_macro_attribute|wasm_bindgen|pyfunction|pymethods|pymodule|pyclass|napi|uniffi::export)$", "kind": "annotation:rust-ffi"},
+      {"re": "^((actix_web|rocket|poem|salvo)::)?(get|post|put|delete|patch|head|options|route|connect|trace|catch|handler)$", "kind": "annotation:rust-route"},
+      {"re": "^(ctor|ctor::ctor|dtor|ctor::dtor|tauri::command|panic_handler|alloc_error_handler|global_allocator|used|link_section|((cortex_m_rt|riscv_rt|esp_hal|rtic)::)?(entry|interrupt|exception))$", "kind": "annotation:rust-hook"}
+    ],
+    "recv_sub": [["<.*$", ""], ["\\s*\\+.*$", ""], ["^(?:&\\s*(?:'\\w+\\s*)?(?:mut\\s+)?|\\*\\s*(?:const|mut)\\s+|dyn\\s+)+", ""], ["^.*::", ""]],
+    "strip_groups": [["::<", ">"]],
+    "name_sub": [["^\"(.*)\"$", "\\1"], ["^<.*>::(\\w+)$", "_.\\1"], ["<.*$", ""], ["^(crate|self|super)::", ""], ["::", "."]],
+    "dyn_prefix": "macro:",
+    "import": "rust-use",
+    "mod_path": "(?<![\\w.])path\\s*=\\s*r?\"([^\"]+)\"",
+    "item_macros": "^(?:\\w+::)*(?:cfg_if|cfg_match)$"
+  }
+}

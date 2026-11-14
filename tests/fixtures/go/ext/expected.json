@@ -1,0 +1,21 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: methods that satisfy a stdlib interface (container/heap Push and Pop, called only through heap.Push), a multi-name var spec, a package imported as .../lib/v2 and used as lib.Open.",
+ "closed_world": {
+  "lib/lib.go#Close": "dead",
+  "lib/lib.go#Open": "weak-alive",
+  "lib/lib.go#internal": "weak-alive",
+  "main.go#IntHeap": "alive",
+  "main.go#IntHeap.Len": "alive",
+  "main.go#IntHeap.Pop": "alive",
+  "main.go#IntHeap.Push": "alive",
+  "main.go#IntHeap.Unused": "dead",
+  "main.go#Left": "alive",
+  "main.go#Right": "dead",
+  "main.go#main": "alive"
+ },
+ "library": {
+  "lib/lib.go#Close": "public-unused",
+  "main.go#IntHeap.Unused": "public-unused",
+  "main.go#Right": "public-unused"
+ }
+}

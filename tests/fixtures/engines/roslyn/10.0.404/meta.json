@@ -1,0 +1,39 @@
+{
+ "files": [
+  ".editorconfig",
+  "Program.cs",
+  "fx.csproj"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "dotnet",
+    "build",
+    "-nologo",
+    "-v:q",
+    "--no-incremental",
+    "-p:ErrorLog=out.sarif%2Cversion=2.1"
+   ],
+   "out": "out.sarif",
+   "rc": 0,
+   "stream": "file:out.sarif"
+  },
+  {
+   "argv": [
+    "dotnet",
+    "build",
+    "-nologo",
+    "-v:q",
+    "--no-incremental",
+    "-clp:NoSummary"
+   ],
+   "out": "out.txt",
+   "rc": 0,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "roslyn",
+ "trimmed": "sarif: runs[].tool.driver.rules",
+ "version": "10.0.404"
+}

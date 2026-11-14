@@ -1,0 +1,16 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: a package imported as .../api/v1 is `package v1` (v1.NewThing()), .../lib/v2 is package lib, an explicit alias, //go:linkname roots its function, `var _ I = (*T)(nil)` is no definition and its type use belongs to the file.",
+ "closed_world": {
+  "api/v1/v1.go#NewThing": "weak-alive",
+  "api/v1/v1.go#Unused": "dead",
+  "helpers/v3/h.go#Help": "weak-alive",
+  "lib/v2/lib.go#Open": "weak-alive",
+  "main.go#Worker": "alive",
+  "main.go#Worker.String": "alive",
+  "main.go#main": "alive",
+  "main.go#runtimeHook": "alive"
+ },
+ "library": {
+  "api/v1/v1.go#Unused": "public-unused"
+ }
+}

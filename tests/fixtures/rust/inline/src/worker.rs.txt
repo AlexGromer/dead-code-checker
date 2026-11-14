@@ -1,0 +1,7 @@
+use crate::shared::common;
+use crate::top_level;
+
+pub fn work() {
+    common();
+    top_level();
+}

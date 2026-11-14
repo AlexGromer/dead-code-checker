@@ -1,0 +1,44 @@
+{
+ "files": [
+  "A.java"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "pmd",
+    "check",
+    "--no-cache",
+    "--no-progress",
+    "-d",
+    "A.java",
+    "-R",
+    "category/java/bestpractices.xml/UnusedPrivateField,category/java/bestpractices.xml/UnusedPrivateMethod,category/java/bestpractices.xml/UnusedLocalVariable,category/java/bestpractices.xml/UnusedFormalParameter",
+    "-f",
+    "xml"
+   ],
+   "out": "out.xml",
+   "rc": 4,
+   "stream": "stdout"
+  },
+  {
+   "argv": [
+    "pmd",
+    "check",
+    "--no-cache",
+    "--no-progress",
+    "-d",
+    "A.java",
+    "-R",
+    "category/java/bestpractices.xml/UnusedPrivateField,category/java/bestpractices.xml/UnusedPrivateMethod,category/java/bestpractices.xml/UnusedLocalVariable,category/java/bestpractices.xml/UnusedFormalParameter",
+    "-f",
+    "json"
+   ],
+   "out": "out.json",
+   "rc": 4,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "pmd",
+ "version": "7.29.0"
+}

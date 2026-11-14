@@ -1,0 +1,52 @@
+{
+  "main.go": {
+    "defs": [
+      [7, {"def.class": "stringList []string", "name": "stringList"}],
+      [1, {"def.method": "func (s *stringList) String() string { return \"\" }", "recv": "stringList", "name": "String"}],
+      [1, {"def.method": "func (s *stringList) Set(v string) error { return nil }", "recv": "stringList", "name": "Set"}],
+      [1, {"def.method": "func (s *stringList) Unused() {}", "recv": "stringList", "name": "Unused"}],
+      [6, {"def.class": "guard struct{}", "name": "guard"}],
+      [1, {"def.method": "func (g *guard) Lock() {}", "recv": "guard", "name": "Lock"}],
+      [1, {"def.method": "func (g *guard) Unlock() {}", "recv": "guard", "name": "Unlock"}],
+      [6, {"def.class": "walker struct{}", "name": "walker"}],
+      [0, {"def.method": "func (w walker) Visit(n int) int { return n }", "recv": "walker", "name": "Visit"}],
+      [0, {"def.method": "func (w walker) Spare() {}", "recv": "walker", "name": "Spare"}],
+      [6, {"def.class": "clock struct{}", "name": "clock"}],
+      [0, {"def.method": "func (c clock) Deadline() int { return 0 }", "recv": "clock", "name": "Deadline"}],
+      [0, {"def.method": "func (c clock) Done() {}", "recv": "clock", "name": "Done"}],
+      [0, {"def.method": "func (c clock) Err() error { return nil }", "recv": "clock", "name": "Err"}],
+      [0, {"def.method": "func (c clock) Reset() {}", "recv": "clock", "name": "Reset"}],
+      [0, {"def.method": "func (c clock) Idle() {}", "recv": "clock", "name": "Idle"}],
+      [4, {"def.func": "func main() {…\n}", "name": "main"}],
+      [4, {"def.func": "func use(args ...any) {}", "name": "use"}]
+    ],
+    "refs": [
+      [6, {"ref.ref": "stringList#4", "name": "stringList"}],
+      [6, {"ref.ref": "guard#3", "name": "guard"}],
+      [6, {"ref.ref": "walker#3", "name": "walker"}],
+      [6, {"ref.ref": "clock#6", "name": "clock"}],
+      [0, {"ref.call": "use(&l, &g, w, c)", "name": "use"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}],
+      [2, {"root.cand": "func use(args ...any) {}", "name": "use"}]
+    ],
+    "stub": [
+      [1, {"stub.def": "func (s *stringList) String() string { return \"\" }", "name": "String", "body": "{ return \"\" }"}],
+      [1, {"stub.def": "func (s *stringList) Set(v string) error { return nil }", "name": "Set", "body": "{ return nil }"}],
+      [1, {"stub.def": "func (s *stringList) Unused() {}", "name": "Unused", "body": "{}"}],
+      [1, {"stub.def": "func (g *guard) Lock() {}", "name": "Lock", "body": "{}"}],
+      [1, {"stub.def": "func (g *guard) Unlock() {}", "name": "Unlock", "body": "{}"}],
+      [1, {"stub.def": "func (w walker) Visit(n int) int { return n }", "name": "Visit", "body": "{ return n }"}],
+      [1, {"stub.def": "func (w walker) Spare() {}", "name": "Spare", "body": "{}"}],
+      [1, {"stub.def": "func (c clock) Deadline() int { return 0 }", "name": "Deadline", "body": "{ return 0 }"}],
+      [1, {"stub.def": "func (c clock) Done() {}", "name": "Done", "body": "{}"}],
+      [1, {"stub.def": "func (c clock) Err() error { return nil }", "name": "Err", "body": "{ return nil }"}],
+      [1, {"stub.def": "func (c clock) Reset() {}", "name": "Reset", "body": "{}"}],
+      [1, {"stub.def": "func (c clock) Idle() {}", "name": "Idle", "body": "{}"}],
+      [0, {"stub.def": "func main() {…\n}", "name": "main", "body": "{…\n}"}],
+      [0, {"stub.def": "func use(args ...any) {}", "name": "use", "body": "{}"}]
+    ]
+  }
+}

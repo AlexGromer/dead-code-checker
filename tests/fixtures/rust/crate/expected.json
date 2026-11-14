@@ -1,0 +1,31 @@
+{
+ "_doc": "verdict of every def (files are not reported) by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources.",
+ "closed_world": {
+  "src/macros.rs#helper_in_macro": "weak-alive",
+  "src/macros.rs#my_macro": "weak-alive",
+  "src/main.rs#dead_a": "dead-cluster",
+  "src/main.rs#dead_b": "dead-cluster",
+  "src/main.rs#dead_fn": "dead",
+  "src/main.rs#main": "alive",
+  "src/shapes.rs#Shape": "alive",
+  "src/shapes.rs#Shape.area": "alive",
+  "src/shapes.rs#Shape.label": "dead",
+  "src/shapes.rs#Square": "alive",
+  "src/shapes.rs#Square.area": "alive",
+  "src/shapes.rs#Square.dead_method": "dead",
+  "src/shapes.rs#Square.new": "alive",
+  "src/shapes.rs#Unused": "dead",
+  "src/shapes.rs#ffi_entry": "alive",
+  "src/shapes.rs#tests": "dead",
+  "src/shapes.rs#tests.assert_helper": "weak-alive",
+  "src/shapes.rs#tests.square_area": "weak-alive",
+  "src/utils.rs#helper": "alive",
+  "src/utils.rs#inner": "alive",
+  "src/utils.rs#lib_unused": "dead"
+ },
+ "library": {
+  "src/shapes.rs#Shape.label": "public-unused",
+  "src/shapes.rs#Unused": "public-unused",
+  "src/utils.rs#lib_unused": "public-unused"
+ }
+}

@@ -1,0 +1,4 @@
+services:
+  web:
+    image: demo
+    command: ["python", "scripts/serve.py"]

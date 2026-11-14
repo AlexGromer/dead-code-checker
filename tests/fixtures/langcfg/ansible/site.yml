@@ -1,0 +1,13 @@
+- hosts: web
+  roles:
+    - common
+    - { role: web }
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - include_tasks: tasks/extra.yml
+    - ansible.builtin.template:
+        src: app.conf.j2
+        dest: /etc/app.conf
+    - copy: src=files/motd dest=/etc/motd
+    - import_playbook: other.yml

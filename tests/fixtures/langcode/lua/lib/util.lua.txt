@@ -1,0 +1,7 @@
+local U = {}
+function U.greet(x) print(x) end
+function U.never_called() end
+function U.on_load() end
+function U.on_save() end
+function U.on_alias() end
+return U

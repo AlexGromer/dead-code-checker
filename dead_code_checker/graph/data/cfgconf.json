@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "_doc": "Rules of graph.extract.cfgconf (HAProxy, keepalived, Grafana Alloy, Redis, LogQL files). A rule never names a file of the project: the paths are what a config file writes. haproxy.directives: `w` = the words that open a statement (matched from its start), `skip` = words between them and the file, `kind` = ref kind (exec = a script or command that runs, include = a file that is read), `in` = only inside that section. haproxy.token_keys: keyword followed by a file anywhere in a line (bind / server options). haproxy.pattern_flag: `-f FILE` of an acl, haproxy.map_call: `map(FILE)`. haproxy.sections: words that start a section. keepalived.exec_keys: statements whose value is a command line; keepalived.include: the include statement. alloy.path_keys: attributes whose string value is a file; alloy.plain_blocks: block types that are no component and no instance of a declare; alloy.import_blocks: import.<source> blocks (file = a file of the tree, the others are remote). redis.directives: `w` the directive, `arg` the index of the file among its arguments (`all` = every argument from there), `kind` as above; redis.dir_join: relative names joined with `dir`.",
+  "haproxy": {
+    "sections": ["global", "defaults", "frontend", "backend", "listen", "resolvers", "userlist", "peers", "program", "http-errors", "cache", "mailers", "ring", "fcgi-app"],
+    "include": [".include"],
+    "directives": [
+      {"w": ["lua-load"], "kind": "exec"},
+      {"w": ["lua-load-per-thread"], "kind": "exec"},
+      {"w": ["external-check", "command"], "kind": "exec"},
+      {"w": ["command"], "kind": "exec", "in": "program"},
+      {"w": ["errorfile"], "skip": 1, "kind": "include"},
+      {"w": ["server-state-file"], "kind": "include"},
+      {"w": ["ssl-dh-param-file"], "kind": "include"}
+    ],
+    "token_keys": ["crt", "crt-list", "ca-file", "ca-verify-file", "crl-file", "ssl-dh-param-file"],
+    "pattern_flag": "-f",
+    "map_call": "\\bmap(?:_[a-z]+)?\\(([^),]+)"
+  },
+  "keepalived": {
+    "include": ["include"],
+    "exec_keys": ["script", "notify", "notify_master", "notify_backup", "notify_fault", "notify_stop", "notify_deleted", "notify_master_rx_lower_pri", "notify_fifo_script", "notify_master_fifo_script", "notify_backup_fifo_script", "notify_fault_fifo_script", "notify_stop_fifo_script", "notify_up", "notify_down", "quorum_up", "quorum_down", "misc_path"],
+    "script_block": "vrrp_script",
+    "track_block": "track_script",
+    "instance_block": "vrrp_instance",
+    "group_block": "vrrp_sync_group",
+    "group_members": "group"
+  },
+  "alloy": {
+    "path_keys": ["filename", "ca_file", "cert_file", "key_file", "bearer_token_file", "password_file", "token_file", "client_ca_file", "ca_pem_file"],
+    "plain_blocks": ["declare", "argument", "export", "import", "logging", "tracing", "http", "remotecfg", "livedebugging"],
+    "import_blocks": {"import.file": "file", "import.git": "remote", "import.http": "remote", "import.string": "inline"},
+    "max_chain": 4
+  },
+  "redis": {
+    "dir_key": "dir",
+    "dir_join": ["dbfilename", "appendfilename", "logfile", "pidfile"],
+    "directives": [
+      {"w": "include", "arg": 0, "kind": "include"},
+      {"w": "loadmodule", "arg": 0, "kind": "include"},
+      {"w": "aclfile", "arg": 0, "kind": "include"},
+      {"w": "dbfilename", "arg": 0, "kind": "include"},
+      {"w": "appendfilename", "arg": 0, "kind": "include"},
+      {"w": "logfile", "arg": 0, "kind": "include"},
+      {"w": "pidfile", "arg": 0, "kind": "include"},
+      {"w": "tls-cert-file", "arg": 0, "kind": "include"},
+      {"w": "tls-key-file", "arg": 0, "kind": "include"},
+      {"w": "tls-ca-cert-file", "arg": 0, "kind": "include"},
+      {"w": "tls-dh-params-file", "arg": 0, "kind": "include"},
+      {"w": "tls-client-cert-file", "arg": 0, "kind": "include"},
+      {"w": "tls-client-key-file", "arg": 0, "kind": "include"},
+      {"w": "sentinel notification-script", "arg": 1, "kind": "exec"},
+      {"w": "sentinel client-reconfig-script", "arg": 1, "kind": "exec"}
+    ]
+  }
+}

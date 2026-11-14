@@ -1,0 +1,8 @@
+load("//tools:defs.bzl", "my_macro", renamed = "other")
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load(":local.bzl", "local_rule")
+
+cc_library(name = "lib", srcs = ["a.cc"], deps = [":other"])
+my_macro(name = "m")
+renamed(name = "o")
+local_rule(name = "l")

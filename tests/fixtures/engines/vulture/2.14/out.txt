@@ -1,0 +1,3 @@
+v.py:5: unused function 'dead_fn' (60% confidence)
+v.py:9: unused class 'DeadClass' (60% confidence)
+v.py:10: unused variable 'attr' (60% confidence)

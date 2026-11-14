@@ -1,0 +1,109 @@
+{
+  "main.go": {
+    "defs": [
+      [4, {"def.func": "func main() {…\n}", "name": "main"}],
+      [4, {"def.func": "func init() {…\n}", "name": "init"}],
+      [4, {"def.func": "func run() {…\n}", "name": "run"}],
+      [4, {"def.func": "func setup() {}", "name": "setup"}],
+      [4, {"def.func": "func unusedTop() {}", "name": "unusedTop"}],
+      [4, {"def.func": "func deadA() { deadB() }", "name": "deadA"}],
+      [4, {"def.func": "func deadB() { deadA() }", "name": "deadB"}]
+    ],
+    "refs": [
+      [7, {"ref.exec": "//go:generate go run tools/gen.go", "name": "//go:generate go run tools/gen.go"}],
+      [8, {"import": "\"fmt\""}],
+      [8, {"import": "\"example.com/app/util\""}],
+      [0, {"ref.call": "run()", "name": "run"}],
+      [1, {"ref.call": "util.Helper()", "obj": "util", "name": "Helper"}],
+      [0, {"ref.call": "setup()", "name": "setup"}],
+      [6, {"ref.ref": "Shape", "name": "Shape"}],
+      [6, {"ref.ref": "Circle", "name": "Circle"}],
+      [16, {"local": "s#2"}],
+      [1, {"ref.call": "fmt.Println(s.Area())", "obj": "fmt", "name": "Println"}],
+      [1, {"ref.call": "s.Area()", "obj": "s", "name": "Area"}],
+      [5, {"ref.ref": "s.Area", "obj": "s", "name": "Area"}],
+      [0, {"ref.call": "deadB()", "name": "deadB"}],
+      [0, {"ref.call": "deadA()#1", "name": "deadA"}]
+    ],
+    "roots": [
+      [0, {"root.marker": "//go:generate go run tools/gen.go"}],
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}],
+      [2, {"root.cand": "func init() {…\n}", "name": "init"}],
+      [2, {"root.cand": "func run() {…\n}", "name": "run"}],
+      [2, {"root.cand": "func setup() {}", "name": "setup"}],
+      [2, {"root.cand": "func unusedTop() {}", "name": "unusedTop"}],
+      [2, {"root.cand": "func deadA() { deadB() }", "name": "deadA"}],
+      [2, {"root.cand": "func deadB() { deadA() }", "name": "deadB"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "func setup() {}", "name": "setup", "body": "{}"}],
+      [0, {"stub.def": "func unusedTop() {}", "name": "unusedTop", "body": "{}"}],
+      [0, {"stub.def": "func deadA() { deadB() }", "name": "deadA", "body": "{ deadB() }"}]
+    ]
+  },
+  "shapes.go": {
+    "defs": [
+      [5, {"def.iface": "Shape interface {…\n}", "name": "Shape"}],
+      [7, {"def.class": "Shape interface {…\n}", "name": "Shape"}],
+      [8, {"def.func": "Area() float64", "name": "Area"}],
+      [6, {"def.class": "Circle struct{ R float64 }", "name": "Circle"}],
+      [7, {"def.class": "Circle struct{ R float64 }", "name": "Circle"}],
+      [1, {"def.method": "func (c *Circle) Area() float64 { return c.R }", "recv": "Circle", "name": "Area"}],
+      [0, {"def.method": "func (c Circle) Perimeter() float64 { return 2 * c.R }", "recv": "Circle", "name": "Perimeter"}],
+      [6, {"def.class": "Named struct {…\n}", "name": "Named"}],
+      [6, {"def.class": "Orphan struct{}", "name": "Orphan"}]
+    ],
+    "refs": [
+      [3, {"ref.inherit": "Circle#3", "name": "Circle"}],
+      [6, {"ref.ref": "Circle", "name": "Circle"}],
+      [6, {"ref.ref": "Circle#1", "name": "Circle"}],
+      [6, {"ref.ref": "Circle#3", "name": "Circle"}],
+      [13, {"local": "c#4"}],
+      [5, {"ref.ref": "c.R", "obj": "c", "name": "R"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}]
+    ],
+    "stub": [
+    ]
+  },
+  "util/util.go": {
+    "defs": [
+      [4, {"def.func": "func Helper() { internal() }", "name": "Helper"}],
+      [4, {"def.func": "func internal() {}", "name": "internal"}],
+      [4, {"def.func": "func Unused() {}", "name": "Unused"}]
+    ],
+    "refs": [
+      [0, {"ref.call": "internal()", "name": "internal"}]
+    ],
+    "roots": [
+      [1, {"pkg": "util"}],
+      [2, {"root.cand": "func Helper() { internal() }", "name": "Helper"}],
+      [2, {"root.cand": "func internal() {}", "name": "internal"}],
+      [2, {"root.cand": "func Unused() {}", "name": "Unused"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "func internal() {}", "name": "internal", "body": "{}"}],
+      [0, {"stub.def": "func Unused() {}", "name": "Unused", "body": "{}"}]
+    ]
+  },
+  "main_test.go": {
+    "defs": [
+      [4, {"def.func": "func TestRun(t *testing.T) {…\n}", "name": "TestRun"}],
+      [4, {"def.func": "func onlyForTest() {}", "name": "onlyForTest"}]
+    ],
+    "refs": [
+      [8, {"import": "\"testing\""}],
+      [0, {"ref.call": "onlyForTest()", "name": "onlyForTest"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func TestRun(t *testing.T) {…\n}", "name": "TestRun"}],
+      [2, {"root.cand": "func onlyForTest() {}", "name": "onlyForTest"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "func onlyForTest() {}", "name": "onlyForTest", "body": "{}"}]
+    ]
+  }
+}

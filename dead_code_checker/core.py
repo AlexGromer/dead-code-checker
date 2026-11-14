@@ -69,7 +69,6 @@ import json
 import os
 import re
 import shlex
-import shutil
 import stat
 import subprocess
 import sys
@@ -83,6 +82,7 @@ except ImportError:  # pragma: no cover
 
 
 from . import langs as DLANGS
+from . import safepath
 
 
 def _workers(jobs: Optional[int]) -> int:
@@ -458,7 +458,8 @@ GIT_SAFE = (
 def _git_env(root: str) -> Optional[dict]:
     """Environment for a git run in `root`. When `root` holds its own .git, the work tree is pinned to it: the
     repository's config (core.worktree) is data of the scanned tree and must not move the base to a directory the tree's
-    author chose (-c cannot override it, GIT_WORK_TREE can). None = inherit as is."""
+    author chose (-c cannot override it, GIT_WORK_TREE can). None = inherit as is (safepath.run gives git a PATH of absolute
+    entries either way)."""
     if root and os.path.exists(os.path.join(root, ".git")):
         env = dict(os.environ)
         env["GIT_WORK_TREE"] = os.path.realpath(root)
@@ -566,7 +567,7 @@ def _git(root: str, *args: str, inp: Optional[bytes] = None) -> Tuple[int, bytes
     if git_blocked(root):
         return 127, b""
     try:
-        r = subprocess.run(
+        r = safepath.run(
             ["git", "-C", root, *GIT_SAFE, "-c", "core.quotepath=false", *args],
             input=inp,
             env=_git_env(root),
@@ -597,7 +598,7 @@ def toplevel(start: str, foreign: bool = False) -> Optional[str]:
     """Top of the repository holding `start`. The directory that owns the .git entry wins over what git reports: a
     scanned tree may set core.worktree to anywhere. foreign=True (a tree that is not ours): git never runs, only the
     .git entry search; a tree shaped like a bare repository would make git read its config and [include] targets."""
-    if shutil.which("git") is None:
+    if not safepath.which("git"):
         return None
     near = nearest_git_root(start)
     if near:
@@ -857,7 +858,7 @@ def _cat_batch(root: str, specs: Sequence[str]) -> Dict[str, Optional[bytes]]:
     if git_blocked(root):
         return {x: None for x in specs}
     try:
-        r = subprocess.run(
+        r = safepath.run(
             ["git", "-C", root, *GIT_SAFE, "cat-file", "--batch"],
             input=("\n".join(specs) + "\n").encode("utf-8"),
             env=_git_env(root),
@@ -1115,7 +1116,7 @@ class RefIndex:
             alt = "|".join(re.escape(x) for x in sorted(names[n : n + RefIndex.GIT_CHUNK], key=len, reverse=True))
             pattern = "(?<![A-Za-z0-9_])(?:" + alt + ")(?![A-Za-z0-9_])"
             try:
-                r = subprocess.run(
+                r = safepath.run(
                     ["git", "-C", root, *GIT_SAFE, "grep", "--untracked", "-I", "-n", "-P", "-z", "-e", pattern, "--", ".",
                      ":(exclude,glob)**/node_modules/**", ":(exclude,glob)**/.git/**"],
                     env=_git_env(root),
@@ -2662,7 +2663,7 @@ def check_staged(
     """Dead code in what is staged in `repo` (the index against HEAD)."""
     root = toplevel(repo)
     if root is None:
-        if shutil.which("git") is None:
+        if not safepath.which("git"):
             return [
                 Finding(
                     "E", repo, 0, "deadcode.no-git", "git is not on PATH; install git (apt install git) or fix PATH"
@@ -2841,7 +2842,17 @@ def _emit(findings: Sequence[Finding], as_json: bool) -> int:
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
-    ap = argparse.ArgumentParser(prog="dead-code-checker", description="Dead code in what a commit or session added.")
+    args = list(sys.argv[1:] if argv is None else argv)
+    if args[:1] == ["graph"]:  # the reachability-graph checker has its own parser
+        from .graph.cli import main as graph_main
+
+        return graph_main(args[1:])
+    if args[:1] == ["agent"]:  # wiring into a coding agent, and the hook it installs
+        from .agent import main as agent_main
+
+        return agent_main(args[1:])
+    ap = argparse.ArgumentParser(prog="dead-code-checker", description="Dead code in what a commit or session added.",
+                                 epilog="`dead-code-checker graph --help`: the reachability-graph checker")
     sub = ap.add_subparsers(dest="cmd", required=True)
     common = argparse.ArgumentParser(add_help=False)
     common.add_argument("--root", help="repository root (default: of the first path / cwd)")
@@ -2862,7 +2873,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     p.add_argument("--public-api", choices=PUBLIC_API_MODES, default="report", help="exported, unreferenced symbols")
     p.add_argument("--jobs", type=int, help="workers (default $DEAD_CODE_CHECKER_JOBS or the CPUs, at most 8)")
     sub.add_parser("defaults", help="print the [deadcode] defaults")
-    a = ap.parse_args(argv)
+    p = sub.add_parser("lsp", help="language server on stdio (editor diagnostics)")
+    p.add_argument("--stdio", action="store_true", help="accepted for clients that always pass it; stdio is the only transport")  # deadcode: ignore
+    a = ap.parse_args(args)
+    if a.cmd == "lsp":
+        from .lsp import serve
+
+        return serve()
     if a.cmd == "defaults":
         print("[deadcode]")
         for k, v in DEFAULTS.items():

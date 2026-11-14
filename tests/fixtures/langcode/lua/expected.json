@@ -1,0 +1,37 @@
+{
+ "_doc": "Lua closed world: main.lua is rooted by its `deadcode: root` marker, lib/util.lua by require('lib.util') (path_sub: a/b -> a/b.lua), lib/helper.lua is required by nobody. A method call through self is a member of its table (the table `local M = {}` is the class). A function of another module that is passed (register(\"load\", util.on_load)), stored in a table field ({ save = util.on_save }) or assigned (M.hook = util.on_alias) is used by name. pcall(require, \"lib.optional\") is an include of lib/optional.lua, like require.",
+ "roots": [
+  [
+   "manual",
+   "main.lua#M.run"
+  ]
+ ],
+ "closed_world": {
+  "lib/helper.lua#H": "dead-cluster",
+  "lib/helper.lua#H.alone": "dead",
+  "lib/optional.lua#O": "alive",
+  "lib/optional.lua#O.idle": "dead",
+  "lib/optional.lua#O.load": "weak-alive",
+  "lib/util.lua#U": "alive",
+  "lib/util.lua#U.greet": "weak-alive",
+  "lib/util.lua#U.never_called": "dead",
+  "lib/util.lua#U.on_alias": "weak-alive",
+  "lib/util.lua#U.on_load": "weak-alive",
+  "lib/util.lua#U.on_save": "weak-alive",
+  "main.lua#M": "alive",
+  "main.lua#M.method": "dead-cluster",
+  "main.lua#M.other": "dead-cluster",
+  "main.lua#M.run": "alive",
+  "main.lua#cb": "dead",
+  "main.lua#dead_local": "dead",
+  "main.lua#helper": "alive",
+  "main.lua#on_event": "alive",
+  "main.lua#unused_global": "dead"
+ },
+ "files": {
+  "lib/helper.lua": "dead-cluster",
+  "lib/optional.lua": "alive",
+  "lib/util.lua": "alive",
+  "main.lua": "alive"
+ }
+}

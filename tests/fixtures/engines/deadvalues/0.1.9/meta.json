@@ -1,0 +1,54 @@
+{
+ "files": [
+  "chart/Chart.yaml",
+  "chart/templates/cm.yaml",
+  "chart/values.yaml",
+  "my.yaml"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "deadvalues",
+    "check",
+    "--chart",
+    "chart",
+    "-f",
+    "my.yaml",
+    "-o",
+    "json",
+    "--no-cache",
+    "--cache-dir",
+    "dvcache",
+    "--fail-on",
+    "none"
+   ],
+   "out": "out.json",
+   "rc": 0,
+   "stream": "stdout"
+  },
+  {
+   "argv": [
+    "deadvalues",
+    "check",
+    "--chart",
+    "chart",
+    "-f",
+    "my.yaml",
+    "-o",
+    "sarif",
+    "--no-cache",
+    "--cache-dir",
+    "dvcache",
+    "--fail-on",
+    "none"
+   ],
+   "out": "out.sarif",
+   "rc": 0,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "deadvalues",
+ "trimmed": "sarif: runs[].tool.driver.rules",
+ "version": "0.1.9"
+}

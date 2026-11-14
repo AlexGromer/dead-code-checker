@@ -1,0 +1,42 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [6, {"def.class": "pub struct Point {…\n}", "vis": "pub", "name": "Point"}],
+      [0, {"def.method": "fn add(self, o: Point) -> Point {…\n    }", "flag.protocol": "fn add(self, o: Point) -> Point {…\n    }", "recv": "<Point", "name": "add"}],
+      [6, {"def.class": "pub struct Limits;", "vis": "pub", "name": "Limits"}],
+      [3, {"def.const": "const MAX: u32 = 8;", "recv": "<Limits", "name": "MAX"}],
+      [3, {"def.const": "const UNUSED: u32 = 1;", "recv": "<Limits", "name": "UNUSED"}],
+      [3, {"def.const": "pub const OPEN: u32 = 2;", "vis": "pub", "recv": "<Limits", "name": "OPEN"}],
+      [1, {"def.method": "fn cap(&self) -> u32 {…\n    }", "recv": "<Limits", "name": "cap"}],
+      [1, {"def.method": "fn make() -> u32 {…\n    }", "recv": "<Limits", "name": "make"}],
+      [8, {"def.iface": "pub trait Shape {…\n}", "vis": "pub", "name": "Shape"}],
+      [10, {"def.const": "const SIDES: u32;", "name": "SIDES"}],
+      [4, {"def.func": "fn sides(&self) -> u32 {…\n    }", "name": "sides"}],
+      [2, {"def.const": "const SIDES: u32 = 4;", "flag.protocol": "const SIDES: u32 = 4;", "recv": "<Limits", "name": "SIDES"}],
+      [9, {"def.class": "type Alias = Point;", "name": "Alias"}],
+      [12, {"def.module": "mod inner {…\n}", "name": "inner"}],
+      [14, {"def.class": "pub type Id = u32;", "vis": "pub", "name": "Id"}],
+      [4, {"def.func": "pub fn id() -> Id {…\n    }", "vis": "pub", "name": "id"}],
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [15, {"import": "use std::ops::Add;"}],
+      [8, {"ref.impl": "impl Add for Point {…\n}", "name": "Add", "scope": "Point"}],
+      [8, {"ref.impl": "impl Shape for Limits {…\n}", "name": "Shape", "scope": "Limits"}],
+      [11, {"ref.ref": "Self::MAX", "name": "Self::MAX"}],
+      [11, {"ref.ref": "Self::SIDES", "name": "Self::SIDES"}],
+      [13, {"ref.ref": "Point#6", "name": "Point"}],
+      [13, {"ref.ref": "Id#1", "name": "Id"}],
+      [13, {"ref.ref": "Alias#1", "name": "Alias"}],
+      [4, {"ref.call": "Limits.cap()", "obj": "Limits", "name": "cap"}],
+      [11, {"ref.ref": "Limits::OPEN", "name": "Limits::OPEN"}],
+      [1, {"ref.call": "<Limits>::make()", "name": "\\<Limits>::make"}],
+      [1, {"ref.call": "inner::id()", "name": "inner::id"}],
+      [4, {"ref.call": "Limits.sides()", "obj": "Limits", "name": "sides"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}]
+    ],
+    "stub": []
+  }
+}

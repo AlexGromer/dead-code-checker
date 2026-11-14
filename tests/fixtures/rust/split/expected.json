@@ -1,0 +1,24 @@
+{
+ "_doc": "verdict of every def (files are not reported) by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: consts, vars, enums and function values used outside call arguments; methods whose type is declared in another file; trait impls on types that are not a bare identifier.",
+ "closed_world": {
+  "src/consts.rs#LIMIT": "alive",
+  "src/consts.rs#MAX": "alive",
+  "src/consts.rs#UNUSED": "dead",
+  "src/imp.rs#Foo.area": "alive",
+  "src/imp.rs#Foo.fmt": "alive",
+  "src/imp.rs#Py": "dead",
+  "src/imp.rs#Py.exposed": "alive",
+  "src/imp.rs#Shape": "alive",
+  "src/imp.rs#Shape.area": "dead",
+  "src/imp.rs#f64.area": "alive",
+  "src/main.rs#Color": "alive",
+  "src/main.rs#Foo": "alive",
+  "src/main.rs#handler": "alive",
+  "src/main.rs#index": "alive",
+  "src/main.rs#main": "alive"
+ },
+ "library": {
+  "src/consts.rs#UNUSED": "public-unused",
+  "src/imp.rs#Shape.area": "public-unused"
+ }
+}

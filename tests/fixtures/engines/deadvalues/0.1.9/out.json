@@ -1,0 +1,49 @@
+{
+  "app": "chart",
+  "chart": "fx 0.1.0",
+  "values": [
+    "my.yaml"
+  ],
+  "renders": 5,
+  "durationMs": 6,
+  "noisyFields": 0,
+  "keys": [
+    {
+      "key": "level",
+      "path": [
+        "level"
+      ],
+      "status": "ALIVE",
+      "value": "debug",
+      "detail": "\"debug\"",
+      "origins": [
+        {
+          "file": "my.yaml",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "key": "unusedKey",
+      "path": [
+        "unusedKey"
+      ],
+      "status": "DEAD",
+      "value": 1,
+      "detail": "1  (key not in chart values.yaml)",
+      "origins": [
+        {
+          "file": "my.yaml",
+          "line": 2
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "ALIVE": 1,
+    "DEAD": 1
+  },
+  "ignored": 0,
+  "usedByOtherApps": 0,
+  "sharedUnverified": 0
+}

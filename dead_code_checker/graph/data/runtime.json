@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "_doc": "Data of graph.rtcfg and graph.rtbox: the runtime-signal mode. limits: what ONE run of the project's tests may use inside the bubblewrap box of the execution target (prlimit: cpu_s, as_mb address space, fsize_mb one file, nofile, nproc; wall_s = the whole box, all runs together; a [graph.runtime] timeout above it is cut). A language may override: as_mb 0 = no address-space limit (V8 and the Go runtime reserve far more virtual memory than they use, so RLIMIT_AS kills them at start; their memory is bounded by `env` below instead). timeouts: default_s of [graph.runtime] timeout, setup_s the extra seconds the controlling side waits beyond it (unpack, tracer reports), put_s / pull_s of the two ssh transfers. refresh_days: how old a stored run may be before it is run again. keep_runs: stored runtime runs kept per repository. result: caps on what comes back (bytes of the result file, symbols, notes). copy: caps on the project copy (tracked files at HEAD) that goes to the target. tracers: per graph language (data/langs.json): the tracer name, the `default_command` run when [graph.runtime] has no command (null = no safe default: the project must say), and the per-language `limits` and `env` of the box. The python tracer is shipped with the tool (stdlib only: sys.monitoring, sys.setprofile before 3.12), so nothing has to be installed on the target for it; node uses NODE_V8_COVERAGE (TypeScript is not traced: source maps are not applied), go injects -coverprofile into `go test` and reads `go tool cover -func`. A language without a tracer is one `no tracer for <lang>` line. classes: per language which checks EXECUTE the project's code (only on the target, in its box) and which only READ it (may run on this machine); a build tool that runs plugins or scripts (maven, gradle, cargo build.rs, MSBuild targets, make) is executing, a parser is not.",
+  "limits": {
+    "wall_s": 1800,
+    "cpu_s": 3600,
+    "as_mb": 16384,
+    "fsize_mb": 1024,
+    "nofile": 8192,
+    "nproc": 2048
+  },
+  "timeouts": {
+    "default_s": 900,
+    "setup_s": 180,
+    "put_s": 600,
+    "pull_s": 300
+  },
+  "refresh_days": 7,
+  "keep_runs": 5,
+  "result": {
+    "max_bytes": 16777216,
+    "max_symbols": 300000,
+    "note_chars": 300,
+    "max_trace_files": 5000,
+    "max_trace_bytes": 33554432
+  },
+  "copy": {
+    "max_tree_mb": 256,
+    "max_file_mb": 16,
+    "max_files": 100000,
+    "spec_bytes": 1048576
+  },
+  "tracers": {
+    "python": {
+      "name": "dc-trace",
+      "default_command": [
+        "python3",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "limits": {},
+      "env": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONHASHSEED": "0"
+      }
+    },
+    "javascript": {
+      "name": "v8-coverage",
+      "default_command": null,
+      "limits": {
+        "as_mb": 0
+      },
+      "env": {
+        "NODE_OPTIONS": "--max-old-space-size=4096",
+        "NO_UPDATE_NOTIFIER": "1"
+      }
+    },
+    "go": {
+      "name": "go-cover",
+      "default_command": [
+        "go",
+        "test",
+        "./..."
+      ],
+      "limits": {
+        "as_mb": 0
+      },
+      "env": {
+        "GOPROXY": "off",
+        "GOSUMDB": "off",
+        "GOTOOLCHAIN": "local",
+        "GOMEMLIMIT": "4GiB"
+      }
+    }
+  },
+  "classes": {
+    "_doc": "executing = runs the project's code (tests, scripts, plugins, build.rs): ONLY on the execution target, in its sandbox. reading = parses or type-checks, runs none of it: may run on the this machine. A language that is not listed has no local check that this mode allows.",
+    "python": {
+      "executing": "tests or the configured command under the shipped tracer",
+      "reading": "ast parse and py_compile, in a bubblewrap box"
+    },
+    "go": {
+      "executing": "go test -coverprofile (the tests and every init())",
+      "reading": "go build and go vet, offline: GOFLAGS=-mod=mod GOPROXY=off"
+    },
+    "javascript": {
+      "executing": "node tests under NODE_V8_COVERAGE, npm scripts",
+      "reading": "none (a syntax check is the parser of the graph)"
+    },
+    "typescript": {
+      "executing": "no tracer: tests run as JavaScript",
+      "reading": "tsc --noEmit"
+    },
+    "java": {
+      "executing": "maven and gradle (their plugins run); no tracer",
+      "reading": "none that is safe: javac annotation processors run"
+    },
+    "kotlin": {
+      "executing": "gradle and the compiler plugins",
+      "reading": "none"
+    },
+    "rust": {
+      "executing": "cargo build, check, clippy and test (build.rs, proc-macros run)",
+      "reading": "none: rustc parsing alone is not offered"
+    },
+    "csharp": {
+      "executing": "dotnet and MSBuild (targets and analyzers run)",
+      "reading": "none"
+    },
+    "c": {
+      "executing": "make, cmake and the tests",
+      "reading": "none"
+    },
+    "cpp": {
+      "executing": "make, cmake and the tests",
+      "reading": "none"
+    },
+    "shell": {
+      "executing": "the scripts themselves",
+      "reading": "bash -n, shellcheck"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+ "schema": 1,
+ "note": "Data of the viewer lenses (graph.lens, graph.extract.bodyhash). Editing it changes the facts of the extractors (bodyhash: part of the shard key) and the lens columns of the run.",
+ "dup": {
+  "note": "Duplicates lens: symbols whose normalised bodies (comments and whitespace gone, local names renamed by first occurrence, the symbol's own name left out) are identical. kinds: the symbol kinds that are compared. store_min: the extractors keep a body hash from this size on (smaller bodies are never compared; the size is ast nodes for python, tokens for the other languages). min_size: the smallest body that makes a group (per language, `default` for the rest); a group needs min_group symbols. max_groups / max_members / max_nodes: what the page lists (the rest is counted, never silently dropped: lens.dup.omitted).",
+  "kinds": ["func", "method"],
+  "store_min": 12,
+  "min_size": {"default": 40, "python": 30, "shell": 25},
+  "min_group": 2,
+  "max_groups": 400,
+  "max_members": 24,
+  "max_nodes": 6000,
+  "max_body": 20000
+ },
+ "norm": {
+  "note": "Text normalisation of the tree-sitter languages (the node text of a definition). comments: line prefixes and block pairs per language, `default` for the rest. params: where the parameter name stands in a parameter segment, name_first (name then type) or type_first (type then name). decl_kw: words after which an identifier is a new local; local_in: words after an identifier that make it a loop variable. A local is also a name followed by `=` or `:=` (not after `.`, `->`, `::`). Names that this misses stay as written: two bodies that differ only in such names are not reported (a missed duplicate, never a false one).",
+  "comments": {
+   "default": {"line": ["//"], "block": [["/*", "*/"]]},
+   "shell": {"line": ["#"], "block": []},
+   "ruby": {"line": ["#"], "block": [["=begin", "=end"]]},
+   "php": {"line": ["//", "#"], "block": [["/*", "*/"]]},
+   "lua": {"line": ["--"], "block": [["--[[", "]]"]]},
+   "nix": {"line": ["#"], "block": [["/*", "*/"]]},
+   "starlark": {"line": ["#"], "block": []},
+   "html": {"line": [], "block": [["<!--", "-->"]]},
+   "vue": {"line": ["//"], "block": [["/*", "*/"], ["<!--", "-->"]]},
+   "svelte": {"line": ["//"], "block": [["/*", "*/"], ["<!--", "-->"]]}
+  },
+  "params": {"default": "name_first", "c": "type_first", "cpp": "type_first", "java": "type_first", "csharp": "type_first", "php": "type_first", "scala": "name_first"},
+  "decl_kw": ["let", "var", "const", "val", "auto", "local", "my", "mut", "def"],
+  "local_in": ["in", "of"],
+  "param_skip": ["mut", "ref", "final", "const", "val", "var", "in", "out", "this", "self", "volatile", "register", "unsigned", "signed", "struct", "enum", "readonly", "public", "private", "protected", "override", "vararg"]
+ },
+ "arch": {
+  "note": "Architecture lens: the module of a file is its directory cut to `depth` path segments (0 = the whole directory). Modules with fewer than min_nodes nodes are folded into their parent directory. Layers are the longest path from a module that nothing depends on (an edge a -> b: a uses b), over the condensation of the module graph; a strongly connected component of 2 or more modules is a cycle. max_modules: the page lists the largest modules, the rest is counted (lens.arch.omitted). edge_kinds: the node edge kinds that count as a dependency (empty = all).",
+  "depth": 2,
+  "min_nodes": 1,
+  "max_modules": 600,
+  "max_edges": 6000,
+  "edge_kinds": []
+ },
+ "health": {
+  "note": "Health lens: a score from 0 (bad) to 100 per module, 100 * (1 - sum(weights * penalties)), each penalty in 0..1. dead = (dead + dead-cluster + suspect symbols) / symbols; dup = symbols that sit in a duplicate group / symbols; fan = min(1, fan_out / fan_cap); cycle = 1 when the module is in a dependency cycle; size = min(1, symbols / size_cap). A module with fewer than min_symbols symbols has a score but is not ranked. grades: lower bound -> label, best first.",
+  "weights": {"dead": 0.45, "dup": 0.2, "fan": 0.1, "cycle": 0.15, "size": 0.1},
+  "fan_cap": 15,
+  "size_cap": 400,
+  "min_symbols": 3,
+  "grades": [[80, "good"], [60, "fair"], [40, "poor"], [0, "bad"]]
+ },
+ "inline_bytes": 1500000,
+ "chunk_rows": 400
+}

@@ -1,0 +1,9 @@
+<?php
+require 'Sorter.php';
+
+function sort_all($items, $task) {
+    usort($items, [Sorter::class, 'cmp']);
+    array_map(['Sorter', "cmp2"], $items);
+    call_user_func([new Hook, 'fire']);
+    call_user_func([$task, 'go']);
+}

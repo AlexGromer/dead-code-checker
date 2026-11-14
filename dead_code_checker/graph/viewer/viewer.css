@@ -1,0 +1,621 @@
+:root {
+  --bg: #fafafa;
+  --fg: #1c1c1e;
+  --mut: #6b6b70;
+  --pan: #ffffff;
+  --bd: #d6d6da;
+  --acc: #0b63ce;
+  --cell: #e9e9ec;
+  --hdr: #c9c9ce;
+  --sel: #0b63ce;
+  --chg: #00875a;
+  --nd: #7a0000;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17181a;
+    --fg: #e8e8ea;
+    --mut: #9a9aa2;
+    --pan: #1f2023;
+    --bd: #3a3b40;
+    --acc: #6aa9ff;
+    --cell: #2a2b2f;
+    --hdr: #3d3e44;
+    --sel: #6aa9ff;
+    --chg: #3ddc97;
+    --nd: #ff8a8a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17181a;
+  --fg: #e8e8ea;
+  --mut: #9a9aa2;
+  --pan: #1f2023;
+  --bd: #3a3b40;
+  --acc: #6aa9ff;
+  --cell: #2a2b2f;
+  --hdr: #3d3e44;
+  --sel: #6aa9ff;
+  --chg: #3ddc97;
+  --nd: #ff8a8a;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font:
+    13px/1.4 system-ui,
+    sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 16px;
+  border-bottom: 1px solid var(--bd);
+  flex-wrap: wrap;
+}
+h1 {
+  font-size: 15px;
+  margin: 0;
+}
+h2 {
+  font-size: 12px;
+  margin: 8px 0 4px;
+  color: var(--mut);
+  text-transform: uppercase;
+}
+.grow {
+  flex: 1;
+}
+.muted {
+  color: var(--mut);
+}
+nav a {
+  color: var(--acc);
+  margin-right: 8px;
+}
+button,
+.btn,
+select,
+input[type="text"],
+input[type="search"] {
+  background: var(--pan);
+  color: var(--fg);
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font: inherit;
+}
+button,
+.btn {
+  cursor: pointer;
+}
+#banner {
+  background: #fff3cd;
+  color: #4a3b00;
+  padding: 4px 16px;
+  border-bottom: 1px solid #e0c36a;
+}
+#err {
+  background: #fde7e7;
+  color: #7a0000;
+  padding: 6px 16px;
+}
+main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 280px 1fr 340px;
+  min-height: 0;
+}
+aside {
+  overflow: auto;
+  padding: 8px 12px;
+  background: var(--pan);
+  border-right: 1px solid var(--bd);
+}
+#right {
+  border-right: 0;
+  border-left: 1px solid var(--bd);
+}
+#stage {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+}
+#legend {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  background: var(--pan);
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  max-width: 90%;
+}
+#legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border: 1px solid #333;
+  vertical-align: -1px;
+}
+label {
+  display: block;
+  margin: 4px 0;
+}
+label select,
+label input[type="text"] {
+  width: 100%;
+}
+#q {
+  width: 100%;
+  margin-bottom: 6px;
+}
+fieldset {
+  border: 1px solid var(--bd);
+  margin: 6px 0;
+  padding: 2px 8px;
+}
+fieldset label {
+  display: inline-block;
+  margin: 2px 8px 2px 0;
+}
+#list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#list li {
+  border-bottom: 1px solid var(--bd);
+  padding: 3px 0;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+#list li:hover,
+#list li:focus {
+  background: var(--cell);
+}
+#list b.E {
+  color: #c62828;
+}
+#list b.W {
+  color: #b26a00;
+}
+#list b.I {
+  color: #8a4a78;
+}
+#list b.conf {
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+}
+.chip {
+  display: inline-block;
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 0 7px;
+  margin: 0 4px 2px 0;
+  font-size: 11px;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--cell);
+  padding: 6px;
+  border-radius: 4px;
+  margin: 4px 0;
+  font-size: 12px;
+}
+ol.chain {
+  padding-left: 18px;
+  margin: 4px 0;
+}
+ol.chain li {
+  overflow-wrap: anywhere;
+  margin: 2px 0;
+}
+.tree h4 {
+  margin: 10px 0 2px;
+}
+ul.tl-l {
+  list-style: none;
+  margin: 0;
+  padding-left: 14px;
+}
+.tree > ul.tl-l {
+  padding-left: 0;
+}
+.trow {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 1px 2px;
+  border-radius: 3px;
+  overflow-wrap: anywhere;
+}
+.trow:focus {
+  outline: 2px solid var(--sel);
+}
+.trow .tg {
+  width: 1em;
+  text-align: center;
+  cursor: pointer;
+  color: var(--mut);
+  flex: none;
+}
+.trow .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid var(--mut);
+  background: var(--hdr);
+  flex: none;
+  align-self: center;
+}
+.tmark {
+  color: var(--nd);
+  font-style: italic;
+}
+.lk {
+  color: var(--acc);
+  cursor: pointer;
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 60vh auto;
+  }
+  aside {
+    border: 0;
+  }
+}
+#local {
+  color: #c62828;
+}
+main {
+  position: relative;
+}
+#gbar {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: var(--pan);
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+#gbar[hidden],
+#mini[hidden] {
+  display: none;
+}
+#gq {
+  width: 260px;
+}
+#mini {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 200px;
+  height: 125px;
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  background: var(--pan);
+  cursor: crosshair;
+}
+body[data-mode="graph"] #left,
+body[data-mode="ego"] #left {
+  display: none;
+}
+body[data-mode="graph"] main,
+body[data-mode="ego"] main {
+  grid-template-columns: 1fr;
+}
+body[data-mode="graph"] #right,
+body[data-mode="ego"] #right {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  bottom: 148px;
+  width: min(400px, 92vw);
+  z-index: 4;
+  border: 1px solid var(--bd);
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+body[data-mode="graph"]:not(.has-sel) #right,
+body[data-mode="ego"]:not(.has-sel) #right {
+  display: none;
+}
+body[data-mode="ego"] #mini {
+  display: none;
+}
+.navrow {
+  display: flex;
+  gap: 12px;
+  margin: 4px 0;
+}
+.code pre.src {
+  white-space: pre;
+  overflow: auto;
+  max-height: 360px;
+  font-family: ui-monospace, monospace;
+}
+.code .hidden {
+  color: #c62828;
+  font-style: italic;
+}
+#gbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+}
+#gbar label[hidden] {
+  display: none;
+}
+
+/* lenses: the switcher in the header, the panel that replaces the stage (duplicates, architecture, health) */
+#lenses {
+  display: flex;
+}
+#lenses button {
+  border-radius: 0;
+  margin-left: -1px;
+}
+#lenses button:first-child {
+  border-radius: 4px 0 0 4px;
+}
+#lenses button:last-child {
+  border-radius: 0 4px 4px 0;
+}
+#lenses button[data-on="1"] {
+  background: var(--acc);
+  border-color: var(--acc);
+  color: #fff;
+}
+#lenses button:disabled {
+  color: var(--mut);
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+#stage[hidden],
+#lensp[hidden] {
+  display: none;
+}
+#lensp {
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+#lbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  align-items: center;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--pan);
+}
+#lbar label {
+  display: inline-block;
+  margin: 0;
+}
+#lbar input[type="text"] {
+  width: 6em;
+}
+#lmsg {
+  padding: 4px 12px;
+}
+#lmsg:empty,
+#l-pick-l[hidden] {
+  display: none;
+}
+#l-pick-l {
+  margin: 4px 12px;
+  align-self: flex-start;
+}
+#lbody {
+  flex: 1;
+  padding: 8px 12px;
+  overflow: auto;
+}
+.lgd i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #333;
+  margin-right: 1px;
+  vertical-align: -1px;
+}
+.lgd .cyc {
+  color: #c0392b;
+}
+.lgd .xl {
+  color: #c26a00;
+  text-decoration: underline dashed;
+}
+.dgrp {
+  border: 1px solid var(--bd);
+  border-radius: 4px;
+  margin: 0 0 8px;
+  background: var(--pan);
+}
+.dhead {
+  padding: 3px 8px;
+  background: var(--cell);
+  font-size: 12px;
+  color: var(--mut);
+}
+.drow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  align-items: baseline;
+  padding: 2px 8px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.drow:hover,
+.drow:focus {
+  background: var(--cell);
+  outline: none;
+}
+.vchip {
+  display: inline-block;
+  border: 1px solid var(--bd);
+  border-radius: 3px;
+  padding: 0 5px;
+  font-size: 11px;
+}
+#lbody svg {
+  display: block;
+  max-width: none;
+  font-family: system-ui, sans-serif;
+}
+.aband {
+  fill: var(--cell);
+  opacity: 0.35;
+}
+.aband.odd {
+  opacity: 0.15;
+}
+.alay {
+  fill: var(--mut);
+  font-size: 11px;
+}
+.aedge {
+  fill: none;
+}
+.aedge.n {
+  stroke: #7a8a99;
+}
+.aedge.c {
+  stroke: #c0392b;
+}
+.aedge.x {
+  stroke: #c26a00;
+}
+.aedge.s {
+  stroke: #0b63ce;
+}
+.ahead.n {
+  fill: #7a8a99;
+}
+.ahead.c {
+  fill: #c0392b;
+}
+.ahead.x {
+  fill: #c26a00;
+}
+.ahead.s {
+  fill: #0b63ce;
+}
+.amod {
+  cursor: pointer;
+  outline: none;
+}
+.amod rect {
+  stroke: #5b7083;
+  stroke-width: 1;
+}
+.amod rect.cyc {
+  stroke: #c0392b;
+  stroke-width: 3;
+}
+.amod.sel rect,
+.amod:focus rect {
+  stroke: var(--sel);
+  stroke-width: 3;
+}
+.an {
+  font-size: 12px;
+  font-weight: 600;
+}
+.ak {
+  font-size: 10px;
+}
+.acycles {
+  margin-top: 12px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.htab {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+.htab th,
+.htab td {
+  border-bottom: 1px solid var(--bd);
+  padding: 3px 8px;
+  text-align: left;
+}
+.htab th {
+  position: sticky;
+  top: 0;
+  background: var(--pan);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.htab tr:hover td,
+.htab tr:focus td {
+  background: var(--cell);
+}
+.htab td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.htab td.mn {
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, monospace;
+}
+.htab td.gr {
+  text-align: center;
+  font-weight: 600;
+}
+.sbar {
+  display: inline-block;
+  width: 70px;
+  height: 8px;
+  border: 1px solid var(--bd);
+  vertical-align: middle;
+}
+.sbar i {
+  display: block;
+  height: 100%;
+}

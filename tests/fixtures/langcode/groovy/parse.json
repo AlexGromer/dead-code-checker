@@ -1,0 +1,1088 @@
+{
+ "Jenkinsfile": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "agent any\n",
+     "kw": "agent",
+     "name": "any"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def deployApp() {\n    notify 'deploy'\n    new Impl().run()\n}\n\n",
+     "name": "deployApp"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def deployApp() {\n    notify 'deploy'\n    new Impl().run()\n}\n\n",
+     "mod": "def",
+     "name": "deployApp"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def staleHelper() {\n    echo 'never called'\n}\n",
+     "name": "staleHelper"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def staleHelper() {\n    echo 'never called'\n}\n",
+     "mod": "def",
+     "name": "staleHelper"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "def deployApp() {\n    notify 'deploy'\n    new Impl().run()\n}\n\n",
+     "body": "deployApp() {\n    notify 'deploy'\n    new Impl().run()\n}",
+     "name": "deployApp"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "def staleHelper() {\n    echo 'never called'\n}\n",
+     "body": "staleHelper() {\n    echo 'never called'\n}",
+     "name": "staleHelper"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    0,
+    {
+     "root.main": "deployApp#1"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "staleHelper"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    2,
+    {
+     "name": "Library",
+     "ref.ref": "Library"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "agent",
+     "ref.ref": "agent"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "any",
+     "ref.ref": "any"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "stages",
+     "ref.ref": "stages"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "stage('build')",
+     "name": "stage"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "stage('build')",
+     "member": "stage",
+     "name": "stage"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "stage#1",
+     "ref.ref": "stage"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "steps",
+     "ref.ref": "steps"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "sh#1",
+     "ref.ref": "sh"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "sh './build.sh';",
+     "cmd": "sh",
+     "name": "'./build.sh'"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "deployApp()",
+     "name": "deployApp"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "deployApp()",
+     "member": "deployApp",
+     "name": "deployApp"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "deployApp",
+     "ref.ref": "deployApp"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "def",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "deployApp()#1",
+     "name": "deployApp"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "deployApp()#1",
+     "member": "deployApp",
+     "name": "deployApp"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "deployApp#1",
+     "ref.ref": "deployApp"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "notify",
+     "ref.ref": "notify"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "notify 'deploy'\n",
+     "cmd": "notify",
+     "name": "'deploy'"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "new",
+     "ref.ref": "new"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "Impl()",
+     "name": "Impl"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Impl()",
+     "member": "Impl",
+     "name": "Impl"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Impl",
+     "ref.ref": "Impl"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "run()",
+     "name": "run"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "run()",
+     "member": "run",
+     "name": "run"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "run",
+     "ref.ref": "run"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "def#1",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "staleHelper()",
+     "name": "staleHelper"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "staleHelper()",
+     "member": "staleHelper",
+     "name": "staleHelper"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "staleHelper",
+     "ref.ref": "staleHelper"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "echo",
+     "ref.ref": "echo"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "echo 'never called'\n",
+     "cmd": "echo",
+     "name": "'never called'"
+    }
+   ]
+  ]
+ },
+ "lib/Tools.groovy": {
+  "defs": [
+   [
+    1,
+    {
+     "def.class": "class Tools {\n    private int …cribe() { return 'tools' }\n}\n\n",
+     "kw": "class",
+     "name": "Tools"
+    }
+   ],
+   [
+    2,
+    {
+     "def.iface": "class Tools {\n    private int …cribe() { return 'tools' }\n}\n\n",
+     "kw": "class",
+     "name": "Tools"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "private int counter = 0\n\n",
+     "kw": "private",
+     "name": "int"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "private int counter = 0\n\n",
+     "kw": "int",
+     "name": "counter"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def run() { helper(1) }\n",
+     "name": "run"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def run() { helper(1) }\n",
+     "mod": "def",
+     "name": "run"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "private helper(n) { counter += n }\n",
+     "name": "helper"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "private helper(n) { counter += n }\n",
+     "mod": "private",
+     "name": "helper"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "private hidden() {}\n",
+     "name": "hidden"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "private hidden() {}\n",
+     "mod": "private",
+     "name": "hidden"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "String describe() { return 'tools' }\n",
+     "name": "describe"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "String describe() { return 'tools' }\n",
+     "mod": "String",
+     "name": "describe"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "interface Greeter {\n    String greet(String n)\n}\n\n",
+     "kw": "interface",
+     "name": "Greeter"
+    }
+   ],
+   [
+    2,
+    {
+     "def.iface": "interface Greeter {\n    String greet(String n)\n}\n\n",
+     "kw": "interface",
+     "name": "Greeter"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Impl extends Tools imple…reet(String n) { return n }\n}\n",
+     "kw": "class",
+     "name": "Impl"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Impl extends Tools imple…reet(String n) { return n }\n}\n",
+     "kw": "Impl",
+     "name": "extends"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Impl extends Tools imple…reet(String n) { return n }\n}\n",
+     "kw": "extends",
+     "name": "Tools"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Impl extends Tools imple…reet(String n) { return n }\n}\n",
+     "kw": "Tools",
+     "name": "implements"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "class Impl extends Tools imple…reet(String n) { return n }\n}\n",
+     "kw": "implements",
+     "name": "Greeter"
+    }
+   ],
+   [
+    2,
+    {
+     "def.iface": "class Impl extends Tools imple…reet(String n) { return n }\n}\n",
+     "kw": "implements",
+     "name": "Greeter"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "String greet(String n) { return n }\n",
+     "name": "greet"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "String greet(String n) { return n }\n",
+     "mod": "String",
+     "name": "greet"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "def run() { helper(1) }\n",
+     "body": "run() { helper(1) }",
+     "name": "run"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "private helper(n) { counter += n }\n",
+     "body": "helper(n) { counter += n }",
+     "name": "helper"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "private hidden() {}\n",
+     "body": "hidden() {}",
+     "name": "hidden"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "String describe() { return 'tools' }\n",
+     "body": "describe() { return 'tools' }",
+     "name": "describe"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "String greet(String n) { return n }\n",
+     "body": "greet(String n) { return n }",
+     "name": "greet"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    0,
+    {
+     "root.main": "run"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "helper#1"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "hidden"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "describe"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "greet#1"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    2,
+    {
+     "name": "class",
+     "ref.ref": "class"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Tools",
+     "ref.ref": "Tools"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "private",
+     "ref.ref": "private"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "int",
+     "ref.ref": "int"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "counter",
+     "ref.ref": "counter"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "def",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "run()",
+     "name": "run"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "run()",
+     "member": "run",
+     "name": "run"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "run",
+     "ref.ref": "run"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "helper(1)",
+     "name": "helper"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "helper(1)",
+     "member": "helper",
+     "name": "helper"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "helper",
+     "ref.ref": "helper"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "private#1",
+     "ref.ref": "private"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "helper(n)",
+     "name": "helper"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "helper(n)",
+     "member": "helper",
+     "name": "helper"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "helper#1",
+     "ref.ref": "helper"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "n#3",
+     "ref.ref": "n"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "counter#1",
+     "ref.ref": "counter"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "n#5",
+     "ref.ref": "n"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "private#2",
+     "ref.ref": "private"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "hidden()",
+     "name": "hidden"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "hidden()",
+     "member": "hidden",
+     "name": "hidden"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "hidden",
+     "ref.ref": "hidden"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "String",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "describe()",
+     "name": "describe"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "describe()",
+     "member": "describe",
+     "name": "describe"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "describe",
+     "ref.ref": "describe"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "return",
+     "ref.ref": "return"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "interface",
+     "ref.ref": "interface"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Greeter",
+     "ref.ref": "Greeter"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "String#1",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "greet(String n)",
+     "name": "greet"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "greet(String n)",
+     "member": "greet",
+     "name": "greet"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "greet",
+     "ref.ref": "greet"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "String#2",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "n#12",
+     "ref.ref": "n"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "class#1",
+     "ref.ref": "class"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Impl",
+     "ref.ref": "Impl"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "extends",
+     "ref.ref": "extends"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Tools#1",
+     "ref.ref": "Tools"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "implements",
+     "ref.ref": "implements"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "Greeter#1",
+     "ref.ref": "Greeter"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "String#3",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "greet(String n)#1",
+     "name": "greet"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "greet(String n)#1",
+     "member": "greet",
+     "name": "greet"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "greet#1",
+     "ref.ref": "greet"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "String#4",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "n#17",
+     "ref.ref": "n"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "return#1",
+     "ref.ref": "return"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "n#19",
+     "ref.ref": "n"
+    }
+   ]
+  ]
+ },
+ "vars/notify.groovy": {
+  "defs": [
+   [
+    3,
+    {
+     "def.func": "def call(String msg) {\n    echo msg\n}\n\n",
+     "name": "call"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def call(String msg) {\n    echo msg\n}\n\n",
+     "mod": "def",
+     "name": "call"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "echo msg\n",
+     "kw": "echo",
+     "name": "msg"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "def unusedInSteps() {\n    return 1\n}\n",
+     "name": "unusedInSteps"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def unusedInSteps() {\n    return 1\n}\n",
+     "mod": "def",
+     "name": "unusedInSteps"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "def call(String msg) {\n    echo msg\n}\n\n",
+     "body": "call(String msg) {\n    echo msg\n}",
+     "name": "call"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "def unusedInSteps() {\n    return 1\n}\n",
+     "body": "unusedInSteps() {\n    return 1\n}",
+     "name": "unusedInSteps"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    0,
+    {
+     "root.main": "call"
+    }
+   ],
+   [
+    0,
+    {
+     "root.main": "unusedInSteps"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    2,
+    {
+     "name": "def",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "call(String msg)",
+     "name": "call"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "call(String msg)",
+     "member": "call",
+     "name": "call"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "call",
+     "ref.ref": "call"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "String",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "msg",
+     "ref.ref": "msg"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "echo",
+     "ref.ref": "echo"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "msg#1",
+     "ref.ref": "msg"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "def#1",
+     "ref.ref": "def"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "unusedInSteps()",
+     "name": "unusedInSteps"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "unusedInSteps()",
+     "member": "unusedInSteps",
+     "name": "unusedInSteps"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "unusedInSteps",
+     "ref.ref": "unusedInSteps"
+    }
+   ],
+   [
+    2,
+    {
+     "name": "return",
+     "ref.ref": "return"
+    }
+   ]
+  ]
+ }
+}

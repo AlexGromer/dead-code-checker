@@ -1,0 +1,5 @@
+<script>
+  export let value = 1;
+  function format() { return value; }
+</script>
+<i>{value}</i>

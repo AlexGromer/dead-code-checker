@@ -1,0 +1,23 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: a local or a parameter named like an imported package shadows it (`func run(config *config.Config) { config.Validate() }`, `user := user.New(); user.Save()`), so config.Validate() and user.Save() are method calls (found by name) as well as package functions; config.Load() in a function that has no such local is still only the package function Load, the method Config.Load stays dead.",
+ "closed_world": {
+  "config/config.go#Config": "weak-alive",
+  "config/config.go#Config.Load": "dead",
+  "config/config.go#Config.Unused": "dead",
+  "config/config.go#Config.Validate": "weak-alive",
+  "config/config.go#Load": "weak-alive",
+  "main.go#main": "alive",
+  "main.go#plain": "alive",
+  "main.go#run": "alive",
+  "main.go#save": "alive",
+  "user/user.go#New": "weak-alive",
+  "user/user.go#User": "weak-alive",
+  "user/user.go#User.Forget": "dead",
+  "user/user.go#User.Save": "weak-alive"
+ },
+ "library": {
+  "config/config.go#Config.Load": "public-unused",
+  "config/config.go#Config.Unused": "public-unused",
+  "user/user.go#User.Forget": "public-unused"
+ }
+}

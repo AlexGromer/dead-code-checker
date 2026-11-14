@@ -1,0 +1,6 @@
+{
+  "_doc": "Authored expectation (real tree-sitter-c only; skipped while the grammar is not installed, UNVERIFIED until it runs). Closed world. roots: main and the constructor attribute.",
+  "roots": [["annotation:c-attribute", "boot"], ["main", "main"]],
+  "vis": {"util.c#helper": "private", "util.c#api": "public", "util.h#api": "exported", "util.h#unused_export": "exported"},
+  "dead": ["main.c#never_registered", "util.c#dead_static", "util.c#unused_export", "util.h#unused_export", "util.h#UNUSED_MACRO"]
+}

@@ -1,0 +1,50 @@
+---
+# detekt 1.23.8 config for bin/staged-lint: ONE run serves two layers.
+#   naming rules  -> W naming.kotlin
+#   unused rules  -> W deadcode.native-detekt
+# Run WITHOUT --build-upon-default-config on purpose: a rule absent from this file is inactive, so only the rules below run
+# (a few rule sets loaded and checked instead of ~200 rules; keeps the JVM run short). UnusedImports is off in detekt's
+# defaults, so it is enabled here explicitly.
+build:
+  maxIssues: -1
+  excludeCorrectable: false
+config:
+  validation: true
+  warningsAsErrors: false
+processors:
+  active: false
+naming:
+  active: true
+  ClassNaming:
+    active: true
+  ConstructorParameterNaming:
+    active: true
+  EnumNaming:
+    active: true
+  FunctionNaming:
+    active: true
+    excludes: []
+  FunctionParameterNaming:
+    active: true
+  MatchingDeclarationName:
+    active: true
+  ObjectPropertyNaming:
+    active: true
+  PackageNaming:
+    active: true
+  TopLevelPropertyNaming:
+    active: true
+  VariableNaming:
+    active: true
+style:
+  active: true
+  UnusedImports:
+    active: true
+  UnusedParameter:
+    active: true
+  UnusedPrivateClass:
+    active: true
+  UnusedPrivateMember:
+    active: true
+  UnusedPrivateProperty:
+    active: true

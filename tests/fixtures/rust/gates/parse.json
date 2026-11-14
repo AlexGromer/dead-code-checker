@@ -1,0 +1,38 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [4, {"def.func": "fn platform() -> u8 { 1 }", "name": "platform"}],
+      [4, {"def.func": "fn platform() -> u8 { 2 }", "name": "platform"}],
+      [4, {"def.func": "pub extern \"C\" fn ffi_2024() {}", "vis": "pub", "name": "ffi_2024"}],
+      [6, {"def.class": "struct PyThing;", "name": "PyThing"}],
+      [4, {"def.func": "extern \"C\" fn conditional_export() {}", "name": "conditional_export"}],
+      [4, {"def.func": "fn gated_test() {}", "name": "gated_test"}],
+      [11, {"def.var": "static KEEP: u8 = 1;", "name": "KEEP"}],
+      [11, {"def.var": "static ALLOC: Alloc = Alloc;", "name": "ALLOC"}],
+      [6, {"def.class": "struct Alloc;", "name": "Alloc"}],
+      [10, {"def.const": "const _: () = ();", "name": "_"}],
+      [6, {"def.class": "struct Plain;", "name": "Plain"}],
+      [4, {"def.func": "fn unused_helper() {}", "name": "unused_helper"}],
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [13, {"ref.ref": "Alloc#1", "name": "Alloc"}],
+      [10, {"ref.ref": "Alloc#2", "name": "Alloc"}],
+      [10, {"ref.ref": "_", "name": "_"}],
+      [0, {"ref.call": "platform();", "name": "platform"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}],
+      [2, {"root.attr": "#[cfg(unix)]", "attr": "cfg(unix)"}],
+      [2, {"root.attr": "#[cfg(not(unix))]", "attr": "cfg(not(unix))"}],
+      [2, {"root.attr": "#[unsafe(no_mangle)]", "attr": "unsafe(no_mangle)"}],
+      [2, {"root.attr": "#[cfg_attr(feature = \"python\", pyclass)]", "attr": "cfg_attr(feature = \"python\", pyclass)"}],
+      [2, {"root.attr": "#[cfg_attr(feature = \"ffi\", unsafe(no_mangle))]", "attr": "cfg_attr(feature = \"ffi\", unsafe(no_mangle))"}],
+      [2, {"root.attr": "#[cfg_attr(test, test)]", "attr": "cfg_attr(test, test)"}],
+      [2, {"root.attr": "#[used]", "attr": "used"}],
+      [2, {"root.attr": "#[global_allocator]", "attr": "global_allocator"}],
+      [2, {"root.attr": "#[derive(Debug)]", "attr": "derive(Debug)"}]
+    ],
+    "stub": []
+  }
+}

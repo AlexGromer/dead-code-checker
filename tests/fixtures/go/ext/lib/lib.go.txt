@@ -1,0 +1,7 @@
+package lib
+
+func Open(n int) { internal() }
+
+func internal() {}
+
+func Close() {}

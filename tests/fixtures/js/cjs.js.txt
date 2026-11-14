@@ -1,0 +1,7 @@
+const util = require("./util");
+function run() { return util.go(); }
+function helper() {}
+function other() {}
+function lone() {}
+exports.helper = helper;
+module.exports = { run, alias: other };

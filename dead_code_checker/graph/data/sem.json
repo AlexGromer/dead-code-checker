@@ -1,0 +1,79 @@
+{
+ "schema": 1,
+ "_doc": "graph.sem data. min_coverage: the share of a package's definitions the SCIP index must define before it may refute a name edge. engines: per SCIP engine, no_refute = the reason its overlays never refute a name edge (checked on tests/fixtures/sem/union). max_index_bytes: a larger index.scip is not read. apply_bytes_per_s: how many bytes of an index.scip sem.refine applies per second (measured on synthetic indexes of 12 and 128 MB: 2.9 and 2.1 MB/s, one worker, so 2 MB/s); graph.semuse leaves out a cached index that would not be applied inside what is left of the budget (W dc.sem-budget). manifests: per language family, the files (besides the sources of the family) that are inputs of an index, so a changed go.mod or tsconfig makes the overlay stale. lsp: servers per family (engine and exe are names of data/engines.json; the path comes from the one engine resolver, never from the repository), max_queries per language, budget_s for all languages together, grace_s to wait for a server to announce its indexing, settle_s the most a server may hold a language's share of the budget while it finishes indexing; a server entry may carry needs_sandbox (it runs project code: build scripts, proc-macros, and writes into the tree: servers() does not offer it unless the caller says it runs in a sandbox) and init (its initializationOptions, e.g. {\"tsserver\": {\"path\": ...}} for typescript-language-server, which needs a tsserver of TypeScript 5 or older: with a newer typescript there is none, so JS and TS report W dc.sem-lsp-failed until one is installed).",
+ "min_coverage": 0.99,
+ "engines": {
+  "scip-python": {
+   "no_refute": "scip-python 0.6.8 resolves a member access on a union type (x: A | B, Union[A, B]) to the first member only, so the index says nothing against the other members; it confirms, it does not refute"
+  }
+ },
+ "max_index_bytes": 134217728,
+ "apply_bytes_per_s": 2000000,
+ "manifests": {
+  "python": [
+   "pyproject.toml",
+   "setup.cfg",
+   "setup.py",
+   "requirements.txt"
+  ],
+  "go": [
+   "go.mod",
+   "go.sum",
+   "go.work"
+  ],
+  "js": [
+   "package.json",
+   "tsconfig.json",
+   "jsconfig.json"
+  ],
+  "java": [
+   "pom.xml",
+   "build.gradle",
+   "build.gradle.kts"
+  ],
+  "rust": [
+   "Cargo.toml",
+   "Cargo.lock"
+  ]
+ },
+ "lsp": {
+  "max_queries": 20,
+  "budget_s": 20,
+  "grace_s": 1.0,
+  "settle_s": 8.0,
+  "servers": {
+   "python": {
+    "engine": "basedpyright",
+    "exe": "basedpyright-langserver",
+    "args": [
+     "--stdio"
+    ]
+   },
+   "go": {
+    "engine": "gopls",
+    "exe": "gopls",
+    "args": []
+   },
+   "js": {
+    "engine": "typescript-language-server",
+    "exe": "typescript-language-server",
+    "args": [
+     "--stdio"
+    ]
+   },
+   "rust": {
+    "engine": "rust-analyzer",
+    "exe": "rust-analyzer",
+    "args": [],
+    "needs_sandbox": true
+   },
+   "cpp": {
+    "engine": "clangd",
+    "exe": "clangd",
+    "args": [
+     "--background-index=false"
+    ]
+   }
+  }
+ }
+}

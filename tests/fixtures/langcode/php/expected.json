@@ -1,0 +1,48 @@
+{
+ "_doc": "PHP closed world: public/index.php is an entry (entry_re); require of a file adds an edge; the Laravel controller path roots HomeController; a string argument of register_shutdown_function names a function (ref_cmd.ref); the magic method __toString is a protocol member. A callable array names a method of any class: [Sorter::class, 'cmp'], ['Sorter', \"cmp2\"] (double quotes too), [new Hook, 'fire'], [$task, 'go'] keep Sorter.cmp, Sorter.cmp2, Hook.fire and Task.go alive (a member of that name, tier N).",
+ "roots": [
+  [
+   "annotation:php-framework",
+   "app/Http/Controllers/HomeController.php#HomeController.index"
+  ]
+ ],
+ "closed_world": {
+  "app/Http/Controllers/HomeController.php#HomeController": "alive",
+  "app/Http/Controllers/HomeController.php#HomeController.index": "alive",
+  "src/Mailer.php#Loud": "weak-alive",
+  "src/Mailer.php#Loud.shout": "dead",
+  "src/Mailer.php#Mailer": "weak-alive",
+  "src/Mailer.php#Mailer.__toString": "weak-alive",
+  "src/Mailer.php#Mailer.dead_private": "dead",
+  "src/Mailer.php#Mailer.dead_public": "dead",
+  "src/Mailer.php#Mailer.deliver": "weak-alive",
+  "src/Mailer.php#Mailer.send": "weak-alive",
+  "src/Mailer.php#Sender": "weak-alive",
+  "src/Mailer.php#Sender.send": "weak-alive",
+  "src/Mailer.php#Unused": "dead",
+  "src/Sorter.php#Hook": "weak-alive",
+  "src/Sorter.php#Hook.dead_hook": "dead",
+  "src/Sorter.php#Hook.fire": "weak-alive",
+  "src/Sorter.php#Sorter": "weak-alive",
+  "src/Sorter.php#Sorter.cmp": "weak-alive",
+  "src/Sorter.php#Sorter.cmp2": "weak-alive",
+  "src/Sorter.php#Sorter.dead_sort": "dead",
+  "src/Sorter.php#Task": "dead",
+  "src/Sorter.php#Task.go": "weak-alive",
+  "src/bootstrap.php#never_called_fn": "dead",
+  "src/bootstrap.php#on_exit": "weak-alive",
+  "src/bootstrap.php#run_app": "weak-alive",
+  "src/callbacks.php#sort_all": "weak-alive",
+  "src/helpers.php#log_line": "weak-alive",
+  "src/helpers.php#unused_helper": "dead"
+ },
+ "files": {
+  "app/Http/Controllers/HomeController.php": "alive",
+  "public/index.php": "alive",
+  "src/Mailer.php": "weak-alive",
+  "src/Sorter.php": "alive",
+  "src/bootstrap.php": "alive",
+  "src/callbacks.php": "alive",
+  "src/helpers.php": "alive"
+ }
+}

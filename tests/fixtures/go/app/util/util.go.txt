@@ -1,0 +1,7 @@
+package util
+
+func Helper() { internal() }
+
+func internal() {}
+
+func Unused() {}

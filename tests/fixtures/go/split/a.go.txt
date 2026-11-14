@@ -1,0 +1,24 @@
+package main
+
+const Max = 1
+
+var ErrNotFound = 2
+
+var UnusedVar = 3
+
+type Circle struct{}
+
+func handler() {}
+
+func code() int {
+	return ErrNotFound
+}
+
+func main() {
+	cb := handler
+	c := Circle{}
+	if code() > Max {
+		cb()
+	}
+	_ = c
+}

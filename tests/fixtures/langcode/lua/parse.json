@@ -1,0 +1,408 @@
+{
+ "lib/helper.lua": {
+  "defs": [
+   [
+    5,
+    {
+     "def.class": "H = {}",
+     "name": "H"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function H.alone() end",
+     "name": "H.alone"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    8,
+    {
+     "ref.ref": "return H",
+     "name": "H"
+    }
+   ]
+  ]
+ },
+ "lib/optional.lua": {
+  "defs": [
+   [
+    5,
+    {
+     "def.class": "O = {}",
+     "name": "O"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function O.load() end",
+     "name": "O.load"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function O.idle() end",
+     "name": "O.idle"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    8,
+    {
+     "ref.ref": "return O",
+     "name": "O"
+    }
+   ]
+  ]
+ },
+ "lib/util.lua": {
+  "defs": [
+   [
+    5,
+    {
+     "def.class": "U = {}",
+     "name": "U"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function U.greet(x) print(x) end",
+     "name": "U.greet"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function U.never_called() end",
+     "name": "U.never_called"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function U.on_load() end",
+     "name": "U.on_load"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function U.on_save() end",
+     "name": "U.on_save"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function U.on_alias() end",
+     "name": "U.on_alias"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "print(x)",
+     "name": "print"
+    }
+   ],
+   [
+    10,
+    {
+     "block": "print(x)",
+     "cmd": "print",
+     "dyn": "x"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "(x)#1",
+     "name": "x"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.ref": "return U",
+     "name": "U"
+    }
+   ]
+  ]
+ },
+ "main.lua": {
+  "defs": [
+   [
+    5,
+    {
+     "def.class": "M = {}",
+     "name": "M"
+    }
+   ],
+   [
+    1,
+    {
+     "def.func": "function M.run(x)\n  util.greet(x)\n  local r = helper()\n  return r\nend",
+     "name": "M.run"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "local function helper() return 1 end",
+     "name": "helper"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "function M:method()\n  self:other()\nend",
+     "name": "M:method"
+    }
+   ],
+   [
+    2,
+    {
+     "def.func": "function M:other() end",
+     "name": "M:other"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function unused_global() end",
+     "name": "unused_global"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "local function dead_local() end",
+     "name": "dead_local"
+    }
+   ],
+   [
+    3,
+    {
+     "def.func": "cb = function() end",
+     "name": "cb"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "local function on_event() end",
+     "name": "on_event"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    0,
+    {
+     "root.marker": "-- deadcode: root exported to the host"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "helper#1"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "unused_global"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "dead_local"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "on_event"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "require(\"lib.util\")",
+     "name": "require"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "require(\"lib.util\")",
+     "cmd": "require",
+     "name": "lib.util"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "pcall(require, \"lib.optional\")",
+     "name": "pcall"
+    }
+   ],
+   [
+    10,
+    {
+     "block": "pcall(require, \"lib.optional\")",
+     "cmd": "pcall",
+     "dyn": "require"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "(require, \"lib.optional\")",
+     "name": "require"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.include": "pcall(require, \"lib.optional\")",
+     "cmd": "require",
+     "name": "lib.optional"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "opt.load()",
+     "name": "opt.load"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "util.greet(x)",
+     "name": "util.greet"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "(x)#1",
+     "name": "x"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "helper()",
+     "name": "helper"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.ref": "return r",
+     "name": "r#2"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.call": "self:other()",
+     "name": "self:other"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "register(\"evt\", on_event)",
+     "name": "register"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "register(\"evt\", on_event)",
+     "cmd": "register",
+     "name": "evt"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "(\"evt\", on_event)",
+     "name": "on_event"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "register(\"load\", util.on_load)",
+     "name": "register"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "register(\"load\", util.on_load)",
+     "cmd": "register",
+     "name": "load"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "(\"load\", util.on_load)",
+     "name": "util.on_load"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "register(\"save\", { save = util.on_save })",
+     "name": "register"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.include": "register(\"save\", { save = util.on_save })",
+     "cmd": "register",
+     "name": "save"
+    }
+   ],
+   [
+    6,
+    {
+     "ref.ref": "save = util.on_save",
+     "name": "util.on_save"
+    }
+   ],
+   [
+    7,
+    {
+     "ref.ref": "M.hook = util.on_alias",
+     "name": "util.on_alias"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.ref": "return M",
+     "name": "M"
+    }
+   ]
+  ]
+ }
+}

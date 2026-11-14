@@ -1,0 +1,150 @@
+{
+ "schema": 1,
+ "note": "Data of graph.fix (`dead-code-checker graph fix --dry-run`). codes: the dead-symbol findings whose symbols the patch may remove, and only when a corroboration stands behind them (graph.verdict: a dc.suspect is never removed). span_langs: the languages whose extractor gives the exact span of a definition AND that graph.fix can check against the source before it cuts (python: the span of the ast node, decorators included); a symbol of any other language is listed as manual, never patched. kinds: the symbol kinds that are removed. verify (graph.fixverify, `graph fix --dry-run --verify`): local = NON-EXECUTING checks that may run on this machine (the toolchain ones only in the bubblewrap box and only for a command that graph.fixverify.NON_EXECUTING names: this file cannot add one); runtime = EXECUTING checks (tests, build scripts, maven and gradle plugins, npm scripts), only on a separate execution target (a configured remote host), never here. rounds and checks bound the search per class (a round is one parallel batch); timeout_s is per check; parallel = the runtime checks in flight at once. Per language: local and runtime, `baseline` = run it on the tree as it is first (a check that fails there judges nothing), `marker` = the manifest of the package it runs in, `offline` = the cache family of graph.gocache.",
+ "codes": [
+  "dc.dead",
+  "dc.dead-cluster",
+  "dc.introduced-dead"
+ ],
+ "span_langs": [
+  "python"
+ ],
+ "kinds": [
+  "func",
+  "method",
+  "class"
+ ],
+ "verify": {
+  "local": {
+   "rounds": 8,
+   "checks": 64,
+   "timeout_s": 120
+  },
+  "runtime": {
+   "rounds": 6,
+   "checks": 12,
+   "timeout_s": 1800,
+   "parallel": 4
+  },
+  "langs": {
+   "python": {
+    "local": {
+     "check": "py-compile+names+imports",
+     "builtin": "pycheck",
+     "class": "non-executing: compile(), symtable and ast of the patched files and an import scan of the tree, never run; in the bwrap box when this host has one"
+    },
+    "runtime": {
+     "check": "pytest",
+     "argv": [
+      "python3",
+      "-m",
+      "pytest",
+      "-x",
+      "-q",
+      "-p",
+      "no:cacheprovider"
+     ],
+     "baseline": true,
+     "class": "executing: the tests of the project"
+    }
+   },
+   "go": {
+    "local": {
+     "check": "go vet",
+     "argv": [
+      "go",
+      "vet",
+      "./..."
+     ],
+     "marker": "go.mod",
+     "baseline": true,
+     "offline": "go",
+     "env": {
+      "GOFLAGS": "-mod=mod",
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "GOTOOLCHAIN": "local",
+      "CGO_ENABLED": "0"
+     },
+     "class": "non-executing: compiles the packages and their tests, runs nothing; offline, in the bwrap box"
+    },
+    "runtime": {
+     "check": "go test",
+     "argv": [
+      "go",
+      "test",
+      "-count=1",
+      "./..."
+     ],
+     "marker": "go.mod",
+     "baseline": true,
+     "class": "executing: the tests of the project"
+    }
+   },
+   "typescript": {
+    "local": {
+     "check": "tsc --noEmit",
+     "argv": [
+      "tsc",
+      "--noEmit"
+     ],
+     "marker": "tsconfig.json",
+     "baseline": true,
+     "class": "non-executing: type-checks, emits and runs nothing; in the bwrap box"
+    },
+    "runtime": {
+     "check": "npm test",
+     "argv": [
+      "npm",
+      "test",
+      "--silent"
+     ],
+     "marker": "package.json",
+     "baseline": true,
+     "class": "executing: npm scripts and the tests of the project"
+    }
+   },
+   "javascript": {
+    "runtime": {
+     "check": "npm test",
+     "argv": [
+      "npm",
+      "test",
+      "--silent"
+     ],
+     "marker": "package.json",
+     "baseline": true,
+     "class": "executing: npm scripts and the tests of the project"
+    }
+   },
+   "rust": {
+    "runtime": {
+     "check": "cargo check",
+     "argv": [
+      "cargo",
+      "check",
+      "--offline",
+      "--all-targets"
+     ],
+     "marker": "Cargo.toml",
+     "baseline": true,
+     "class": "executing: build.rs and proc-macros run during the check"
+    }
+   },
+   "java": {
+    "runtime": {
+     "check": "mvn compile",
+     "argv": [
+      "mvn",
+      "-o",
+      "-q",
+      "compile"
+     ],
+     "marker": "pom.xml",
+     "baseline": true,
+     "class": "executing: maven plugins run during the build"
+    }
+   }
+  }
+ }
+}

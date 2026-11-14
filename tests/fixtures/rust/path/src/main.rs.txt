@@ -1,0 +1,36 @@
+cfg_if::cfg_if! {
+    if #[cfg(unix)] {
+        mod unix;
+        use unix as plat;
+    } else {
+        #[path = "win/mod.rs"]
+        mod win;
+        use win as plat;
+    }
+}
+
+#[cfg(unix)]
+#[path = "sys/unix.rs"]
+mod imp;
+
+#[cfg(windows)]
+#[path = "sys/windows.rs"]
+mod imp;
+
+/// the data module lives elsewhere
+#[path = "gen/data.rs"]
+mod data;
+
+#[cfg_attr(feature = "alt", path = "alt.rs")]
+#[cfg_attr(not(feature = "alt"), path = "plain.rs")]
+mod other;
+
+mod local;
+
+fn main() {
+    imp::f();
+    data::load();
+    other::run();
+    local::here();
+    plat::start();
+}

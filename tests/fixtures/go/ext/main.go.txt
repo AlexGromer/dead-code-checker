@@ -1,0 +1,25 @@
+package main
+
+import (
+	"container/heap"
+
+	"example.com/lib/v2"
+)
+
+type IntHeap []int
+
+func (h IntHeap) Len() int { return len(h) }
+
+func (h *IntHeap) Push(x any) { *h = append(*h, x.(int)) }
+
+func (h *IntHeap) Pop() any { return 0 }
+
+func (h IntHeap) Unused() {}
+
+var Left, Right = 1, 2
+
+func main() {
+	h := &IntHeap{}
+	heap.Push(h, 3)
+	lib.Open(Left)
+}

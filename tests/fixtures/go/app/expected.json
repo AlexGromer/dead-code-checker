@@ -1,0 +1,30 @@
+{
+ "_doc": "verdict of every def (files are not reported) by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources.",
+ "closed_world": {
+  "main.go#deadA": "dead-cluster",
+  "main.go#deadB": "dead-cluster",
+  "main.go#init": "alive",
+  "main.go#main": "alive",
+  "main.go#run": "alive",
+  "main.go#setup": "alive",
+  "main.go#unusedTop": "dead",
+  "main_test.go#TestRun": "test-only",
+  "main_test.go#onlyForTest": "test-only",
+  "shapes.go#Circle": "weak-alive",
+  "shapes.go#Circle.Area": "weak-alive",
+  "shapes.go#Circle.Perimeter": "dead",
+  "shapes.go#Named": "dead",
+  "shapes.go#Orphan": "dead",
+  "shapes.go#Shape": "weak-alive",
+  "shapes.go#Shape.Area": "weak-alive",
+  "util/util.go#Helper": "weak-alive",
+  "util/util.go#Unused": "dead",
+  "util/util.go#internal": "weak-alive"
+ },
+ "library": {
+  "shapes.go#Circle.Perimeter": "public-unused",
+  "shapes.go#Named": "public-unused",
+  "shapes.go#Orphan": "public-unused",
+  "util/util.go#Unused": "public-unused"
+ }
+}

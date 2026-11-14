@@ -1,0 +1,36 @@
+package main
+
+import (
+	pb "example.com/app/pb"
+)
+
+type Base struct{}
+
+func (b *Base) Hello() {}
+
+type server struct {
+	pb.UnimplementedGreeterServer
+}
+
+func (s *server) SayHello() {}
+
+type ptrServer struct {
+	*pb.UnimplementedGreeterServer
+}
+
+func (s *ptrServer) Serve() {}
+
+type derived struct {
+	*Base
+}
+
+type quiet struct{}
+
+func (q *quiet) Run() {}
+
+func main() {
+	_ = server{}
+	_ = ptrServer{}
+	_ = derived{}
+	_ = quiet{}
+}

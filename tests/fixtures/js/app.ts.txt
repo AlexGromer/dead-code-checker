@@ -1,0 +1,11 @@
+import type { Shape } from "./shape";
+export interface Named extends Shape { name: string }
+export abstract class Base implements Named {
+  name = "x";
+}
+export class Impl extends Base {
+  run(a: Shape): Named { return this.make(a); }
+  private make(a: Shape): Named { return a as Named; }
+}
+export enum Mode { A, B }
+export const mk = (): Impl => new Impl();

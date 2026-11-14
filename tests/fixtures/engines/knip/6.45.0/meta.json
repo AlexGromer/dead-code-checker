@@ -1,0 +1,24 @@
+{
+ "files": [
+  "index.ts",
+  "orphan.ts",
+  "package.json",
+  "util.ts"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "knip",
+    "--reporter",
+    "json",
+    "--no-progress"
+   ],
+   "out": "out.json",
+   "rc": 1,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "knip",
+ "version": "6.45.0"
+}

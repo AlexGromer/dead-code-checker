@@ -1,0 +1,16 @@
+class Tools {
+    private int counter = 0
+
+    def run() { helper(1) }
+    private helper(n) { counter += n }
+    private hidden() {}
+    String describe() { return 'tools' }
+}
+
+interface Greeter {
+    String greet(String n)
+}
+
+class Impl extends Tools implements Greeter {
+    String greet(String n) { return n }
+}

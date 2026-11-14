@@ -1,0 +1,14 @@
+def my_macro(name, **kwargs):
+    native.cc_library(name = name, **kwargs)
+    _private_helper(name)
+
+def other(name):
+    pass
+
+def _private_helper(n):
+    pass
+
+def never_loaded():
+    pass
+
+_UNUSED = 1

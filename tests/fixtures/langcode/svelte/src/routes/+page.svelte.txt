@@ -1,0 +1,24 @@
+<script lang="ts">
+  import Child from '$lib/Child.svelte';
+  import { fmt } from '$lib/utils';
+  export let name: string;
+  let count = 0;
+  function inc() { count += 1; }
+  function tip(node: HTMLElement) { return {}; }
+  function fly(node: HTMLElement) { return {}; }
+  function slideIn(node: HTMLElement) { return {}; }
+  function flip(node: HTMLElement) { return {}; }
+  let active = false;
+  function neverUsedAction(node: HTMLElement) { return {}; }
+  function unusedHandler() { count = 0; }
+</script>
+
+<h1>Hello {name}! {fmt(count)}</h1>
+<button on:click={inc} use:tip transition:fly|local in:slideIn animate:flip class:active>+</button>
+<Child value={count} />
+<img src=logo.png alt="logo">
+{#if count > 1}<p>many</p>{/if}
+
+<style>
+  h1 { color: red }
+</style>

@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "_doc": "query_alias: a grammar that has no graph/data/queries/<grammar>/ of its own uses the queries of the named one (tsx = typescript plus jsx nodes the queries do not mention). ext/filenames/shebang/rules -> lang. role: code | config | data. family = the key the engine router groups languages by, grammar = tree-sitter grammar name, extractor = module graph.extract.<name> (null = read by the root extractors only). holder_edge = link.py gives every member an edge to the type that holds it (a live member keeps its class alive; the flag works per family). members_by_receiver = the members of a type are named through a receiver only (python, go): link.py skips the class scopes of a bare name seen from a def nested in them, so the type `renderPage` and the method `server.renderPage` stay two nodes (per family). build_twins = the defs of one name in two files of one directory are one symbol, each keeps the other alive (go: files that exclude each other by a GOOS suffix or `//go:build`; per family). copy_twins = a file that sits under another root with the same relative path and the same facts as another file (an overlay, a deploy payload, a vendored copy) is the same module: their defs keep each other alive (N, per family). type_scope = link.py resolves a bare name written in a member to the members of the enclosing type, of its other declarations (partial parts, the class in a header) and of its ancestors, and ties a member declared in its class to its definition written out of class (per family). namespaceless = namespaces are no defs: link.py reads the head of a dotted name no scope knows (`util::helper`, `Ns.Util`) as a namespace and resolves the last part (per family). root_inherit = root kinds that a class derived from the rooted class inherits (a host builds the subclasses of a host base too; per family). native = the extractor parses the file itself, no grammar is needed (yaml: graph.extract.yamlite). in_dir = the language of a file that has none (or is plain data) and sits below a directory of that name. ext rules: a string maps the extension, a list of {re, lang} (content regex on the first 4 KB, first hit wins) ends with the default. crate (a language whose packages are crates, the linker reads it: rust): src = the directory of a package that holds the crate root files, roots = their stems in order of preference (src/lib.rs before src/main.rs; only a package with a library, the first root, can be imported by its name), the package is the directory above src and its name the directory name (`-` -> `_`; the Cargo.toml of a package is not read by the linker: in a repo with a library crate any other head of a use that is not in sysroot is matched by the imported names, N), sysroot = crates of the toolchain that are never a package of the project. file_init: the top-level code of a file (property initializers, script statements) runs when any top-level declaration of the file is used, so the linker adds an implicit edge from each top-level def to its file (and from the file to each top-level property: the initializers run with it). link_group: languages of one group see each other's declarations (Java and Kotlin call each other); default = family. package_dir: a package is its directory (the declaration of a file is found by the directory of its package); package_loose: the declared package need not match the directory (Kotlin), so a named import that no directory explains is bound by the name of the declaration, and a class that a registration file names is found by its simple name when no directory matches. implicit_receiver: a bare name that no scope, import or top-level def answers may be a member of an implicit receiver (an extension function `fun Foo.baz() { bar() }`, a lambda with receiver: apply, with, a DSL builder), so link.py also matches the members of that name (N; per language: another language of the same link group, Scala beside Kotlin, keeps its own scoping). file_facade: suffix of the class that other JVM languages see for the top-level declarations of a file (Util.kt -> UtilKt). link_group \"cfg\" (yaml, helm-*, make, just, dockerfile, shell): the languages whose names carry a tag (`recipe:test`, `stage:builder`, `job:build`) see each other: a CI line or a shell script that runs `make test` reaches the recipe (names of other languages carry no tag, so the shared table holds no other clash). ambiguous_names: the same as ambiguous for a whole file name (`nginx.conf`: a template with `{{` is plain data, or a Helm template below templates/, anything else is nginx). ambiguous .conf: a template ({{) is plain data, nginx directives make it nginx, anything else is ini. script_ext: extensions of the language that are run as scripts (Gradle build.gradle.kts): such a file is an entry point. entry_re: regexes of the repo-relative path of files that a tool, a server or a framework runs or serves by convention (Rakefile, config.ru, index.php, a Jenkinsfile, flake.nix, BUILD, a served .html page, a SvelteKit +page.svelte): each is an entry point like a script_ext file.",
+  "langs": {
+    "python": {"role": "code", "family": "python", "grammar": "python", "extractor": "py", "members_by_receiver": true, "copy_twins": true, "ext": [".py", ".pyi", ".pyw"], "shebang": ["python"]},
+    "shell": {"role": "code", "family": "shell", "link_group": "cfg", "grammar": "bash", "extractor": "ts_generic", "ext": [".sh", ".bash", ".zsh", ".ksh"], "shebang": ["sh", "bash", "dash", "ash", "ksh", "zsh"]},
+    "go": {"role": "code", "family": "go", "grammar": "go", "extractor": "ts_generic", "members_by_receiver": true, "build_twins": true, "ext": [".go"]},
+    "rust": {"role": "code", "family": "rust", "grammar": "rust", "extractor": "ts_generic", "ext": [".rs"], "crate": {"src": "src", "roots": ["lib", "main"], "sysroot": ["std", "core", "alloc", "proc_macro", "test"]}},
+    "javascript": {"role": "code", "family": "js", "grammar": "javascript", "extractor": "ts_generic", "ext": [".js", ".mjs", ".cjs", ".jsx"], "shebang": ["node", "nodejs", "deno", "bun"]},
+    "typescript": {"role": "code", "family": "js", "grammar": "typescript", "extractor": "ts_generic", "ext": [".ts", ".mts", ".cts"]},
+    "tsx": {"role": "code", "family": "js", "grammar": "tsx", "extractor": "ts_generic", "ext": [".tsx"]},
+    "java": {"role": "code", "family": "java", "grammar": "java", "extractor": "ts_generic", "ext": [".java"], "link_group": "jvm", "package_dir": true},
+    "kotlin": {"role": "code", "family": "kotlin", "grammar": "kotlin", "extractor": "ts_generic", "ext": [".kt", ".kts"], "link_group": "jvm", "implicit_receiver": true, "package_dir": true, "package_loose": true, "file_init": true, "file_facade": "Kt", "script_ext": [".kts"]},
+    "c": {"role": "code", "family": "cpp", "grammar": "c", "extractor": "ts_generic", "ext": [".c"]},
+    "cpp": {"role": "code", "family": "cpp", "grammar": "cpp", "extractor": "ts_generic", "holder_edge": true, "type_scope": true, "namespaceless": true, "ext": [".cc", ".cpp", ".cxx", ".hpp", ".hh", ".hxx", ".c++", ".h++"]},
+    "csharp": {"role": "code", "family": "csharp", "grammar": "csharp", "extractor": "ts_generic", "holder_edge": true, "type_scope": true, "namespaceless": true, "root_inherit": ["annotation:dotnet-host"], "ext": [".cs"]},
+    "powershell": {"role": "code", "family": "powershell", "grammar": null, "extractor": "pwsh", "holder_edge": true, "ext": [".ps1", ".psm1", ".psd1"], "shebang": ["pwsh", "powershell"]},
+    "hcl": {"role": "config", "family": "hcl", "grammar": "hcl", "extractor": "cfg", "ext": [".tf", ".tfvars", ".hcl"]},
+    "yaml": {"role": "config", "family": "yaml", "link_group": "cfg", "grammar": "yaml", "extractor": "cfg", "native": true, "ext": [".yaml", ".yml", ".tpl"]},
+    "helm-values": {"role": "config", "family": "yaml", "link_group": "cfg", "grammar": "yaml", "extractor": "cfg", "native": true, "ext": [], "filenames": ["values.yaml", "values.yml"], "readers_dir": "templates", "_doc": "Helm values: the cfgkeys of a plain mapping are read by templates only; other yaml has no such reader and gets no keys. readers_dir: the templates must sit beside the file (link.py _extern), otherwise the chart is deployed from elsewhere and the keys are not provably dead"},
+    "helm-template": {"role": "config", "family": "yaml", "link_group": "cfg", "grammar": "yaml", "extractor": "cfg", "native": true, "ext": [], "in_dir": "templates", "_doc": "a file under a templates/ directory that no language claims (NOTES.txt) or that is plain data (*.conf, *.json, *.toml, *.md ...): Helm renders every file of the directory, so its {{ .Values }} reads count. in_dir: any path segment with that name; YAML and code files keep their language"},
+    "msbuild": {"role": "config", "family": "csharp", "grammar": null, "extractor": null, "ext": [".csproj", ".sln", ".props", ".targets"]},
+    "dockerfile": {"role": "config", "family": "docker", "link_group": "cfg", "grammar": "dockerfile", "extractor": "cfgts", "ext": [".dockerfile"], "filenames": ["Dockerfile", "Containerfile"]},
+    "make": {"role": "config", "family": "make", "link_group": "cfg", "grammar": "make", "extractor": "cfgts", "ext": [".mk"], "filenames": ["Makefile", "makefile", "GNUmakefile"]},
+    "just": {"role": "config", "family": "make", "link_group": "cfg", "grammar": "just", "extractor": "cfgts", "ext": [".just"], "filenames": ["justfile", "Justfile", ".justfile"]},
+    "nginx": {"role": "config", "family": "nginx", "grammar": "nginx", "extractor": "cfgts", "ext": [".nginx"]},
+    "haproxy": {"role": "config", "family": null, "grammar": null, "extractor": "cfgconf", "ext": [], "filenames": ["haproxy.cfg", "haproxy.conf"], "_doc": "a service config: a soft root; paths of scripts, certificates and error pages as refs (graph.extract.cfgconf)"},
+    "keepalived": {"role": "config", "family": null, "link_group": "keepalived", "grammar": null, "extractor": "cfgconf", "ext": [], "filenames": ["keepalived.conf"], "_doc": "vrrp_script / vrrp_instance defs, track_script refs, notify scripts (graph.extract.cfgconf)"},
+    "alloy": {"role": "config", "family": null, "link_group": "alloy", "grammar": null, "extractor": "cfgconf", "ext": [".alloy", ".river"], "_doc": "Grafana Alloy (River): components, declare, import.file (graph.extract.cfgconf)"},
+    "redis": {"role": "config", "family": null, "grammar": null, "extractor": "cfgconf", "ext": [], "filenames": ["redis.conf", "sentinel.conf"], "_doc": "include, loadmodule, aclfile, sentinel scripts (graph.extract.cfgconf)"},
+    "logql": {"role": "config", "family": null, "grammar": null, "extractor": "cfgconf", "ext": [".logql"], "_doc": "a LogQL query file read by logcli or Grafana: a soft root"},
+    "jsonnet": {"role": "config", "family": "jsonnet", "grammar": "jsonnet", "extractor": "cfgts", "ext": [".jsonnet"], "_doc": "a program that jsonnet / tanka renders: a soft root"},
+    "libsonnet": {"role": "config", "family": "jsonnet", "grammar": "jsonnet", "extractor": "cfgts", "ext": [".libsonnet"], "_doc": "a library: alive while a jsonnet file imports it"},
+    "jinja2": {"role": "config", "family": "jinja2", "grammar": "jinja2", "extractor": "tpl", "ext": [".j2", ".jinja", ".jinja2"]},
+    "lua": {"role": "code", "family": null, "grammar": "lua", "extractor": "ts_generic", "ext": [".lua"], "shebang": ["lua", "luajit"], "entry_re": ["(^|/)init\\.lua$"]},
+    "ruby": {"role": "code", "family": null, "grammar": "ruby", "extractor": "ts_generic", "file_init": true, "ext": [".rb", ".rake", ".gemspec", ".ru"], "filenames": ["Rakefile", "Gemfile", "Guardfile", "Capfile", "Vagrantfile", "Podfile", "Brewfile", "Fastfile"], "shebang": ["ruby"], "entry_re": ["(^|/)(Rakefile|config\\.ru|config/(application|environment|routes|boot)\\.rb|bin/[\\w-]+)$", "\\.rake$"]},
+    "php": {"role": "code", "family": null, "grammar": "php", "extractor": "ts_generic", "file_init": true, "ext": [".php", ".phtml"], "shebang": ["php"], "entry_re": ["(^|/)(index|app|artisan|bootstrap|server|wp-config)\\.php$", "(^|/)(public|public_html|www|web|htdocs)/[^/]+\\.php$"]},
+    "scala": {"role": "code", "family": null, "grammar": "scala", "extractor": "ts_generic", "file_init": true, "ext": [".scala", ".sc", ".sbt"], "link_group": "jvm", "script_ext": [".sc", ".sbt"]},
+    "groovy": {"role": "code", "family": null, "grammar": "groovy", "extractor": "ts_generic", "file_init": true, "ext": [".groovy", ".gvy", ".gradle"], "filenames": ["Jenkinsfile"], "link_group": "jvm", "script_ext": [".gradle"], "entry_re": ["(^|/)Jenkinsfile[\\w.-]*$"]},
+    "nix": {"role": "code", "family": null, "grammar": "nix", "extractor": "ts_generic", "ext": [".nix"], "entry_re": ["(^|/)(flake|default|shell|release|configuration|hardware-configuration)\\.nix$"]},
+    "starlark": {"role": "code", "family": null, "grammar": "starlark", "extractor": "ts_generic", "ext": [".bzl", ".star", ".sky"], "filenames": ["BUILD", "BUILD.bazel", "WORKSPACE", "WORKSPACE.bazel", "MODULE.bazel", "Tiltfile"], "entry_re": ["(^|/)(BUILD|BUILD\\.bazel|WORKSPACE|WORKSPACE\\.bazel|MODULE\\.bazel|Tiltfile)$"]},
+    "html": {"role": "code", "family": "js", "grammar": "html", "extractor": "ts_generic", "ext": [".html", ".htm"], "entry_re": ["\\.html?$"]},
+    "vue": {"role": "code", "family": "js", "grammar": "vue", "extractor": "ts_generic", "ext": [".vue"]},
+    "svelte": {"role": "code", "family": "js", "grammar": "svelte", "extractor": "ts_generic", "ext": [".svelte"], "entry_re": ["(^|/)\\+(page|layout|error)[\\w@.-]*\\.svelte$"]},
+    "systemd": {"role": "config", "family": null, "grammar": null, "extractor": null, "ext": [".service", ".timer", ".socket", ".target", ".path"]},
+    "json": {"role": "data", "family": "json", "grammar": "json", "extractor": null, "ext": [".json", ".jsonc"], "_doc": "json .. cmake: known languages without a graph (role data: nothing reads them, no dc.unsupported-language)"},
+    "toml": {"role": "data", "family": "toml", "grammar": "toml", "extractor": null, "ext": [".toml"]},
+    "ini": {"role": "data", "family": "ini", "grammar": "ini", "extractor": null, "ext": [".ini", ".cfg", ".conf"]},
+    "properties": {"role": "data", "family": "properties", "grammar": "properties", "extractor": null, "ext": [".properties"]},
+    "xml": {"role": "data", "family": "xml", "grammar": "xml", "extractor": null, "ext": [".xml"]},
+    "proto": {"role": "data", "family": "proto", "grammar": "proto", "extractor": "schema", "ext": [".proto"]},
+    "graphql": {"role": "data", "family": "graphql", "grammar": "graphql", "extractor": "schema", "ext": [".graphql", ".graphqls", ".gql"]},
+    "sql": {"role": "data", "family": "sql", "grammar": "sql", "extractor": "schema", "ext": [".sql"]},
+    "postgres": {"role": "data", "family": "sql", "grammar": "postgres", "extractor": null, "ext": [".psql", ".pgsql"]},
+    "promql": {"role": "data", "family": "promql", "grammar": "promql", "extractor": null, "ext": [".promql"]},
+    "ssh_config": {"role": "data", "family": "ssh_config", "grammar": "ssh_config", "extractor": null, "ext": [], "filenames": ["ssh_config", "sshd_config"]},
+    "caddy": {"role": "data", "family": "caddy", "grammar": "caddy", "extractor": null, "ext": [".caddy"], "filenames": ["Caddyfile"]},
+    "css": {"role": "data", "family": "css", "grammar": "css", "extractor": null, "ext": [".css"]},
+    "cmake": {"role": "data", "family": "cmake", "grammar": "cmake", "extractor": null, "ext": [".cmake"], "filenames": ["CMakeLists.txt"]},
+    "markdown": {"role": "data", "family": null, "grammar": null, "extractor": null, "ext": [".md", ".markdown"]}
+  },
+  "query_alias": {"tsx": "typescript", "terraform": "hcl"},
+  "ambiguous_names": {
+    "nginx.conf": [
+      {"re": "\\{\\{", "lang": "ini"},
+      {"re": "", "lang": "nginx"}
+    ]
+  },
+  "ambiguous": {
+    ".conf": [
+      {"re": "\\{\\{", "lang": "ini"},
+      {"re": "^\\s*(?:(?:server|http|events|upstream|stream)\\s*\\{|(?:listen|server_name|proxy_pass|fastcgi_pass|worker_processes|worker_connections|try_files)\\s[^\\n]*;)", "lang": "nginx"},
+      {"re": "^(?:global[ \\t]*|defaults(?:[ \\t]+[\\w.-]+)?[ \\t]*|(?:frontend|backend|listen)[ \\t]+[\\w.-]+[ \\t]*)(?:#[^\\n]*)?$", "lang": "haproxy"},
+      {"re": "^[ \\t]*(?:vrrp_instance|vrrp_script|vrrp_sync_group|virtual_server_group|virtual_server|global_defs)\\b[^\\n]*\\{", "lang": "keepalived"},
+      {"re": "^(?:loadmodule|dbfilename|appendfilename|aclfile|maxmemory|appendonly|rename-command|replicaof|slaveof|cluster-enabled|protected-mode|requirepass)[ \\t]", "lang": "redis"},
+      {"re": "", "lang": "ini"}
+    ],
+    ".cfg": [
+      {"re": "\\{\\{", "lang": "ini"},
+      {"re": "^(?:global[ \\t]*|defaults(?:[ \\t]+[\\w.-]+)?[ \\t]*|(?:frontend|backend|listen)[ \\t]+[\\w.-]+[ \\t]*)(?:#[^\\n]*)?$", "lang": "haproxy"},
+      {"re": "", "lang": "ini"}
+    ],
+    ".h": [
+      {"re": "^\\s*(?:class\\s+\\w+|namespace\\s+\\w+|template\\s*<|#\\s*include\\s*<(?:iostream|string|vector|map|memory|cstdint)>|extern\\s+\"C\\+\\+\")", "lang": "cpp"},
+      {"re": "", "lang": "c"}
+    ]
+  }
+}

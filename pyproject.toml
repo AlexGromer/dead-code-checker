@@ -13,6 +13,10 @@ requires-python = ">=3.11"
 dependencies = []
 keywords = ["dead-code", "lint", "pre-commit"]
 
+[project.optional-dependencies]
+# the grammars of the graph checker's tree-sitter extractors; the python, powershell and yaml extractors need none of it
+treesitter = ["tree-sitter>=0.26", "tree-sitter-language-pack>=1.25"]
+
 [project.scripts]
 dead-code-checker = "dead_code_checker.core:main"
 
@@ -20,7 +24,10 @@ dead-code-checker = "dead_code_checker.core:main"
 Homepage = "https://github.com/AlexGromer/dead-code-checker"
 
 [tool.setuptools]
-packages = ["dead_code_checker"]
+packages = ["dead_code_checker", "dead_code_checker.graph", "dead_code_checker.graph.extract"]
+
+[tool.setuptools.package-data]
+"dead_code_checker.graph" = ["data/*.json", "data/pwsh/*", "data/queries/*/*", "tracers/py/*.py", "viewer/*.html", "viewer/*.css", "viewer/*.js"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -28,6 +35,7 @@ pythonpath = ["."]
 
 [tool.ruff]
 line-length = 120
+extend-exclude = ["tests/fixtures"]  # malformed manifests on purpose
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F"]

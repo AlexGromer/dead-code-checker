@@ -1,0 +1,23 @@
+{
+ "schema": {
+  "note": "The schema languages (SQL, protobuf, GraphQL: graph.extract.schema). An unused schema object is at most W, never E, and the claims of `claims` (the branch level's orphaned-by-branch, which the generic rule leaves to the graph) fall under the confirmation rule for these languages as well: an object that no engine vouches for is a dc.suspect. No engine of this tool reads these languages, so today every unused object is a suspect; a proof (verdict.Proof) that names a node makes it a W.",
+  "langs": ["sql", "postgres", "proto", "graphql"],
+  "claims": ["dc.orphaned-by-branch"]
+ },
+ "note": "Data of graph/verdict.py. codes: the findings that claim a code symbol is dead; each is W only when something corroborates it, else dc.suspect (level I). engines: the authoritative engines (key = the name of the engine adapter) and what they must say for a hit to corroborate (claims: the hit's claim, rules: its rule id, min_conf: a confidence in percent; a missing key is no limit); only an exact hit on the node counts. symbols: the node kinds a dead cluster is judged by. lsp_blind: which dead claims the silence of a language server does NOT corroborate (verdict.lsp_blind). names: regexes of method names that a framework calls by name, per language of the graph: urllib handlers (urllib.request.build_opener calls <scheme>_open of every handler, http_error_<code> and redirect_request of a redirect handler). implicit: languages whose types satisfy interfaces without naming them (Go): a method with one of these vis may satisfy an interface of the standard library or of a library that the tree does not have, and a language server finds no reference to it in the tree. The protocol_names of rules.json count as well. Not listed on purpose: unused-import and unused-local claims of linters (they never name a function, method or class).",
+ "codes": ["dc.dead", "dc.dead-cluster", "dc.introduced-dead"],
+ "engines": {
+  "go-deadcode": {"claims": ["func"]},
+  "rustc": {"rules": ["dead_code"]},
+  "cargo": {"rules": ["dead_code"]},
+  "knip": {"claims": ["export"]},
+  "pmd": {"claims": ["method"]},
+  "roslyn": {"claims": ["member"]},
+  "vulture": {"claims": ["func", "method", "class"], "min_conf": 100}
+ },
+ "symbols": ["func", "method", "class"],
+ "lsp_blind": {
+  "names": {"python": ["^[a-z]+_open$", "^redirect_request$", "^http_error_\\w+$"]},
+  "implicit": {"langs": ["go"], "vis": ["exported"]}
+ }
+}

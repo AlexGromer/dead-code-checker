@@ -1,0 +1,28 @@
+{
+ "files": [
+  "dead.rs"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "rustc",
+    "--edition",
+    "2021",
+    "--crate-type",
+    "bin",
+    "--emit",
+    "metadata",
+    "--error-format=json",
+    "-o",
+    "dead.rmeta",
+    "dead.rs"
+   ],
+   "out": "out.jsonl",
+   "rc": 0,
+   "stream": "stderr"
+  }
+ ],
+ "tool": "rustc",
+ "version": "1.85.1"
+}

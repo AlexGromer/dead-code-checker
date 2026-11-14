@@ -1,0 +1,39 @@
+{
+ "files": [
+  "go.mod",
+  "main.go",
+  "meth/meth.go"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "staticcheck",
+    "-f",
+    "json",
+    "-checks",
+    "U1000",
+    "."
+   ],
+   "out": "out.jsonl",
+   "rc": 1,
+   "stream": "stdout"
+  },
+  {
+   "argv": [
+    "staticcheck",
+    "-f",
+    "json",
+    "-checks",
+    "U1000",
+    "./meth"
+   ],
+   "out": "out_methods.jsonl",
+   "rc": 1,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "staticcheck",
+ "trimmed": "sarif: runs[].tool.driver.rules",
+ "version": "2026.2.2"
+}

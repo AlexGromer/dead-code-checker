@@ -1,0 +1,23 @@
+{
+ "files": [
+  "c.cpp"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "cppcheck",
+    "--enable=unusedFunction",
+    "--xml",
+    "--xml-version=2",
+    "--quiet",
+    "c.cpp"
+   ],
+   "out": "out.xml",
+   "rc": 0,
+   "stream": "stderr"
+  }
+ ],
+ "tool": "cppcheck",
+ "version": "2.17.1"
+}

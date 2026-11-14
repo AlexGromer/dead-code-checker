@@ -1,0 +1,31 @@
+package main
+
+//go:generate go run tools/gen.go
+
+import (
+	"fmt"
+
+	"example.com/app/util"
+)
+
+func main() {
+	run()
+	util.Helper()
+}
+
+func init() {
+	setup()
+}
+
+func run() {
+	var s Shape = &Circle{}
+	fmt.Println(s.Area())
+}
+
+func setup() {}
+
+func unusedTop() {}
+
+func deadA() { deadB() }
+
+func deadB() { deadA() }

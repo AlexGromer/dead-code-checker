@@ -1,0 +1,24 @@
+{
+ "files": [
+  "Cargo.toml",
+  "src/main.rs"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "cargo",
+    "check",
+    "--offline",
+    "--message-format=json",
+    "--target-dir",
+    "tgt"
+   ],
+   "out": "out.jsonl",
+   "rc": 0,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "cargo",
+ "version": "1.85.1"
+}

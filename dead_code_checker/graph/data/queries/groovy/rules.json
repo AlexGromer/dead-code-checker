@@ -1,0 +1,72 @@
+{
+  "_doc": "Groovy (Gradle scripts, Jenkins pipelines, Groovy classes). The grammar is loose, so the analysis is by name: a call (func) and every word is a use, a class is a command whose keyword word (@kw) is class, trait or enum, an interface one whose keyword is interface. private = private, no modifier = public (Groovy default). ref_cmd.include: Jenkins `load 'x.groovy'` and Gradle `apply from: 'x.gradle'` name a script of ours. roots.main: main and call are entries (a global step of a Jenkins shared library is `call`). path_roots: the files of a Jenkins shared library (vars/*.groovy, a src/ that is not the Maven/Gradle src/main or src/test) are called by name from pipelines in other repositories (hard); Gradle buildSrc and plugins are loaded by Gradle.",
+  "stub_tag": "java",
+  "def_kw": {
+    "class": "^(class|trait|enum|record)$",
+    "iface": "^interface$"
+  },
+  "vis_mods": {
+    "private": "private",
+    "protected": "package",
+    "public": "public"
+  },
+  "flag_mods": {
+    "abstract": "abstract"
+  },
+  "default_vis": {
+    "*": "public"
+  },
+  "ref_cmd": {
+    "include": "^(load|evaluate|apply|include|runScript)$"
+  },
+  "roots": {
+    "main": {
+      "re": "^(main|call)$",
+      "kinds": [
+        "func",
+        "method"
+      ]
+    }
+  },
+  "protocol": [
+    {
+      "re": "\\.(call|methodMissing|propertyMissing|getProperty|setProperty|invokeMethod|toString|equals|hashCode|compareTo|iterator|each|leftShift|plus|minus|getAt|putAt|asType|isCase|close)$",
+      "kinds": [
+        "func",
+        "method"
+      ]
+    }
+  ],
+  "path_roots": [
+    {
+      "path": "(^|/)vars/[^/]+\\.groovy$",
+      "kind": "annotation:jenkins-library",
+      "kinds": [
+        "class",
+        "iface",
+        "func",
+        "method"
+      ]
+    },
+    {
+      "path": "^src/(?!main/|test/)(.*/)?[^/]+\\.groovy$",
+      "kind": "annotation:jenkins-library",
+      "kinds": [
+        "class",
+        "iface",
+        "func",
+        "method"
+      ]
+    },
+    {
+      "path": "(^|/)buildSrc/",
+      "kind": "annotation:gradle",
+      "kinds": [
+        "class",
+        "iface",
+        "func",
+        "method"
+      ]
+    }
+  ]
+}

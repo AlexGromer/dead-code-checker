@@ -1,0 +1,7 @@
+macro_rules! my_macro {
+    () => {
+        helper_in_macro()
+    };
+}
+
+fn helper_in_macro() {}

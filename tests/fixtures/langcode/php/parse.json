@@ -1,0 +1,733 @@
+{
+ "app/Http/Controllers/HomeController.php": {
+  "defs": [
+   [
+    1,
+    {
+     "def.class": "class HomeController extends B…x() { return view('home'); }\n}",
+     "name": "HomeController"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function index() { return view('home'); }",
+     "name": "index"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function index() { return view('home'); }",
+     "mod": "public",
+     "name": "index"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "public function index() { return view('home'); }",
+     "body": "{ return view('home'); }",
+     "name": "index"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    15,
+    {
+     "ref.inherit": "class HomeController extends B…x() { return view('home'); }\n}",
+     "name": "BaseController",
+     "scope": "HomeController"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "view('home')",
+     "name": "view"
+    }
+   ],
+   [
+    24,
+    {
+     "ref.ref": "view('home')",
+     "cmd": "view",
+     "name": "home"
+    }
+   ]
+  ]
+ },
+ "public/index.php": {
+  "refs": [
+   [
+    27,
+    {
+     "ref.include": "require __DIR__ . '/../src/bootstrap.php'",
+     "name": "/../src/bootstrap.php"
+    }
+   ],
+   [
+    26,
+    {
+     "ref.include": "require \"../src/callbacks.php\"",
+     "name": "../src/callbacks.php"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.call": "new Mailer()",
+     "name": "Mailer"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.call": "$mailer->send('hi')",
+     "member": "send",
+     "name": "send"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "run_app()",
+     "name": "run_app"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "sort_all([], null)",
+     "name": "sort_all"
+    }
+   ]
+  ]
+ },
+ "src/Mailer.php": {
+  "defs": [
+   [
+    2,
+    {
+     "def.iface": "interface Sender { public function send(string $m); }",
+     "name": "Sender"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function send(string $m);",
+     "name": "send"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function send(string $m);",
+     "mod": "public",
+     "name": "send"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "class Mailer implements Sender…__toString() { return 'm'; }\n}",
+     "name": "Mailer"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function send(string $m) { $this->deliver($m); }",
+     "name": "send"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function send(string $m) { $this->deliver($m); }",
+     "mod": "public",
+     "name": "send"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "private function deliver($m) { echo $m; }",
+     "name": "deliver"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "private function deliver($m) { echo $m; }",
+     "mod": "private",
+     "name": "deliver"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "private function dead_private() {}",
+     "name": "dead_private"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "private function dead_private() {}",
+     "mod": "private",
+     "name": "dead_private"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function dead_public() {}",
+     "name": "dead_public"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function dead_public() {}",
+     "mod": "public",
+     "name": "dead_public"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function __toString() { return 'm'; }",
+     "name": "__toString"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function __toString() { return 'm'; }",
+     "mod": "public",
+     "name": "__toString"
+    }
+   ],
+   [
+    3,
+    {
+     "def.class": "trait Loud { public function shout() { return 1; } }",
+     "name": "Loud"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function shout() { return 1; }",
+     "name": "shout"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function shout() { return 1; }",
+     "mod": "public",
+     "name": "shout"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "class Unused extends Mailer {}",
+     "name": "Unused"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "public function send(string $m) { $this->deliver($m); }",
+     "body": "{ $this->deliver($m); }",
+     "name": "send"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "private function deliver($m) { echo $m; }",
+     "body": "{ echo $m; }",
+     "name": "deliver"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "private function dead_private() {}",
+     "body": "{}",
+     "name": "dead_private"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public function dead_public() {}",
+     "body": "{}",
+     "name": "dead_public"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public function __toString() { return 'm'; }",
+     "body": "{ return 'm'; }",
+     "name": "__toString"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public function shout() { return 1; }",
+     "body": "{ return 1; }",
+     "name": "shout"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    17,
+    {
+     "ref.impl": "class Mailer implements Sender…__toString() { return 'm'; }\n}",
+     "name": "Sender",
+     "scope": "Mailer"
+    }
+   ],
+   [
+    19,
+    {
+     "ref.inherit": "class Mailer implements Sender…__toString() { return 'm'; }\n}",
+     "name": "Loud",
+     "scope": "Mailer"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.call": "$this->deliver($m)",
+     "member": "deliver",
+     "name": "deliver"
+    }
+   ],
+   [
+    15,
+    {
+     "ref.inherit": "class Unused extends Mailer {}",
+     "name": "Mailer",
+     "scope": "Unused"
+    }
+   ]
+  ]
+ },
+ "src/Sorter.php": {
+  "defs": [
+   [
+    1,
+    {
+     "def.class": "class Sorter {\n    public stat…atic function dead_sort() {}\n}",
+     "name": "Sorter"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public static function cmp($a, $b) { return 0; }",
+     "name": "cmp"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public static function cmp($a, $b) { return 0; }",
+     "mod": "public",
+     "name": "cmp"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public static function cmp2($a) { return $a; }",
+     "name": "cmp2"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public static function cmp2($a) { return $a; }",
+     "mod": "public",
+     "name": "cmp2"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public static function dead_sort() {}",
+     "name": "dead_sort"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public static function dead_sort() {}",
+     "mod": "public",
+     "name": "dead_sort"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "class Hook {\n    public function fire() {}\n    public function dead_hook() {}\n}",
+     "name": "Hook"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function fire() {}",
+     "name": "fire"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function fire() {}",
+     "mod": "public",
+     "name": "fire"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function dead_hook() {}",
+     "name": "dead_hook"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function dead_hook() {}",
+     "mod": "public",
+     "name": "dead_hook"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "class Task {\n    public function go() {}\n}",
+     "name": "Task"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "public function go() {}",
+     "name": "go"
+    }
+   ],
+   [
+    6,
+    {
+     "def.func": "public function go() {}",
+     "mod": "public",
+     "name": "go"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "public static function cmp($a, $b) { return 0; }",
+     "body": "{ return 0; }",
+     "name": "cmp"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public static function cmp2($a) { return $a; }",
+     "body": "{ return $a; }",
+     "name": "cmp2"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public static function dead_sort() {}",
+     "body": "{}",
+     "name": "dead_sort"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public function fire() {}",
+     "body": "{}",
+     "name": "fire"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public function dead_hook() {}",
+     "body": "{}",
+     "name": "dead_hook"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "public function go() {}",
+     "body": "{}",
+     "name": "go"
+    }
+   ]
+  ]
+ },
+ "src/bootstrap.php": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function run_app() {\n    log_l…hutdown_function('on_exit');\n}",
+     "name": "run_app"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function on_exit() {}",
+     "name": "on_exit"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function never_called_fn() {}",
+     "name": "never_called_fn"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    1,
+    {
+     "stub.def": "function run_app() {\n    log_l…hutdown_function('on_exit');\n}",
+     "body": "{\n    log_line('start');\n    register_shutdown_function('on_exit');\n}",
+     "name": "run_app"
+    }
+   ],
+   [
+    1,
+    {
+     "stub.def": "function on_exit() {}",
+     "body": "{}",
+     "name": "on_exit"
+    }
+   ],
+   [
+    1,
+    {
+     "stub.def": "function never_called_fn() {}",
+     "body": "{}",
+     "name": "never_called_fn"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    26,
+    {
+     "ref.include": "require_once 'helpers.php'",
+     "name": "helpers.php"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "log_line('start')",
+     "name": "log_line"
+    }
+   ],
+   [
+    24,
+    {
+     "ref.ref": "log_line('start')",
+     "cmd": "log_line",
+     "name": "start"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "register_shutdown_function('on_exit')",
+     "name": "register_shutdown_function"
+    }
+   ],
+   [
+    24,
+    {
+     "ref.ref": "register_shutdown_function('on_exit')",
+     "cmd": "register_shutdown_function",
+     "name": "on_exit"
+    }
+   ]
+  ]
+ },
+ "src/callbacks.php": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function sort_all($items, $tas…ll_user_func([$task, 'go']);\n}",
+     "name": "sort_all"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    1,
+    {
+     "stub.def": "function sort_all($items, $tas…ll_user_func([$task, 'go']);\n}",
+     "body": "{\n    usort($items, [Sorter::c…ll_user_func([$task, 'go']);\n}",
+     "name": "sort_all"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    26,
+    {
+     "ref.include": "require 'Sorter.php'",
+     "name": "Sorter.php"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "usort($items, [Sorter::class, 'cmp'])",
+     "name": "usort"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "Sorter::class",
+     "name": "Sorter"
+    }
+   ],
+   [
+    9,
+    {
+     "ref.ref": "Sorter::class",
+     "name": "class"
+    }
+   ],
+   [
+    25,
+    {
+     "ref.ref": "[Sorter::class, 'cmp']",
+     "member": "cmp",
+     "name": "cmp"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "array_map(['Sorter', \"cmp2\"], $items)",
+     "name": "array_map"
+    }
+   ],
+   [
+    25,
+    {
+     "ref.ref": "['Sorter', \"cmp2\"]",
+     "member": "cmp2",
+     "name": "cmp2"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "call_user_func([new Hook, 'fire'])",
+     "name": "call_user_func"
+    }
+   ],
+   [
+    2,
+    {
+     "ref.call": "new Hook",
+     "name": "Hook"
+    }
+   ],
+   [
+    25,
+    {
+     "ref.ref": "[new Hook, 'fire']",
+     "member": "fire",
+     "name": "fire"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "call_user_func([$task, 'go'])",
+     "name": "call_user_func"
+    }
+   ],
+   [
+    25,
+    {
+     "ref.ref": "[$task, 'go']",
+     "member": "go",
+     "name": "go"
+    }
+   ]
+  ]
+ },
+ "src/helpers.php": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function log_line($m) { echo $m; }",
+     "name": "log_line"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function unused_helper() {}",
+     "name": "unused_helper"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    1,
+    {
+     "stub.def": "function log_line($m) { echo $m; }",
+     "body": "{ echo $m; }",
+     "name": "log_line"
+    }
+   ],
+   [
+    1,
+    {
+     "stub.def": "function unused_helper() {}",
+     "body": "{}",
+     "name": "unused_helper"
+    }
+   ]
+  ]
+ }
+}

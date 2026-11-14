@@ -1,0 +1,9 @@
+{
+  "_doc": "Golden of the PowerShell fixture (one real pwsh parse per file, link + reach, closed world). Roots: the manual marker of run.ps1 and a soft test root on tests/Used.Tests.ps1 (what roots.py adds for *.Tests.ps1). dead = verdict dead or dead-cluster. alive = reached only through a computed form: a dot-source of (Join-Path $PSScriptRoot 'lib/init.ps1') (an include of the literal), & \"Dyn-$n\" (a dyn site name:dyn-*), ${function:Fvar-Target} (a ref). Widget is reached only through `New-Object Widget` (a plain-name argument) and its constructor with it, Plainfn only through `Get-Command Plainfn`.",
+  "dead": ["lib/common.ps1#get-orphan", "lib/common.ps1#orphan-helper", "lib/common.ps1#todo-stub", "lib/types.ps1#helper.unused", "lib/types.ps1#lonely", "mod/Tools.psm1#dead-tool"],
+  "cluster": [["lib/common.ps1#get-orphan", "lib/common.ps1#orphan-helper"]],
+  "test_only": ["lib/common.ps1#only-tested", "tests/Used.Tests.ps1"],
+  "stubs": ["lib/common.ps1#todo-stub"],
+  "alive": ["lib/common.ps1#dyn-one", "lib/common.ps1#fvar-target", "lib/init.ps1", "lib/init.ps1#init-all", "lib/types.ps1#widget", "lib/types.ps1#widget.widget", "lib/types.ps1#plainfn"],
+  "exported": ["mod/Tools.psm1#invoke-tool"]
+}

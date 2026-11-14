@@ -1,0 +1,1178 @@
+{
+ "about.html": {},
+ "index.html": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.include": "rel=\"stylesheet\"",
+     "cmd": "rel",
+     "name": "stylesheet"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "rel=\"stylesheet\"",
+     "cmd": "rel",
+     "scan": "stylesheet"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "href=\"css/site.css?v=1\"",
+     "cmd": "href",
+     "name": "css/site.css?v=1"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "href=\"css/site.css?v=1\"",
+     "cmd": "href",
+     "scan": "css/site.css?v=1"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "src=\"js/app.js\"",
+     "cmd": "src",
+     "name": "js/app.js"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "src=\"js/app.js\"",
+     "cmd": "src",
+     "scan": "js/app.js"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.include": "src=js/late.js",
+     "cmd": "src",
+     "name": "js/late.js"
+    }
+   ],
+   [
+    3,
+    {
+     "block": "src=js/late.js",
+     "cmd": "src",
+     "scan": "js/late.js"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "type=\"module\"",
+     "cmd": "type",
+     "name": "module"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "type=\"module\"",
+     "cmd": "type",
+     "scan": "module"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "src=\"src/main.js\"",
+     "cmd": "src",
+     "name": "src/main.js"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "src=\"src/main.js\"",
+     "cmd": "src",
+     "scan": "src/main.js"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "type=\"module\"#1",
+     "cmd": "type",
+     "name": "module"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "type=\"module\"#1",
+     "cmd": "type",
+     "scan": "module"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "type=\"application/json\"",
+     "cmd": "type",
+     "name": "application/json"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "type=\"application/json\"",
+     "cmd": "type",
+     "scan": "application/json"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "href=\"about.html#top\"",
+     "cmd": "href",
+     "name": "about.html#top"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "href=\"about.html#top\"",
+     "cmd": "href",
+     "scan": "about.html#top"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "href=\"https://example.com/x\"",
+     "cmd": "href",
+     "name": "https://example.com/x"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "href=\"https://example.com/x\"",
+     "cmd": "href",
+     "scan": "https://example.com/x"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "href=\"javascript:jj()\"",
+     "cmd": "href",
+     "name": "javascript:jj()"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "href=\"javascript:jj()\"",
+     "cmd": "href",
+     "scan": "javascript:jj()"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.include": "href=javascript:kk(1)",
+     "cmd": "href",
+     "name": "javascript:kk(1)"
+    }
+   ],
+   [
+    3,
+    {
+     "block": "href=javascript:kk(1)",
+     "cmd": "href",
+     "scan": "javascript:kk(1)"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "src=\"/img/logo.png\"",
+     "cmd": "src",
+     "name": "/img/logo.png"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "src=\"/img/logo.png\"",
+     "cmd": "src",
+     "scan": "/img/logo.png"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.include": "onclick=\"onGo()\"",
+     "cmd": "onclick",
+     "name": "onGo()"
+    }
+   ],
+   [
+    2,
+    {
+     "block": "onclick=\"onGo()\"",
+     "cmd": "onclick",
+     "scan": "onGo()"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.include": "action=submit.php",
+     "cmd": "action",
+     "name": "submit.php"
+    }
+   ],
+   [
+    3,
+    {
+     "block": "action=submit.php",
+     "cmd": "action",
+     "scan": "submit.php"
+    }
+   ]
+  ],
+  "embed": [
+   [
+    0,
+    {
+     "block": "<script src=\"js/app.js\"></script>",
+     "script": "#24",
+     "tag": "\\<script src=\"js/app.js\">"
+    }
+   ],
+   [
+    0,
+    {
+     "block": "<script src=js/late.js></script>",
+     "script": "#23",
+     "tag": "\\<script src=js/late.js>"
+    }
+   ],
+   [
+    0,
+    {
+     "block": "<script type=\"module\" src=\"src/main.js\"></script>",
+     "script": "#40",
+     "tag": "\\<script type=\"module\" src=\"src/main.js\">"
+    }
+   ],
+   [
+    0,
+    {
+     "block": "<script type=\"module\">import { a } from './mod.js'; a();</script>",
+     "script": "import { a } from './mod.js'; a();",
+     "tag": "\\<script type=\"module\">"
+    }
+   ],
+   [
+    0,
+    {
+     "block": "<script>function onGo() { go(); }</script>",
+     "script": "function onGo() { go(); }",
+     "tag": "\\<script>"
+    }
+   ],
+   [
+    0,
+    {
+     "block": "<script type=\"application/json\">{\"x\": 1}</script>",
+     "script": "{\"x\": 1}",
+     "tag": "\\<script type=\"application/json\">"
+    }
+   ]
+  ]
+ },
+ "index.html#1": {
+  "src": "               \n      \n      \n                                                 \n                                   \n                                  \n                                                   \n                        import { a } from './mod.js'; a();",
+  "grammar": "javascript",
+  "roots": [
+   [
+    1,
+    {
+     "root.main-toplevel": "a()"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "a()",
+     "name": "a"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    0,
+    {
+     "import": "import { a } from './mod.js';",
+     "module": "'./mod.js'"
+    }
+   ],
+   [
+    3,
+    {
+     "import": "import { a } from './mod.js';",
+     "module": "'./mod.js'",
+     "name": "a"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    2,
+    {
+     "lit": "'./mod.js'"
+    }
+   ],
+   [
+    0,
+    {
+     "call": "a()",
+     "args": "()"
+    }
+   ]
+  ]
+ },
+ "index.html#2": {
+  "src": "               \n      \n      \n                                                 \n                                   \n                                  \n                                                   \n                                                                   \n          function onGo() { go(); }",
+  "grammar": "javascript",
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function onGo() { go(); }",
+     "name": "onGo"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function onGo() { go(); }",
+     "body": "{ go(); }",
+     "name": "onGo"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "go()",
+     "name": "go"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    0,
+    {
+     "call": "go()",
+     "args": "()"
+    }
+   ]
+  ]
+ },
+ "js/app.js": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function go() {}",
+     "name": "go"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function initApp() {}",
+     "name": "initApp"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function go() {}",
+     "body": "{}",
+     "name": "go"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function initApp() {}",
+     "body": "{}",
+     "name": "initApp"
+    }
+   ]
+  ]
+ },
+ "js/late.js": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function lateStart() {}",
+     "name": "lateStart"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function lateDead() {}",
+     "name": "lateDead"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function jj() {}",
+     "name": "jj"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function kk() {}",
+     "name": "kk"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function lateStart() {}",
+     "body": "{}",
+     "name": "lateStart"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function lateDead() {}",
+     "body": "{}",
+     "name": "lateDead"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function jj() {}",
+     "body": "{}",
+     "name": "jj"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function kk() {}",
+     "body": "{}",
+     "name": "kk"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    1,
+    {
+     "root.main-toplevel": "lateStart()#1"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "lateStart()#1",
+     "name": "lateStart"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    0,
+    {
+     "call": "lateStart()#1",
+     "args": "()"
+    }
+   ]
+  ]
+ },
+ "js/unused.js": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function neverImported() {}",
+     "name": "neverImported"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function neverImported() {}",
+     "body": "{}",
+     "name": "neverImported"
+    }
+   ]
+  ],
+  "exports": [
+   [
+    0,
+    {
+     "export": "export function neverImported() {}",
+     "name": "neverImported"
+    }
+   ]
+  ]
+ },
+ "mod.js": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function a() {}",
+     "name": "a"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function b() {}",
+     "name": "b"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function a() {}",
+     "body": "{}",
+     "name": "a"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function b() {}",
+     "body": "{}",
+     "name": "b"
+    }
+   ]
+  ],
+  "exports": [
+   [
+    0,
+    {
+     "export": "export function a() {}",
+     "name": "a"
+    }
+   ],
+   [
+    0,
+    {
+     "export": "export function b() {}",
+     "name": "b"
+    }
+   ]
+  ]
+ },
+ "src/App.vue": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.ref": "<template>",
+     "name": "template"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<div>",
+     "name": "div"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.ref": "<MyComp :prop=\"val\" @click=\"handler($event)\" />",
+     "name": "MyComp"
+    }
+   ],
+   [
+    3,
+    {
+     "scan": "val"
+    }
+   ],
+   [
+    3,
+    {
+     "scan": "handler($event)"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<p>",
+     "name": "p"
+    }
+   ],
+   [
+    2,
+    {
+     "scan": " msg "
+    }
+   ],
+   [
+    2,
+    {
+     "scan": " fmt(n) "
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<button @click=onBare>",
+     "name": "button"
+    }
+   ],
+   [
+    4,
+    {
+     "scan": "onBare"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<router-link to=\"/x\">",
+     "name": "router-link"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.include": "to=\"/x\"",
+     "cmd": "to",
+     "name": "/x"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<script setup lang=\"ts\">",
+     "name": "script"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.include": "lang=\"ts\"",
+     "cmd": "lang",
+     "name": "ts"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<style scoped>",
+     "name": "style"
+    }
+   ]
+  ],
+  "embed": [
+   [
+    0,
+    {
+     "block": "<script setup lang=\"ts\">\nimpor… onBare() { fmt(3) }\n</script>",
+     "script": "\nimport MyComp from './MyComp.…\nfunction onBare() { fmt(3) }\n",
+     "tag": "\\<script setup lang=\"ts\">"
+    }
+   ]
+  ]
+ },
+ "src/App.vue#1": {
+  "src": "          \n       \n                                                   \n                                 \n                                       \n                                        \n        \n           \n\n                        \nimport MyComp from './MyComp.vue'\nimport { fmt } from './utils'\nconst msg = 'hi'\nfunction handler(e: Event) { fmt(1) }\nfunction neverUsed() { fmt(2) }\nfunction onBare() { fmt(3) }\n",
+  "grammar": "typescript",
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function handler(e: Event) { fmt(1) }",
+     "name": "handler"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function neverUsed() { fmt(2) }",
+     "name": "neverUsed"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function onBare() { fmt(3) }",
+     "name": "onBare"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function handler(e: Event) { fmt(1) }",
+     "body": "{ fmt(1) }",
+     "name": "handler"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function neverUsed() { fmt(2) }",
+     "body": "{ fmt(2) }",
+     "name": "neverUsed"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function onBare() { fmt(3) }",
+     "body": "{ fmt(3) }",
+     "name": "onBare"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    41,
+    {
+     "name": "Event",
+     "ref.ref": "Event"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "fmt(1)",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "fmt(2)",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "fmt(3)",
+     "name": "fmt"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    0,
+    {
+     "import": "import MyComp from './MyComp.vue'",
+     "module": "'./MyComp.vue'"
+    }
+   ],
+   [
+    1,
+    {
+     "import": "import MyComp from './MyComp.vue'",
+     "default": "MyComp",
+     "module": "'./MyComp.vue'"
+    }
+   ],
+   [
+    0,
+    {
+     "import": "import { fmt } from './utils'",
+     "module": "'./utils'"
+    }
+   ],
+   [
+    3,
+    {
+     "import": "import { fmt } from './utils'",
+     "module": "'./utils'",
+     "name": "fmt"
+    }
+   ],
+   [
+    16,
+    {
+     "import": "fmt(1)",
+     "pattern": "1",
+     "req": "fmt"
+    }
+   ],
+   [
+    16,
+    {
+     "import": "fmt(2)",
+     "pattern": "2",
+     "req": "fmt"
+    }
+   ],
+   [
+    16,
+    {
+     "import": "fmt(3)",
+     "pattern": "3",
+     "req": "fmt"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    2,
+    {
+     "lit": "'./MyComp.vue'"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "'./utils'"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "'hi'"
+    }
+   ],
+   [
+    0,
+    {
+     "call": "fmt(1)",
+     "args": "(1)"
+    }
+   ],
+   [
+    0,
+    {
+     "call": "fmt(2)",
+     "args": "(2)"
+    }
+   ],
+   [
+    0,
+    {
+     "call": "fmt(3)",
+     "args": "(3)"
+    }
+   ]
+  ]
+ },
+ "src/MyComp.vue": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.ref": "<template>",
+     "name": "template"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<b>",
+     "name": "b"
+    }
+   ]
+  ]
+ },
+ "src/Stale.vue": {
+  "refs": [
+   [
+    0,
+    {
+     "ref.ref": "<template>",
+     "name": "template"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.ref": "<b>",
+     "name": "b"
+    }
+   ]
+  ]
+ },
+ "src/main.js": {
+  "roots": [
+   [
+    1,
+    {
+     "root.main-toplevel": "createApp(App).mount('#app')"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    1,
+    {
+     "ref.call": "createApp(App).mount('#app')",
+     "name": "createApp(App).mount"
+    }
+   ],
+   [
+    14,
+    {
+     "name": "createApp(App).mount",
+     "mem": "createApp(App).mount",
+     "ref.ref": "createApp(App).mount"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "createApp(App)",
+     "name": "createApp"
+    }
+   ],
+   [
+    7,
+    {
+     "ref.ref": "(App)",
+     "name": "App"
+    }
+   ]
+  ],
+  "imports": [
+   [
+    0,
+    {
+     "import": "import { createApp } from 'vue'",
+     "module": "'vue'"
+    }
+   ],
+   [
+    3,
+    {
+     "import": "import { createApp } from 'vue'",
+     "module": "'vue'",
+     "name": "createApp"
+    }
+   ],
+   [
+    0,
+    {
+     "import": "import App from './App.vue'",
+     "module": "'./App.vue'"
+    }
+   ],
+   [
+    1,
+    {
+     "import": "import App from './App.vue'",
+     "default": "App",
+     "module": "'./App.vue'"
+    }
+   ],
+   [
+    16,
+    {
+     "import": "createApp(App)",
+     "pattern": "App#1",
+     "req": "createApp"
+    }
+   ],
+   [
+    7,
+    {
+     "import": "createApp(App).mount('#app')",
+     "module": "'#app'",
+     "req": "createApp(App).mount"
+    }
+   ],
+   [
+    16,
+    {
+     "import": "createApp(App).mount('#app')",
+     "pattern": "'#app'",
+     "req": "createApp(App).mount"
+    }
+   ]
+  ],
+  "xlang": [
+   [
+    2,
+    {
+     "lit": "'vue'"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "'./App.vue'"
+    }
+   ],
+   [
+    0,
+    {
+     "call": "createApp(App)",
+     "args": "(App)"
+    }
+   ],
+   [
+    4,
+    {
+     "env.r": "createApp(App).mount",
+     "name": "mount",
+     "obj": "createApp(App)"
+    }
+   ],
+   [
+    0,
+    {
+     "call": "createApp(App).mount('#app')",
+     "args": "('#app')"
+    }
+   ],
+   [
+    2,
+    {
+     "lit": "'#app'"
+    }
+   ]
+  ]
+ },
+ "src/utils.ts": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function fmt(x) { return x }",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function unusedUtil() {}",
+     "name": "unusedUtil"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "function fmt(x) { return x }",
+     "body": "{ return x }",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "function unusedUtil() {}",
+     "body": "{}",
+     "name": "unusedUtil"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    10,
+    {
+     "ref.ref": "return x",
+     "name": "x"
+    }
+   ]
+  ],
+  "exports": [
+   [
+    0,
+    {
+     "export": "export function fmt(x) { return x }",
+     "name": "fmt"
+    }
+   ],
+   [
+    0,
+    {
+     "export": "export function unusedUtil() {}",
+     "name": "unusedUtil"
+    }
+   ]
+  ]
+ },
+ "submit.php": {
+  "defs": [
+   [
+    0,
+    {
+     "def.func": "function handle_submit() {}",
+     "name": "handle_submit"
+    }
+   ],
+   [
+    0,
+    {
+     "def.func": "function stale_submit() {}",
+     "name": "stale_submit"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    1,
+    {
+     "stub.def": "function handle_submit() {}",
+     "body": "{}",
+     "name": "handle_submit"
+    }
+   ],
+   [
+    1,
+    {
+     "stub.def": "function stale_submit() {}",
+     "body": "{}",
+     "name": "stale_submit"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    0,
+    {
+     "ref.call": "handle_submit()#1",
+     "name": "handle_submit"
+    }
+   ]
+  ]
+ }
+}

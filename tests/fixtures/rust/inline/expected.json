@@ -1,0 +1,28 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: the items of an inline `mod` are imported with `use` and called by their bare names (utils::{helper, deep::leaf}, `use crate::utils::aliased as renamed`, the glob `use prelude::*`), in the file that declares the module and, through `use crate::shared::common`, in another one; `use crate::top_level` names a def of the crate root that no file module answers: it is matched by its name (weak), never external; `Wrapper::<Vec<u8>>::new()` is a call of Wrapper.new (a nested turbofish). The weak refs of the identifiers inside a `use` declaration are not recorded: they would keep the imported item weakly alive by its name and hide the binding this golden is about.",
+ "closed_world": {
+  "src/main.rs#Wrapper": "alive",
+  "src/main.rs#Wrapper.never_called": "dead",
+  "src/main.rs#Wrapper.new": "alive",
+  "src/main.rs#main": "alive",
+  "src/main.rs#orphan": "dead",
+  "src/main.rs#prelude": "alive",
+  "src/main.rs#prelude.from_glob": "alive",
+  "src/main.rs#shared": "alive",
+  "src/main.rs#shared.common": "alive",
+  "src/main.rs#shared.unused_shared": "dead",
+  "src/main.rs#top_level": "weak-alive",
+  "src/main.rs#utils": "alive",
+  "src/main.rs#utils.aliased": "alive",
+  "src/main.rs#utils.deep": "alive",
+  "src/main.rs#utils.deep.leaf": "alive",
+  "src/main.rs#utils.helper": "alive",
+  "src/main.rs#utils.unused_in_mod": "dead",
+  "src/worker.rs#work": "alive"
+ },
+ "library": {
+  "src/main.rs#Wrapper.never_called": "public-unused",
+  "src/main.rs#shared.unused_shared": "public-unused",
+  "src/main.rs#utils.unused_in_mod": "public-unused"
+ }
+}

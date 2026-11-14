@@ -1,0 +1,52 @@
+{
+ "facts": {
+  "justfile": {
+   "defs": [
+    [
+     "recipe:_hidden",
+     "job",
+     8,
+     10
+    ],
+    [
+     "recipe:default",
+     "job",
+     2,
+     5
+    ],
+    [
+     "recipe:other",
+     "job",
+     5,
+     8
+    ]
+   ],
+   "dyn": [
+    [
+     "name:recipe:*",
+     "recipe:default"
+    ]
+   ],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "init",
+     "recipe:default",
+     "soft"
+    ],
+    [
+     "init",
+     "recipe:other",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "just:justfile": "weak-alive",
+  "just:justfile#recipe:_hidden": "weak-alive",
+  "just:justfile#recipe:default": "weak-alive",
+  "just:justfile#recipe:other": "weak-alive"
+ }
+}

@@ -1,0 +1,42 @@
+{
+ "_doc": "HTML + Vue closed world: index.html is a served page (entry_re); <script src>, <link href>, <a href> are file edges (URLs, fragments and queries dropped); the module script imports ./mod.js; the classic inline script defines the global onGo that onclick calls (soft script root); src/main.js imports App.vue, whose script block is JS/TS and whose template words (handler, fmt, <MyComp/>) are uses; Stale.vue and the functions nobody names are dead. Unquoted attribute values are HTML too: <script src=js/late.js> and <form action=submit.php> are file edges, @click=onBare in a Vue template is a use of onBare. A link href=\"javascript:jj()\" (quoted or bare) calls jj from a classic script (rules scan_value).",
+ "roots": [
+  [
+   "script",
+   "index.html#onGo"
+  ]
+ ],
+ "closed_world": {
+  "index.html#onGo": "alive",
+  "js/app.js#go": "weak-alive",
+  "js/app.js#initApp": "dead",
+  "js/late.js#jj": "weak-alive",
+  "js/late.js#kk": "weak-alive",
+  "js/late.js#lateDead": "dead",
+  "js/late.js#lateStart": "alive",
+  "js/unused.js#neverImported": "dead",
+  "mod.js#a": "alive",
+  "mod.js#b": "dead",
+  "src/App.vue#handler": "alive",
+  "src/App.vue#neverUsed": "dead",
+  "src/App.vue#onBare": "alive",
+  "src/utils.ts#fmt": "alive",
+  "src/utils.ts#unusedUtil": "dead",
+  "submit.php#handle_submit": "alive",
+  "submit.php#stale_submit": "dead"
+ },
+ "files": {
+  "about.html": "alive",
+  "index.html": "alive",
+  "js/app.js": "alive",
+  "js/late.js": "alive",
+  "js/unused.js": "dead",
+  "mod.js": "alive",
+  "src/App.vue": "alive",
+  "src/MyComp.vue": "alive",
+  "src/Stale.vue": "dead",
+  "src/main.js": "alive",
+  "src/utils.ts": "alive",
+  "submit.php": "alive"
+ }
+}

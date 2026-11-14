@@ -1,0 +1,21 @@
+name: ci
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: |
+          ./scripts/build.sh --fast
+          echo done
+  test:
+    needs: [build]
+    uses: ./.github/workflows/reuse.yml
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: bin/lint

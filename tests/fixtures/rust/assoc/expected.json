@@ -1,0 +1,23 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: an associated type in an impl or a trait (Output, Unit) is no definition, associated consts are members of their type (Limits.MAX read as Self::MAX, Limits.OPEN as Limits::OPEN, the trait const Shape.SIDES and its impl Limits.SIDES), a type alias at file level and inside a mod is still a definition, `<Limits>::make()` is a member call by name.",
+ "closed_world": {
+  "src/main.rs#Alias": "alive",
+  "src/main.rs#Limits": "alive",
+  "src/main.rs#Limits.MAX": "alive",
+  "src/main.rs#Limits.OPEN": "alive",
+  "src/main.rs#Limits.SIDES": "alive",
+  "src/main.rs#Limits.UNUSED": "dead",
+  "src/main.rs#Limits.cap": "alive",
+  "src/main.rs#Limits.make": "weak-alive",
+  "src/main.rs#Point": "alive",
+  "src/main.rs#Point.add": "alive",
+  "src/main.rs#Shape": "alive",
+  "src/main.rs#Shape.SIDES": "alive",
+  "src/main.rs#Shape.sides": "alive",
+  "src/main.rs#inner": "alive",
+  "src/main.rs#inner.Id": "weak-alive",
+  "src/main.rs#inner.id": "weak-alive",
+  "src/main.rs#main": "alive"
+ },
+ "library": {}
+}

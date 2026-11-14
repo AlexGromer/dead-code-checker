@@ -1,0 +1,4 @@
+/work/t.cpp:2:11: warning: parameter 'unusedParam' is unused [misc-unused-parameters]
+    2 | int f(int unusedParam) { return 1; }
+      |           ^~~~~~~~~~~
+      |            /*unusedParam*/

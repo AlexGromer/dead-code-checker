@@ -1,0 +1,31 @@
+{
+  "_doc": "Nix. ref_cmd.dyn: `import path` of a computed path may load any file. path_sub.include: only a relative path literal names a file of ours (a path that does not start with ./ or ../ is dropped), a directory is its default.nix, a file with an extension is itself. path_roots: the attribute functions of flake.nix (outputs), shell.nix, release.nix, configuration.nix and hardware-configuration.nix are called by nix and NixOS (hard); a default.nix is an entry file (langs.json entry_re) but its functions are used by name like any library.",
+  "ref_cmd": {
+    "dyn": "^import$"
+  },
+  "path_sub": {
+    "include": [
+      [
+        "^(?!\\.\\.?(/|$)).*$",
+        ""
+      ],
+      [
+        "^((?:.*/)?[^/.][^/.]*)/?$",
+        "\\1/default.nix"
+      ],
+      [
+        "^(\\.\\.?)/?$",
+        "\\1/default.nix"
+      ]
+    ]
+  },
+  "path_roots": [
+    {
+      "path": "(^|/)(flake|shell|release|configuration|hardware-configuration)\\.nix$",
+      "kind": "export",
+      "kinds": [
+        "func"
+      ]
+    }
+  ]
+}

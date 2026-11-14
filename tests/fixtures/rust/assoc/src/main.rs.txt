@@ -1,0 +1,61 @@
+use std::ops::Add;
+
+pub struct Point {
+    x: i32,
+}
+
+impl Add for Point {
+    type Output = Point;
+
+    fn add(self, o: Point) -> Point {
+        Point { x: self.x + o.x }
+    }
+}
+
+pub struct Limits;
+
+impl Limits {
+    const MAX: u32 = 8;
+    const UNUSED: u32 = 1;
+    pub const OPEN: u32 = 2;
+
+    fn cap(&self) -> u32 {
+        Self::MAX
+    }
+
+    fn make() -> u32 {
+        0
+    }
+}
+
+pub trait Shape {
+    const SIDES: u32;
+    type Unit;
+
+    fn sides(&self) -> u32 {
+        Self::SIDES
+    }
+}
+
+impl Shape for Limits {
+    const SIDES: u32 = 4;
+    type Unit = u8;
+}
+
+type Alias = Point;
+
+mod inner {
+    pub type Id = u32;
+
+    pub fn id() -> Id {
+        1
+    }
+}
+
+fn main() {
+    let a: Alias = Alias { x: 1 } + Alias { x: 2 };
+    let n = Limits.cap() + Limits::OPEN;
+    let m = <Limits>::make();
+    inner::id();
+    Limits.sides();
+}

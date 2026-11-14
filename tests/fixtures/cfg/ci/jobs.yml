@@ -1,0 +1,7 @@
+deploy:
+  stage: build
+  extends: [.shared]
+  script:
+    - echo deploy
+.shared:
+  script: [echo shared]

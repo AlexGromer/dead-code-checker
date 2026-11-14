@@ -1,0 +1,17 @@
+import def, { a, b as bb } from "./lib/util.js";
+import * as ns from "./lib/ns.js";
+import "./side.js";
+const fs = require("fs");
+const { p, q: qq } = require("./cjs.js");
+export { a2 as renamed } from "./re.js";
+export * from "./all.js";
+
+export function used() { return helper(); }
+function helper() { ns.run(); return def(); }
+const arrow = () => { return null; };
+export default class Widget extends Base {
+  #secret() {}
+  render() { this.#secret(); setTimeout(cb); }
+}
+// deadcode: root entry
+function marked() {}

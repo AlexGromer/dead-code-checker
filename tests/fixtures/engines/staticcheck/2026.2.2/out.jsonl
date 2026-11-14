@@ -1,0 +1,2 @@
+{"code":"U1000","severity":"error","location":{"file":"/work/main.go","line":7,"column":6},"end":{"file":"","line":0,"column":0},"message":"func deadFn is unused"}
+{"code":"U1000","severity":"error","location":{"file":"/work/main.go","line":9,"column":6},"end":{"file":"","line":0,"column":0},"message":"func unusedHelper is unused"}

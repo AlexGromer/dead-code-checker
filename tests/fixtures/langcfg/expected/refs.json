@@ -1,0 +1,192 @@
+{
+ "facts": {
+  ".github/workflows/ci.yml": {
+   "defs": [
+    [
+     "job:a",
+     "job",
+     4,
+     7
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "job:a",
+     "ref",
+     ""
+    ],
+    [
+     "scripts/ci.sh",
+     "exec",
+     "job:a"
+    ]
+   ],
+   "roots": [
+    [
+     "workflow",
+     "",
+     "hard"
+    ]
+   ]
+  },
+  "Dockerfile": {
+   "defs": [
+    [
+     "stage:app",
+     "resource",
+     1,
+     2
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "stage:app",
+     "ref",
+     ""
+    ]
+   ],
+   "roots": []
+  },
+  "Makefile": {
+   "defs": [
+    [
+     "recipe:all",
+     "job",
+     2,
+     3
+    ],
+    [
+     "recipe:build",
+     "job",
+     3,
+     5
+    ],
+    [
+     "recipe:orphan",
+     "job",
+     13,
+     15
+    ],
+    [
+     "recipe:via-doc",
+     "job",
+     5,
+     7
+    ],
+    [
+     "recipe:via-docker",
+     "job",
+     11,
+     13
+    ],
+    [
+     "recipe:via-fence",
+     "job",
+     7,
+     9
+    ],
+    [
+     "recipe:via-sh",
+     "job",
+     9,
+     11
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "recipe:build",
+     "ref",
+     "recipe:all"
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "recipe:all",
+     "soft"
+    ],
+    [
+     "init",
+     "recipe:build",
+     "soft"
+    ]
+   ]
+  },
+  "docker-compose.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "stage:app",
+     "ref",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "scripts/ci.sh": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "make",
+     "call",
+     ""
+    ],
+    [
+     "recipe:via-sh",
+     "ref",
+     ""
+    ],
+    [
+     "set",
+     "call",
+     ""
+    ],
+    [
+     "via-sh",
+     "ref",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "main",
+     "",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "dockerfile:Dockerfile": "weak-alive",
+  "dockerfile:Dockerfile#stage:app": "weak-alive",
+  "make:Makefile": "weak-alive",
+  "make:Makefile#recipe:all": "weak-alive",
+  "make:Makefile#recipe:build": "weak-alive",
+  "make:Makefile#recipe:orphan": "dead",
+  "make:Makefile#recipe:via-doc": "doc-only",
+  "make:Makefile#recipe:via-docker": "weak-alive",
+  "make:Makefile#recipe:via-fence": "doc-only",
+  "make:Makefile#recipe:via-sh": "weak-alive",
+  "markdown:README.md": "dead",
+  "shell:scripts/ci.sh": "alive",
+  "yaml:.github/workflows/ci.yml": "alive",
+  "yaml:.github/workflows/ci.yml#job:a": "alive",
+  "yaml:docker-compose.yml": "weak-alive"
+ }
+}

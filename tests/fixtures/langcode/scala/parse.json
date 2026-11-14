@@ -1,0 +1,1507 @@
+{
+ "src/main/scala/app/Cli.scala": {
+  "defs": [
+   [
+    0,
+    {
+     "def.class": "class Base {\n  def baseCall: Int = 1\n  def neverCalled: Int = 2\n}",
+     "name": "Base"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def baseCall: Int = 1",
+     "name": "baseCall"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def neverCalled: Int = 2",
+     "name": "neverCalled"
+    }
+   ],
+   [
+    3,
+    {
+     "def.iface": "trait Greets {\n  def greet: Int = 3\n  def silent: Int = 4\n}",
+     "name": "Greets"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def greet: Int = 3",
+     "name": "greet"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def silent: Int = 4",
+     "name": "silent"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Derived extends Base wit…}\n  def flag: Boolean = true\n}",
+     "name": "Derived"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def go(p: Int): Int = {\n    va…+ greet + p + local else 0\n  }",
+     "name": "go"
+    }
+   ],
+   [
+    6,
+    {
+     "def.var": "val local = 1",
+     "name": "local"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def flag: Boolean = true",
+     "name": "flag"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "object Cli {\n  def main(args: …tln(new Derived().go(1))\n  }\n}",
+     "name": "Cli"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def main(args: Array[String]): Unit = {\n    println(new Derived().go(1))\n  }",
+     "name": "main"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "object Unused {\n  def helper: Int = 5\n}",
+     "name": "Unused"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def helper: Int = 5",
+     "name": "helper"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "def go(p: Int): Int = {\n    va…+ greet + p + local else 0\n  }",
+     "body": "{\n    val local = 1\n    if (flag) baseCall + greet + p + local else 0\n  }",
+     "name": "go"
+    }
+   ],
+   [
+    0,
+    {
+     "stub.def": "def main(args: Array[String]): Unit = {\n    println(new Derived().go(1))\n  }",
+     "body": "{\n    println(new Derived().go(1))\n  }",
+     "name": "main"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    1,
+    {
+     "root.main": "baseCall"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "neverCalled"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "greet"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "silent"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "go"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "flag#1"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "main"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "helper"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    17,
+    {
+     "name": "app",
+     "ref.ref": "app",
+     "self": "app"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Base",
+     "ref.ref": "Base",
+     "self": "Base"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "baseCall",
+     "ref.ref": "baseCall",
+     "self": "baseCall"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "neverCalled",
+     "ref.ref": "neverCalled",
+     "self": "neverCalled"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#1",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Greets",
+     "ref.ref": "Greets",
+     "self": "Greets"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "greet",
+     "ref.ref": "greet",
+     "self": "greet"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#2",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "silent",
+     "ref.ref": "silent",
+     "self": "silent"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#3",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Derived",
+     "ref.ref": "Derived",
+     "self": "Derived"
+    }
+   ],
+   [
+    7,
+    {
+     "ref.inherit": "class Derived extends Base wit…}\n  def flag: Boolean = true\n}",
+     "name": "Base",
+     "scope": "Derived"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Base#1",
+     "ref.ref": "Base"
+    }
+   ],
+   [
+    7,
+    {
+     "ref.inherit": "class Derived extends Base wit…}\n  def flag: Boolean = true\n}",
+     "name": "Greets",
+     "scope": "Derived"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Greets#1",
+     "ref.ref": "Greets"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "go",
+     "ref.ref": "go",
+     "self": "go"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "p#3"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "p#3",
+     "ref.ref": "p",
+     "self": "p"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#4",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#5",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "local",
+     "ref.ref": "local",
+     "self": "local"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "flag",
+     "ref.ref": "flag",
+     "self": "flag"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.ref": "baseCall + greet",
+     "name": "baseCall"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "baseCall#1",
+     "ref.ref": "baseCall",
+     "self": "baseCall"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.ref": "baseCall + greet",
+     "name": "greet"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "greet#1",
+     "ref.ref": "greet",
+     "self": "greet"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.ref": "baseCall + greet + p",
+     "name": "p"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "p#4",
+     "ref.ref": "p",
+     "self": "p"
+    }
+   ],
+   [
+    12,
+    {
+     "ref.ref": "baseCall + greet + p + local",
+     "name": "local"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "local#1",
+     "ref.ref": "local",
+     "self": "local"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "flag#1",
+     "ref.ref": "flag",
+     "self": "flag"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Boolean",
+     "ref.ref": "Boolean"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Cli",
+     "ref.ref": "Cli",
+     "self": "Cli"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "main",
+     "ref.ref": "main",
+     "self": "main"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "args"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "args",
+     "ref.ref": "args",
+     "self": "args"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Array",
+     "ref.ref": "Array"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit",
+     "ref.ref": "Unit"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "println(new Derived().go(1))",
+     "name": "println"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "println",
+     "ref.ref": "println",
+     "self": "println"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.call": "new Derived()",
+     "name": "Derived"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Derived#1",
+     "ref.ref": "Derived"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "new Derived().go(1)",
+     "member": "go",
+     "name": "go"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "new Derived().go",
+     "member": "go",
+     "name": "go"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "go#1",
+     "ref.ref": "go",
+     "self": "go"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Unused",
+     "ref.ref": "Unused",
+     "self": "Unused"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "helper",
+     "ref.ref": "helper",
+     "self": "helper"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#6",
+     "ref.ref": "Int"
+    }
+   ]
+  ]
+ },
+ "src/main/scala/app/Main.scala": {
+  "defs": [
+   [
+    1,
+    {
+     "def.class": "object Main extends App {\n  va…(\"x\")\n  println(Util.fmt(1))\n}",
+     "name": "Main"
+    }
+   ],
+   [
+    6,
+    {
+     "def.var": "val svc = new Service(Repo)",
+     "name": "svc"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    2,
+    {
+     "root.main-app": "App"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    17,
+    {
+     "name": "app",
+     "ref.ref": "app",
+     "self": "app"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Main",
+     "ref.ref": "Main",
+     "self": "Main"
+    }
+   ],
+   [
+    8,
+    {
+     "ref.inherit": "object Main extends App {\n  va…(\"x\")\n  println(Util.fmt(1))\n}",
+     "name": "App",
+     "scope": "Main"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "App",
+     "ref.ref": "App"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "svc",
+     "ref.ref": "svc",
+     "self": "svc"
+    }
+   ],
+   [
+    3,
+    {
+     "ref.call": "new Service(Repo)",
+     "name": "Service"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Service",
+     "ref.ref": "Service"
+    }
+   ],
+   [
+    11,
+    {
+     "ref.ref": "(Repo)",
+     "name": "Repo"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Repo",
+     "ref.ref": "Repo",
+     "self": "Repo"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "svc.handle",
+     "name": "svc"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "svc#1",
+     "ref.ref": "svc",
+     "self": "svc"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "svc.handle(\"x\")",
+     "member": "handle",
+     "name": "handle"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "svc.handle",
+     "member": "handle",
+     "name": "handle"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "handle",
+     "ref.ref": "handle",
+     "self": "handle"
+    }
+   ],
+   [
+    16,
+    {
+     "block": "svc.handle(\"x\")",
+     "cmd": "handle",
+     "dyn": "\"x\""
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "println(Util.fmt(1))",
+     "name": "println"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "println",
+     "ref.ref": "println",
+     "self": "println"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "Util.fmt",
+     "name": "Util"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Util",
+     "ref.ref": "Util",
+     "self": "Util"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "Util.fmt(1)",
+     "member": "fmt",
+     "name": "fmt"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "Util.fmt",
+     "member": "fmt",
+     "name": "fmt"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "fmt",
+     "ref.ref": "fmt",
+     "self": "fmt"
+    }
+   ]
+  ]
+ },
+ "src/main/scala/app/Service.scala": {
+  "defs": [
+   [
+    3,
+    {
+     "def.iface": "trait Handler { def handle(s: String): Unit }",
+     "name": "Handler"
+    }
+   ],
+   [
+    5,
+    {
+     "def.func": "def handle(s: String): Unit",
+     "name": "handle"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Service(repo: Repo.type)… def unusedPublic(): Int = 2\n}",
+     "name": "Service"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "override def handle(s: String): Unit = { audit(s) }",
+     "name": "handle"
+    }
+   ],
+   [
+    9,
+    {
+     "def.func": "override def handle(s: String): Unit = { audit(s) }",
+     "mod": "override",
+     "name": "handle"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "private def audit(s: String): Unit = repo.save(s)",
+     "name": "audit"
+    }
+   ],
+   [
+    8,
+    {
+     "def.func": "private def audit(s: String): Unit = repo.save(s)",
+     "mod": "private",
+     "name": "audit"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "private def unusedPrivate(): Int = 1",
+     "name": "unusedPrivate"
+    }
+   ],
+   [
+    8,
+    {
+     "def.func": "private def unusedPrivate(): Int = 1",
+     "mod": "private",
+     "name": "unusedPrivate"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def unusedPublic(): Int = 2",
+     "name": "unusedPublic"
+    }
+   ],
+   [
+    0,
+    {
+     "def.class": "class Orphan extends Handler {\n  def handle(s: String): Unit = ()\n}",
+     "name": "Orphan"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def handle(s: String): Unit = ()",
+     "name": "handle"
+    }
+   ]
+  ],
+  "stub": [
+   [
+    0,
+    {
+     "stub.def": "override def handle(s: String): Unit = { audit(s) }",
+     "body": "{ audit(s) }",
+     "name": "handle"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    1,
+    {
+     "root.main": "handle#1"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "audit#1"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "unusedPrivate"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "unusedPublic"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "handle#2"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    17,
+    {
+     "name": "app",
+     "ref.ref": "app",
+     "self": "app"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Handler",
+     "ref.ref": "Handler",
+     "self": "Handler"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "handle",
+     "ref.ref": "handle",
+     "self": "handle"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "s"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit",
+     "ref.ref": "Unit"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Service",
+     "ref.ref": "Service",
+     "self": "Service"
+    }
+   ],
+   [
+    19,
+    {
+     "local": "repo"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "repo",
+     "ref.ref": "repo",
+     "self": "repo"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Repo",
+     "ref.ref": "Repo",
+     "self": "Repo"
+    }
+   ],
+   [
+    7,
+    {
+     "ref.inherit": "class Service(repo: Repo.type)… def unusedPublic(): Int = 2\n}",
+     "name": "Handler",
+     "scope": "Service"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Handler#1",
+     "ref.ref": "Handler"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "handle#1",
+     "ref.ref": "handle",
+     "self": "handle"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "s#4"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s#4",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String#1",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit#1",
+     "ref.ref": "Unit"
+    }
+   ],
+   [
+    0,
+    {
+     "ref.call": "audit(s)",
+     "name": "audit"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "audit",
+     "ref.ref": "audit",
+     "self": "audit"
+    }
+   ],
+   [
+    11,
+    {
+     "ref.ref": "(s)",
+     "name": "s"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s#5",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "audit#1",
+     "ref.ref": "audit",
+     "self": "audit"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "s#6"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s#6",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String#2",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit#2",
+     "ref.ref": "Unit"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "repo.save",
+     "name": "repo"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "repo#1",
+     "ref.ref": "repo",
+     "self": "repo"
+    }
+   ],
+   [
+    1,
+    {
+     "ref.call": "repo.save(s)",
+     "member": "save",
+     "name": "save"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "repo.save",
+     "member": "save",
+     "name": "save"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "save",
+     "ref.ref": "save",
+     "self": "save"
+    }
+   ],
+   [
+    11,
+    {
+     "ref.ref": "(s)#1",
+     "name": "s"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s#8",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "unusedPrivate",
+     "ref.ref": "unusedPrivate",
+     "self": "unusedPrivate"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "unusedPublic",
+     "ref.ref": "unusedPublic",
+     "self": "unusedPublic"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#1",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Orphan",
+     "ref.ref": "Orphan",
+     "self": "Orphan"
+    }
+   ],
+   [
+    7,
+    {
+     "ref.inherit": "class Orphan extends Handler {\n  def handle(s: String): Unit = ()\n}",
+     "name": "Handler",
+     "scope": "Orphan"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Handler#2",
+     "ref.ref": "Handler"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "handle#2",
+     "ref.ref": "handle",
+     "self": "handle"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "s#14"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s#14",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String#3",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit#3",
+     "ref.ref": "Unit"
+    }
+   ]
+  ]
+ },
+ "src/main/scala/app/Util.scala": {
+  "defs": [
+   [
+    1,
+    {
+     "def.class": "object Util {\n  def fmt(i: Int…i: Int): String = i.toString\n}",
+     "name": "Util"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def fmt(i: Int): String = i.toString",
+     "name": "fmt"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def neverFmt(i: Int): String = i.toString",
+     "name": "neverFmt"
+    }
+   ],
+   [
+    1,
+    {
+     "def.class": "object Repo {\n  def save(s: String): Unit = ()\n  def drop(): Unit = ()\n}",
+     "name": "Repo"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def save(s: String): Unit = ()",
+     "name": "save"
+    }
+   ],
+   [
+    4,
+    {
+     "def.func": "def drop(): Unit = ()",
+     "name": "drop"
+    }
+   ]
+  ],
+  "roots": [
+   [
+    1,
+    {
+     "root.main": "fmt"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "neverFmt"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "save"
+    }
+   ],
+   [
+    1,
+    {
+     "root.main": "drop"
+    }
+   ]
+  ],
+  "refs": [
+   [
+    17,
+    {
+     "name": "app",
+     "ref.ref": "app",
+     "self": "app"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Util",
+     "ref.ref": "Util",
+     "self": "Util"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "fmt",
+     "ref.ref": "fmt",
+     "self": "fmt"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "i#1"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "i#1",
+     "ref.ref": "i",
+     "self": "i"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "i.toString",
+     "name": "i"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "i#3",
+     "ref.ref": "i",
+     "self": "i"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "i.toString",
+     "member": "toString",
+     "name": "toString"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "toString",
+     "ref.ref": "toString",
+     "self": "toString"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "neverFmt",
+     "ref.ref": "neverFmt",
+     "self": "neverFmt"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "i#5"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "i#5",
+     "ref.ref": "i",
+     "self": "i"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Int#1",
+     "ref.ref": "Int"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String#2",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    4,
+    {
+     "ref.ref": "i.toString#1",
+     "name": "i"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "i#7",
+     "ref.ref": "i",
+     "self": "i"
+    }
+   ],
+   [
+    5,
+    {
+     "ref.ref": "i.toString#1",
+     "member": "toString",
+     "name": "toString"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "toString#1",
+     "ref.ref": "toString",
+     "self": "toString"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "Repo",
+     "ref.ref": "Repo",
+     "self": "Repo"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "save",
+     "ref.ref": "save",
+     "self": "save"
+    }
+   ],
+   [
+    18,
+    {
+     "local": "s#1"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "s#1",
+     "ref.ref": "s",
+     "self": "s"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "String#4",
+     "ref.ref": "String"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit",
+     "ref.ref": "Unit"
+    }
+   ],
+   [
+    17,
+    {
+     "name": "drop",
+     "ref.ref": "drop",
+     "self": "drop"
+    }
+   ],
+   [
+    6,
+    {
+     "name": "Unit#1",
+     "ref.ref": "Unit"
+    }
+   ]
+  ]
+ }
+}

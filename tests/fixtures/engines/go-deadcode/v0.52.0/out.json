@@ -1,0 +1,28 @@
+[
+	{
+		"Name": "main",
+		"Path": "example.com/fx",
+		"Funcs": [
+			{
+				"Name": "deadFn",
+				"Position": {
+					"File": "main.go",
+					"Line": 7,
+					"Col": 6
+				},
+				"Generated": false,
+				"Marker": false
+			},
+			{
+				"Name": "unusedHelper",
+				"Position": {
+					"File": "main.go",
+					"Line": 9,
+					"Col": 6
+				},
+				"Generated": false,
+				"Marker": false
+			}
+		]
+	}
+]

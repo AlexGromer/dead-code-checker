@@ -1,0 +1,151 @@
+{
+ "facts": {
+  "common.just": {
+   "defs": [
+    [
+     "recipe:shared",
+     "job",
+     1,
+     3
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "init",
+     "recipe:shared",
+     "soft"
+    ]
+   ]
+  },
+  "justfile": {
+   "defs": [
+    [
+     "recipe:_prepare",
+     "job",
+     18,
+     21
+    ],
+    [
+     "recipe:_unused",
+     "job",
+     21,
+     24
+    ],
+    [
+     "recipe:build",
+     "job",
+     7,
+     11
+    ],
+    [
+     "recipe:default",
+     "job",
+     4,
+     5
+    ],
+    [
+     "recipe:hidden-helper",
+     "job",
+     14,
+     18
+    ],
+    [
+     "recipe:test",
+     "job",
+     11,
+     14
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "common.just",
+     "include",
+     ""
+    ],
+    [
+     "ops",
+     "include",
+     ""
+    ],
+    [
+     "ops.just",
+     "include",
+     ""
+    ],
+    [
+     "ops/Justfile",
+     "include",
+     ""
+    ],
+    [
+     "ops/justfile",
+     "include",
+     ""
+    ],
+    [
+     "ops/mod.just",
+     "include",
+     ""
+    ],
+    [
+     "recipe:_prepare",
+     "ref",
+     "recipe:build"
+    ],
+    [
+     "recipe:build",
+     "ref",
+     ""
+    ],
+    [
+     "recipe:build",
+     "ref",
+     "recipe:default"
+    ],
+    [
+     "recipe:build",
+     "ref",
+     "recipe:test"
+    ],
+    [
+     "recipe:test",
+     "ref",
+     "recipe:build"
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "recipe:build",
+     "soft"
+    ],
+    [
+     "init",
+     "recipe:default",
+     "soft"
+    ],
+    [
+     "init",
+     "recipe:test",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "just:common.just": "weak-alive",
+  "just:common.just#recipe:shared": "weak-alive",
+  "just:justfile": "weak-alive",
+  "just:justfile#recipe:_prepare": "weak-alive",
+  "just:justfile#recipe:_unused": "dead",
+  "just:justfile#recipe:build": "weak-alive",
+  "just:justfile#recipe:default": "weak-alive",
+  "just:justfile#recipe:hidden-helper": "dead",
+  "just:justfile#recipe:test": "weak-alive"
+ }
+}

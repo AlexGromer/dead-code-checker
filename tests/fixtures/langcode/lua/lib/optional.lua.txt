@@ -1,0 +1,4 @@
+local O = {}
+function O.load() end
+function O.idle() end
+return O

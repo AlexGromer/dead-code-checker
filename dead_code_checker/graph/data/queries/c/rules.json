@@ -1,0 +1,25 @@
+{
+  "_doc": "Rules of the C extractor (keys: see ts_generic.rules_of). Visibility: `static` = private, any other definition public (C has no finer access); a prototype at file level is exported (library mode: the header surface). A weak, section, interrupt, alias or naked function is a link-time or hardware entry (annotation.c-attribute); the entry points of a loader (DllMain, JNI_OnLoad, Java_*, PyInit_*, luaopen_*) are roots (main).",
+  "stub_tag": "c",
+  "vis_mods": {
+    "static": "private"
+  },
+  "default_vis": {
+    "*": "public"
+  },
+  "name_map": [
+    [
+      "->",
+      "."
+    ]
+  ],
+  "dotted_names": true,
+  "roots": {
+    "main": {
+      "re": "^(main|wmain|WinMain|wWinMain|DllMain|_tmain|DllRegisterServer|DllUnregisterServer|DllCanUnloadNow|DllGetClassObject|DriverEntry|ServiceMain|_start|JNI_OnLoad|JNI_OnUnload|Java_\\w+|PyInit_\\w+|Init_\\w+|luaopen_\\w+|napi_register_module_v\\d+)$"
+    },
+    "annotation.c-attribute": {
+      "re": "\\b(constructor|destructor|used|retain|externally_visible|dllexport|weak|section|interrupt|naked|alias|ifunc|signal)\\b|visibility\\s*\\(\\s*\"default\"\\s*\\)"
+    }
+  }
+}

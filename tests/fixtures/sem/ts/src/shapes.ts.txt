@@ -1,0 +1,21 @@
+class Alpha {
+  ping(): number {
+    return 1;
+  }
+}
+
+class Beta {
+  ping(): number {
+    return 2;
+  }
+}
+
+export function helper(): number {
+  return 3;
+}
+
+export function unused(): number {
+  return 4;
+}
+
+export { Alpha, Beta };

@@ -1,0 +1,32 @@
+{
+ "files": [
+  "s.sh"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "shellcheck",
+    "-f",
+    "json",
+    "s.sh"
+   ],
+   "out": "out.json",
+   "rc": 1,
+   "stream": "stdout"
+  },
+  {
+   "argv": [
+    "shellcheck",
+    "-f",
+    "json1",
+    "s.sh"
+   ],
+   "out": "out.json1",
+   "rc": 1,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "shellcheck",
+ "version": "0.10.0"
+}

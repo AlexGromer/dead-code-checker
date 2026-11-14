@@ -1,0 +1,4 @@
+- hosts: db
+  tasks:
+    - include_role:
+        name: web

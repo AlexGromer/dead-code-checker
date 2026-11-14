@@ -1,0 +1,137 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [7, {"ref.call": "cfg_if::cfg_if!…\n}", "name": "cfg_if::cfg_if"}],
+      [19, {"item_body": "{…\n}", "item_macro": "<cfg_if::cfg_if"}],
+      [18, {"attr.item": "#[cfg(unix)]#1", "attr": "cfg(unix)"}],
+      [18, {"attr.item": "#[path = \"sys/unix.rs\"]", "attr": "path = \"sys/unix.rs\""}],
+      [16, {"import": "mod imp;"}],
+      [18, {"attr.item": "#[cfg(windows)]", "attr": "cfg(windows)"}],
+      [18, {"attr.item": "#[path = \"sys/windows.rs\"]", "attr": "path = \"sys/windows.rs\""}],
+      [16, {"import": "mod imp;#1"}],
+      [18, {"attr.item": "#[path = \"gen/data.rs\"]", "attr": "path = \"gen/data.rs\""}],
+      [16, {"import": "mod data;"}],
+      [18, {"attr.item": "#[cfg_attr(feature = \"alt\", path = \"alt.rs\")]", "attr": "cfg_attr(feature = \"alt\", path = \"alt.rs\")"}],
+      [18, {"attr.item": "#[cfg_attr(not(feature = \"alt\"), path = \"plain.rs\")]", "attr": "cfg_attr(not(feature = \"alt\"), path = \"plain.rs\")"}],
+      [16, {"import": "mod other;"}],
+      [16, {"import": "mod local;"}],
+      [1, {"ref.call": "imp::f()", "name": "imp::f"}],
+      [1, {"ref.call": "data::load()", "name": "data::load"}],
+      [1, {"ref.call": "other::run()", "name": "other::run"}],
+      [1, {"ref.call": "local::here()", "name": "local::here"}],
+      [1, {"ref.call": "plat::start()", "name": "plat::start"}]
+    ],
+    "roots": [
+      [2, {"root.attr": "#[cfg(unix)]#1", "attr": "cfg(unix)"}],
+      [2, {"root.attr": "#[path = \"sys/unix.rs\"]", "attr": "path = \"sys/unix.rs\""}],
+      [2, {"root.attr": "#[cfg(windows)]", "attr": "cfg(windows)"}],
+      [2, {"root.attr": "#[path = \"sys/windows.rs\"]", "attr": "path = \"sys/windows.rs\""}],
+      [2, {"root.attr": "#[path = \"gen/data.rs\"]", "attr": "path = \"gen/data.rs\""}],
+      [2, {"root.attr": "#[cfg_attr(feature = \"alt\", path = \"alt.rs\")]", "attr": "cfg_attr(feature = \"alt\", path = \"alt.rs\")"}],
+      [2, {"root.attr": "#[cfg_attr(not(feature = \"alt\"), path = \"plain.rs\")]", "attr": "cfg_attr(not(feature = \"alt\"), path = \"plain.rs\")"}],
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "fn main() {…\n}", "name": "main", "body": "{…\n}"}]
+    ]
+  },
+  "src/sys/unix.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn f() {}", "vis": "pub", "name": "f"}],
+      [4, {"def.func": "pub fn g() {}", "vis": "pub", "name": "g"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn f() {}", "name": "f", "body": "{}"}],
+      [0, {"stub.def": "pub fn g() {}", "name": "g", "body": "{}"}]
+    ]
+  },
+  "src/sys/windows.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn f() {}", "vis": "pub", "name": "f"}],
+      [4, {"def.func": "pub fn h() {}", "vis": "pub", "name": "h"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn f() {}", "name": "f", "body": "{}"}],
+      [0, {"stub.def": "pub fn h() {}", "name": "h", "body": "{}"}]
+    ]
+  },
+  "src/gen/data.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn load() {}", "vis": "pub", "name": "load"}],
+      [4, {"def.func": "pub fn spare() {}", "vis": "pub", "name": "spare"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn load() {}", "name": "load", "body": "{}"}],
+      [0, {"stub.def": "pub fn spare() {}", "name": "spare", "body": "{}"}]
+    ]
+  },
+  "src/alt.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn run() {}", "vis": "pub", "name": "run"}],
+      [4, {"def.func": "pub fn alt_only() {}", "vis": "pub", "name": "alt_only"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn run() {}", "name": "run", "body": "{}"}],
+      [0, {"stub.def": "pub fn alt_only() {}", "name": "alt_only", "body": "{}"}]
+    ]
+  },
+  "src/plain.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn run() {}", "vis": "pub", "name": "run"}],
+      [4, {"def.func": "pub fn plain_only() {}", "vis": "pub", "name": "plain_only"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn run() {}", "name": "run", "body": "{}"}],
+      [0, {"stub.def": "pub fn plain_only() {}", "name": "plain_only", "body": "{}"}]
+    ]
+  },
+  "src/local.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn here() {}", "vis": "pub", "name": "here"}],
+      [4, {"def.func": "pub fn gone() {}", "vis": "pub", "name": "gone"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn here() {}", "name": "here", "body": "{}"}],
+      [0, {"stub.def": "pub fn gone() {}", "name": "gone", "body": "{}"}]
+    ]
+  },
+  "src/unix.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn start() {}", "vis": "pub", "name": "start"}],
+      [4, {"def.func": "pub fn unix_only() {}", "vis": "pub", "name": "unix_only"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn start() {}", "name": "start", "body": "{}"}],
+      [0, {"stub.def": "pub fn unix_only() {}", "name": "unix_only", "body": "{}"}]
+    ]
+  },
+  "src/win/mod.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn start() {}", "vis": "pub", "name": "start"}],
+      [4, {"def.func": "pub fn win_only() {}", "vis": "pub", "name": "win_only"}]
+    ],
+    "refs": [],
+    "roots": [],
+    "stub": [
+      [0, {"stub.def": "pub fn start() {}", "name": "start", "body": "{}"}],
+      [0, {"stub.def": "pub fn win_only() {}", "name": "win_only", "body": "{}"}]
+    ]
+  }
+}

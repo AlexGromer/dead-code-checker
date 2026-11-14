@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "_doc": "Data of graph/rootsrc.py (the root sources of ordinary projects). files: regexes of the repo-relative POSIX path, one per extractor. py_bin_groups: the entry-point groups of Python packaging that install a command (any other group is a plugin point that a host loads: kind export). cargo: the paths cargo finds by convention next to Cargo.toml (globs: `*` also crosses `/`), lib_types = crate types that other programs link or load (the public API is a root even when the crate is not published). csproj: exe = OutputType values that make a program, exe_sdks = Sdk names whose default OutputType is Exe, test_refs = regex of the PackageReference names of a test project, entry = the file the dotnet templates give the entry point. exec_entry: a tracked file with the exec bit (git mode) and a shebang line outside a test path is an entry point people run by hand (a root on the file itself: it and what its top-level code calls are alive, the functions nothing calls are not); skip = vendored paths. gradle / maven: how the main class of the application plugin, the Spring Boot plugin, the exec plugin and the jar manifest is written. Every path hint is relative to the file that names it (selector sibling:) or to the repository root (file:), never absolute; kinds are chosen so that nothing here is a dc.root-dangling case (frameworks.json \"dangling\" lists main, systemd and cron only): a missing script is silent, a manifest that cannot be read is W dc.bad-root-source.",
+  "files": {
+    "pyproject": "(^|/)pyproject\\.toml$",
+    "setup_cfg": "(^|/)setup\\.cfg$",
+    "setup_py": "(^|/)setup\\.py$",
+    "cargo": "(^|/)Cargo\\.toml$",
+    "csproj": "\\.csproj$",
+    "gradle": "(^|/)[\\w.-]*\\.gradle(\\.kts)?$",
+    "maven": "(^|/)pom\\.xml$",
+    "docker": "(?i)(^|/)(dockerfile|containerfile)([.-][\\w.-]*)?$|\\.(dockerfile|containerfile)$",
+    "make": "(^|/)(GNUmakefile|[Mm]akefile)$|\\.mk$",
+    "just": "(?i)(^|/)justfile$|\\.just$",
+    "compose": "(?i)(^|/)(docker-)?compose([.-][\\w.-]+)?\\.ya?ml$"
+  },
+  "exec_entry": {
+    "mode": "100755",
+    "shebang": "^#![ \\t]*\\S",
+    "skip": "(^|/)(node_modules|vendor|third_party|\\.git)/",
+    "kind": "bin",
+    "strength": "hard",
+    "trust": "convention"
+  },
+  "py_bin_groups": [
+    "console_scripts",
+    "gui_scripts"
+  ],
+  "cargo": {
+    "main": [
+      "src/main.rs"
+    ],
+    "bins": [
+      "src/bin/*.rs",
+      "src/bin/*/main.rs"
+    ],
+    "examples": [
+      "examples/*.rs",
+      "examples/*/main.rs"
+    ],
+    "benches": [
+      "benches/*.rs",
+      "benches/*/main.rs"
+    ],
+    "build": "build.rs",
+    "lib": "src/lib.rs",
+    "lib_types": [
+      "cdylib",
+      "staticlib",
+      "dylib",
+      "proc-macro"
+    ]
+  },
+  "csproj": {
+    "exe": [
+      "Exe",
+      "WinExe"
+    ],
+    "exe_sdks": [
+      ".Web",
+      ".Worker"
+    ],
+    "test_refs": "^(Microsoft\\.NET\\.Test\\.Sdk|xunit(\\..*)?|NUnit(\\..*)?|MSTest(\\..*)?)$",
+    "entry": "Program.cs"
+  },
+  "gradle": [
+    "\\bmainClass(?:Name)?\\s*(?:\\.set\\(|=|\\()\\s*[\"']([\\w.$]+)[\"']",
+    "[\"']Main-Class[\"']\\s*[\\s\\]=:,)]+\\s*[\"']([\\w.$]+)[\"']"
+  ],
+  "maven": [
+    "mainClass",
+    "start-class",
+    "exec.mainClass",
+    "main.class"
+  ]
+}

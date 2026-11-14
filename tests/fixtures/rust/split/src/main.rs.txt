@@ -1,0 +1,26 @@
+mod consts;
+mod imp;
+
+use consts::LIMIT;
+
+pub struct Foo;
+
+pub enum Color {
+    Red,
+}
+
+fn main() {
+    let f = Foo;
+    let n = 1;
+    if n > LIMIT {
+        let m = consts::MAX;
+    }
+    let c = Color::Red;
+    let g = handler;
+    g();
+}
+
+fn handler() {}
+
+#[get("/")]
+fn index() {}

@@ -1,0 +1,22 @@
+{
+ "_doc": "Svelte closed world: routes/+page.svelte is an entry (SvelteKit entry_re); $lib/... imports resolve by path suffix; on:click={inc} and {fmt(count)} are uses of the script functions; Stale.svelte and unusedHandler are dead. A directive names a function of the script: use:tip, transition:fly|local, in:slideIn, animate:flip keep tip, fly, slideIn and flip alive; neverUsedAction is dead.",
+ "roots": [],
+ "closed_world": {
+  "src/lib/Child.svelte#format": "dead",
+  "src/lib/utils.ts#fmt": "alive",
+  "src/lib/utils.ts#unusedUtil": "dead",
+  "src/routes/+page.svelte#flip": "alive",
+  "src/routes/+page.svelte#fly": "alive",
+  "src/routes/+page.svelte#inc": "alive",
+  "src/routes/+page.svelte#neverUsedAction": "dead",
+  "src/routes/+page.svelte#slideIn": "alive",
+  "src/routes/+page.svelte#tip": "alive",
+  "src/routes/+page.svelte#unusedHandler": "dead"
+ },
+ "files": {
+  "src/lib/Child.svelte": "alive",
+  "src/lib/Stale.svelte": "dead",
+  "src/lib/utils.ts": "alive",
+  "src/routes/+page.svelte": "alive"
+ }
+}

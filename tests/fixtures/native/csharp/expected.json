@@ -1,0 +1,40 @@
+{
+  "_doc": "Authored expectation (real tree-sitter-c-sharp only; skipped while the grammar is not installed, UNVERIFIED until it runs; the expectation was derived against the engine with the scripted backend). Closed world. `alive` = never reported dead (alive, or weak-alive: a path that has an N edge such as the call `new Service(...).Run()`, a member of an unnamed receiver, or the interface call `_repo.Save()`). Program is alive through Main (the holder edge). Service.Run is reached by the chained call; Dto only as the type argument of Deserialize and Dto.Name only by the serializer (a public instance property is a data member, rules.json protocol); the static field Counter is not. MemRepo.Save is a name match of `_repo.Save()` (there is no static typing without SCIP), so MemRepo is weak-alive, not test-only; the test class and its test method are test-only (test_only: a subset check).",
+  "roots": [
+    [
+      "main",
+      "Program.Main"
+    ],
+    [
+      "test",
+      "ServiceTests.RunWorks"
+    ]
+  ],
+  "vis": {
+    "Service.cs#SqlRepo": "public",
+    "Service.cs#SqlRepo.Unused": "private",
+    "Service.cs#Service.Orphan": "package",
+    "Service.cs#IRepo.Save": "public",
+    "Service.cs#Dto.Name": "public"
+  },
+  "dead": [
+    "Service.cs#Dto.Counter",
+    "Service.cs#Lonely",
+    "Service.cs#Service.Orphan",
+    "Service.cs#SqlRepo.Unused"
+  ],
+  "test_only": [
+    "ServiceTests.cs#ServiceTests",
+    "ServiceTests.cs#ServiceTests.RunWorks"
+  ],
+  "alive": [
+    "Program.cs#Program",
+    "Service.cs#Dto",
+    "Service.cs#Dto.Name",
+    "Service.cs#MemRepo",
+    "Service.cs#MemRepo.Save",
+    "Service.cs#Service.Make",
+    "Service.cs#Service.Run",
+    "Service.cs#SqlRepo.Save"
+  ]
+}

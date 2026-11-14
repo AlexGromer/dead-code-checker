@@ -1,0 +1,23 @@
+{
+ "files": [
+  "t.cpp"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "clang-tidy",
+    "--checks=-*,misc-unused-parameters,misc-unused-using-decls,clang-diagnostic-unused-*",
+    "t.cpp",
+    "--",
+    "-std=c++17",
+    "-Wunused"
+   ],
+   "out": "out.txt",
+   "rc": 0,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "clang-tidy",
+ "version": "19.1.7"
+}

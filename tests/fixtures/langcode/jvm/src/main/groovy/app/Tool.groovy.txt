@@ -1,0 +1,6 @@
+package app
+
+class Tool {
+    def run() { new Greeter().shout() }
+    def idle() { 1 }
+}

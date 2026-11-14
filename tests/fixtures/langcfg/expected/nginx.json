@@ -1,0 +1,63 @@
+{
+ "facts": {
+  "conf.d/site.conf": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "snippets/proxy.conf",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "nginx.conf": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "conf.d/*.conf",
+     "include",
+     ""
+    ],
+    [
+     "mime.types",
+     "include",
+     ""
+    ],
+    [
+     "modules/ngx_http_js_module.so",
+     "include",
+     ""
+    ],
+    [
+     "snippets/proxy.conf",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "file:mime.types": "weak-alive",
+  "ini:snippets/proxy.conf": "weak-alive",
+  "nginx:conf.d/site.conf": "weak-alive",
+  "nginx:nginx.conf": "weak-alive"
+ }
+}

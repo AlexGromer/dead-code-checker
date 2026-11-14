@@ -1,0 +1,40 @@
+{
+ "files": [
+  "A.kt",
+  "detekt.yml"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "detekt",
+    "--input",
+    "A.kt",
+    "--config",
+    "detekt.yml",
+    "--report",
+    "xml:out.xml"
+   ],
+   "out": "out.xml",
+   "rc": 0,
+   "stream": "file:out.xml"
+  },
+  {
+   "argv": [
+    "detekt",
+    "--input",
+    "A.kt",
+    "--config",
+    "detekt.yml",
+    "--report",
+    "sarif:out.sarif"
+   ],
+   "out": "out.sarif",
+   "rc": 0,
+   "stream": "file:out.sarif"
+  }
+ ],
+ "tool": "detekt",
+ "trimmed": "sarif: runs[].tool.driver.rules",
+ "version": "1.23.8"
+}

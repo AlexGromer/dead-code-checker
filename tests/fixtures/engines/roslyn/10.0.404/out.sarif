@@ -1,0 +1,242 @@
+{
+ "$schema": "http://json.schemastore.org/sarif-2.1.0",
+ "runs": [
+  {
+   "columnKind": "utf16CodeUnits",
+   "invocations": [
+    {
+     "executionSuccessful": true,
+     "ruleConfigurationOverrides": [
+      {
+       "configuration": {
+        "enabled": false
+       },
+       "descriptor": {
+        "id": "CA1516",
+        "index": 77
+       }
+      },
+      {
+       "configuration": {
+        "level": "warning"
+       },
+       "descriptor": {
+        "id": "IDE0005",
+        "index": 319
+       }
+      },
+      {
+       "configuration": {
+        "level": "warning"
+       },
+       "descriptor": {
+        "id": "IDE0051",
+        "index": 358
+       }
+      },
+      {
+       "configuration": {
+        "level": "warning"
+       },
+       "descriptor": {
+        "id": "IDE0052",
+        "index": 359
+       }
+      }
+     ]
+    }
+   ],
+   "properties": {
+    "analyzerExecutionTime": "0.595"
+   },
+   "results": [
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 31,
+         "endLine": 6,
+         "startColumn": 30,
+         "startLine": 6
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "The variable 'x' is assigned but its value is never used"
+     },
+     "properties": {
+      "warningLevel": 3
+     },
+     "ruleId": "CS0219",
+     "ruleIndex": 451
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 28,
+         "endLine": 4,
+         "startColumn": 17,
+         "startLine": 4
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "The field 'P.unusedField' is never used"
+     },
+     "properties": {
+      "warningLevel": 3
+     },
+     "ruleId": "CS0169",
+     "ruleIndex": 452
+    },
+    {
+     "level": "warning",
+     "message": {
+      "text": "Set MSBuild property 'GenerateDocumentationFile' to 'true' in project file to enable IDE0005 (Remove unnecessary usings/imports) on build"
+     },
+     "properties": {
+      "warningLevel": 1
+     },
+     "ruleId": "EnableGenerateDocumentationFile",
+     "ruleIndex": 317
+    },
+    {
+     "level": "note",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 24,
+         "endLine": 5,
+         "startColumn": 18,
+         "startLine": 5
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Member 'Unused' does not access instance data and can be marked as static"
+     },
+     "properties": {
+      "warningLevel": 1
+     },
+     "ruleId": "CA1822",
+     "ruleIndex": 104
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 28,
+         "endLine": 4,
+         "startColumn": 17,
+         "startLine": 4
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Private member 'P.unusedField' is unused"
+     },
+     "properties": {
+      "customProperties": {
+       "Unnecessary": "[0]"
+      },
+      "warningLevel": 1
+     },
+     "relatedLocations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 28,
+         "endLine": 4,
+         "startColumn": 17,
+         "startLine": 4
+        }
+       }
+      }
+     ],
+     "ruleId": "IDE0051",
+     "ruleIndex": 358
+    },
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 24,
+         "endLine": 5,
+         "startColumn": 18,
+         "startLine": 5
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "Private member 'P.Unused' is unused"
+     },
+     "properties": {
+      "customProperties": {
+       "Unnecessary": "[0]"
+      },
+      "warningLevel": 1
+     },
+     "relatedLocations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "file:///work/Program.cs"
+        },
+        "region": {
+         "endColumn": 30,
+         "endLine": 5,
+         "startColumn": 5,
+         "startLine": 5
+        }
+       }
+      }
+     ],
+     "ruleId": "IDE0051",
+     "ruleIndex": 358
+    }
+   ],
+   "tool": {
+    "driver": {
+     "dottedQuadFileVersion": "5.9.0.0",
+     "name": "Microsoft (R) Visual C# Compiler",
+     "semanticVersion": "5.9.0",
+     "version": "5.9.0-1.26529.119 (2ab2854867733112c84ac12c4273d7970ac3afdf)"
+    }
+   }
+  }
+ ],
+ "version": "2.1.0"
+}

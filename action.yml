@@ -1,0 +1,169 @@
+name: Dead Code Checker
+description: Find dead code that a pull request adds, report it as code scanning alerts and a comment, and fail the check on errors only.
+author: AlexGromer
+branding:
+  icon: search
+  color: gray-dark
+
+inputs:
+  scope:
+    description: "`branch` checks what the change adds against its base; `repo` checks the whole repository."
+    default: branch
+  base:
+    description: >
+      Commit or ref the branch scope compares with. Default: the base commit of a pull request, else the commit before a
+      push. The checkout needs enough history to reach it (`fetch-depth: 0`).
+    default: ""
+  working-directory:
+    description: Repository directory to check, relative to the workspace.
+    default: "."
+  package:
+    description: >
+      What pip installs. Default: this action's own checkout. Set it to pin a release, for example
+      `dead-code-checker==0.2.0`.
+    default: ""
+  upload-sarif:
+    description: >
+      Upload the SARIF report to code scanning. Needs the permission security-events: write. Never fails the job: it is
+      skipped for a pull request from a fork, and an upload that is refused is a warning.
+    default: "true"
+  sarif-category:
+    description: Category of the code scanning upload; give each job of a matrix its own.
+    default: dead-code-checker
+  comment:
+    description: "Post or update one summary comment on pull requests. Needs the permission pull-requests: write."
+    default: "true"
+  badge-file:
+    description: Where the shields.io endpoint JSON for the README badge is written (relative to the workspace).
+    default: dead-code-badge.json
+
+outputs:
+  errors:
+    description: Number of findings of level E.
+    value: ${{ steps.summary.outputs.errors }}
+  warnings:
+    description: Number of findings of level W.
+    value: ${{ steps.summary.outputs.warnings }}
+  sarif-file:
+    description: >
+      Path of the SARIF report. Empty when it was not produced: the upload is off, the pull request comes from a fork,
+      or the checker could not run.
+    value: ${{ steps.check.outputs.sarif-file }}
+  badge-file:
+    description: Path of the badge endpoint JSON.
+    value: ${{ steps.summary.outputs.badge-file }}
+
+runs:
+  using: composite
+  steps:
+    - name: Install dead-code-checker
+      shell: bash
+      env:
+        PACKAGE: ${{ inputs.package }}
+      run: |
+        python3 -m pip install --quiet --disable-pip-version-check "${PACKAGE:-$GITHUB_ACTION_PATH}"
+
+    - name: Make the base reachable
+      if: ${{ inputs.scope == 'branch' }}
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        BASE: ${{ inputs.base || github.event.pull_request.base.sha || github.event.before }}
+      run: |
+        if [ -n "$BASE" ] && ! git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+          git fetch --no-tags --quiet origin "$BASE" || echo "::warning::base $BASE is not reachable; use fetch-depth: 0 on checkout"
+        fi
+
+    - name: Check
+      id: check
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        SCOPE: ${{ inputs.scope }}
+        BASE: ${{ inputs.base || github.event.pull_request.base.sha || github.event.before }}
+        WANT_SARIF: ${{ inputs.upload-sarif == 'true' && github.event.pull_request.head.repo.fork != true }}
+      run: |
+        # This step never fails: it records what the checker said, and the last step decides.
+        # Exit codes of the checker: 0 clean or warnings only, 1 at least one E, 2 a usage or setup error.
+        args=(graph check --scope "$SCOPE")
+        if [ "$SCOPE" = branch ] && [ -n "$BASE" ] && [ "$BASE" != "0000000000000000000000000000000000000000" ]; then
+          args+=(--base "$BASE")
+        fi
+        sarif="$RUNNER_TEMP/dead-code-checker.sarif"
+        json="$RUNNER_TEMP/dead-code-checker.json"
+        # The JSON run is the one the verdict comes from. The SARIF run is only for code scanning and is skipped when
+        # nothing will upload it.
+        rc=0
+        dead-code-checker "${args[@]}" --format json > "$json" || rc=$?
+        if [ "$WANT_SARIF" = true ]; then
+          src=0
+          dead-code-checker "${args[@]}" --format sarif > "$sarif" || src=$?
+          if [ "$src" -le 1 ] && [ -s "$sarif" ]; then
+            echo "sarif-file=$sarif" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::dead-code-checker produced no SARIF report (exit $src); nothing is uploaded"
+          fi
+        fi
+        echo "json-file=$json" >> "$GITHUB_OUTPUT"
+        echo "exit-code=$rc" >> "$GITHUB_OUTPUT"
+
+    - name: Summary and badge
+      id: summary
+      shell: bash
+      env:
+        JSON_FILE: ${{ steps.check.outputs.json-file }}
+        BADGE_FILE: ${{ inputs.badge-file }}
+      run: |
+        # A report that cannot be read is not an error here: the last step fails the job and says why.
+        python3 "$GITHUB_ACTION_PATH/scripts/badge.py" --findings "$JSON_FILE" --out "$BADGE_FILE" >> "$GITHUB_OUTPUT" \
+          || echo "::warning::no badge written: the report could not be read"
+        echo "badge-file=$BADGE_FILE" >> "$GITHUB_OUTPUT"
+        python3 "$GITHUB_ACTION_PATH/scripts/pr_comment.py" --findings "$JSON_FILE" --dry-run >> "$GITHUB_STEP_SUMMARY" || true
+
+    - name: Upload SARIF
+      id: upload
+      # Skipped for a pull request from a fork (its token is read-only), and never fails the job: whether there is an E
+      # is decided by the last step alone.
+      if: ${{ always() && steps.check.outputs.sarif-file != '' && github.event.pull_request.head.repo.fork != true }}
+      continue-on-error: true
+      # PIN BEFORE RELEASE: replace PIN_BY_SHA below with the full commit SHA of the github/codeql-action release you
+      # have reviewed, keep the version in the comment. The action cannot run while the placeholder is there.
+      # See docs/ci.md, "Pinning the actions".
+      uses: github/codeql-action/upload-sarif@PIN_BY_SHA # v4
+      with:
+        sarif_file: ${{ steps.check.outputs.sarif-file }}
+        category: ${{ inputs.sarif-category }}
+
+    - name: Say what happened to the upload
+      if: ${{ always() && inputs.upload-sarif == 'true' && (steps.upload.outcome == 'failure' || github.event.pull_request.head.repo.fork == true) }}
+      shell: bash
+      env:
+        OUTCOME: ${{ steps.upload.outcome }}
+      run: |
+        if [ "$OUTCOME" = failure ]; then
+          echo "::warning::the SARIF upload was refused (a read-only token, or code scanning is not available here); the result of the check is not affected"
+        else
+          echo "::notice::the SARIF upload is skipped for a pull request from a fork"
+        fi
+
+    - name: Comment on the pull request
+      if: ${{ always() && inputs.comment == 'true' && github.event_name == 'pull_request' }}
+      shell: bash
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        JSON_FILE: ${{ steps.check.outputs.json-file }}
+      run: |
+        python3 "$GITHUB_ACTION_PATH/scripts/pr_comment.py" --findings "$JSON_FILE"
+
+    - name: Fail on errors
+      shell: bash
+      env:
+        RC: ${{ steps.check.outputs.exit-code }}
+        ERRORS: ${{ steps.summary.outputs.errors }}
+      run: |
+        case "$RC" in
+          0) ;;
+          1) echo "::error::dead-code-checker found ${ERRORS:-an unknown number of} error(s)"; exit 1 ;;
+          *) echo "::error::dead-code-checker failed to run (exit $RC)"; exit 1 ;;
+        esac

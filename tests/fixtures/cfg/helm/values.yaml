@@ -1,0 +1,14 @@
+# values of the chart
+replicaCount: 2
+image:
+  repository: example/web
+  tag: "1.0"
+  pullPolicy: IfNotPresent
+resources:
+  limits:
+    cpu: 100m
+    memory: 64Mi
+env: []
+unusedKey: true
+unused:
+  nested: 1

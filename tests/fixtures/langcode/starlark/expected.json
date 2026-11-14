@@ -1,0 +1,20 @@
+{
+ "_doc": "Starlark closed world: BUILD.bazel is an entry (entry_re); load(\"//tools:defs.bzl\") is tools/defs.bzl, load(\":local.bzl\") local.bzl next to the file, @repo labels name nothing of ours; loaded symbols and rule(implementation=...) are uses; a private _name nobody uses is dead.",
+ "roots": [],
+ "closed_world": {
+  "app/local.bzl#_impl": "weak-alive",
+  "app/local.bzl#_other_impl": "dead-cluster",
+  "app/local.bzl#local_rule": "weak-alive",
+  "app/local.bzl#unused_rule": "dead-cluster",
+  "tools/defs.bzl#_UNUSED": "dead",
+  "tools/defs.bzl#_private_helper": "weak-alive",
+  "tools/defs.bzl#my_macro": "weak-alive",
+  "tools/defs.bzl#never_loaded": "dead",
+  "tools/defs.bzl#other": "weak-alive"
+ },
+ "files": {
+  "app/BUILD.bazel": "alive",
+  "app/local.bzl": "alive",
+  "tools/defs.bzl": "alive"
+ }
+}

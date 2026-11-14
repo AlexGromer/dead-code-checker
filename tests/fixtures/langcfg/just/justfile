@@ -1,0 +1,24 @@
+import 'common.just'
+mod ops 'ops'
+
+default: build
+
+# public recipes are soft roots
+build target="x": _prepare
+    @echo build {{target}}
+    just test
+
+test: (build "y")
+    @echo test
+
+[private]
+hidden-helper:
+    @echo no caller
+
+_prepare:
+    @echo prepare
+
+_unused:
+    @echo nobody calls me
+
+alias b := build

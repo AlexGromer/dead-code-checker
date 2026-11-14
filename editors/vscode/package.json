@@ -1,0 +1,55 @@
+{
+  "name": "dead-code-checker",
+  "displayName": "dead-code-checker",
+  "description": "Dead code findings from the dead-code-checker command-line tool, shown as diagnostics on save.",
+  "version": "0.1.0",
+  "publisher": "alexgromer",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexGromer/dead-code-checker.git",
+    "directory": "editors/vscode"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "keywords": [
+    "dead-code",
+    "lint",
+    "unused"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "deadCodeChecker.run",
+        "title": "Dead Code Checker: Scan workspace"
+      },
+      {
+        "command": "deadCodeChecker.clear",
+        "title": "Dead Code Checker: Clear diagnostics"
+      }
+    ],
+    "configuration": {
+      "title": "Dead Code Checker",
+      "properties": {
+        "deadCodeChecker.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Scan the workspace when it opens and on every save, and show the findings in the Problems panel."
+        },
+        "deadCodeChecker.path": {
+          "type": "string",
+          "default": "dead-code-checker",
+          "description": "The dead-code-checker command: a name found on PATH or an absolute path. Install it with: pipx install git+https://github.com/AlexGromer/dead-code-checker"
+        }
+      }
+    }
+  }
+}

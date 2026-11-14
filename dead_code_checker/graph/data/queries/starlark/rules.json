@@ -1,0 +1,5 @@
+{
+  "_doc": "Starlark. ref_cmd: only load() names a file (include) and symbols (ref). path_sub.include: a Bazel label is a path, //pkg:f.bzl is pkg/f.bzl, :f.bzl is f.bzl in the directory of the file, @repo//... is another repository and names nothing of ours. The BUILD, WORKSPACE, MODULE.bazel and Tiltfile files are entries (langs.json entry_re): their top-level calls use the macros and rules defined in .bzl files.",
+  "ref_cmd": {"include": "^load$", "ref": "^load$"},
+  "path_sub": {"include": [["^@.*$", ""], ["^//:?", ""], ["^:", ""], [":", "/"]]}
+}

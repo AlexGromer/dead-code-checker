@@ -1,0 +1,37 @@
+pub struct Ctx;
+
+impl Ctx {
+    pub fn get<T>(&self) -> Option<T> { None }
+    fn via_turbofish<T>(&self) -> T { loop {} }
+    fn never_called<T>(&self) -> T { loop {} }
+}
+
+pub struct Config {
+    #[serde(default = "default_port")]
+    port: u16,
+}
+
+fn default_port() -> u16 { 8080 }
+fn unused_default() -> u16 { 1 }
+
+#[pymodule]
+fn native() { let _x = 1; }
+
+#[panic_handler]
+fn on_panic() { let _x = 2; }
+
+#[cortex_m_rt::entry]
+fn start() { let _x = 3; }
+
+#[wasm_bindgen_test]
+fn web_case() { let _x = 4; }
+
+#[pyclass]
+struct Handle;
+
+fn main() {
+    let c = Ctx;
+    let a = c.get::<u8>();
+    let n = c.via_turbofish::<u8>();
+    let g: Option<Config> = None;
+}

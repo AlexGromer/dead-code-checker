@@ -1,0 +1,49 @@
+{
+  "main.go": {
+    "defs": [
+      [7, {"def.class": "IntHeap []int", "name": "IntHeap"}],
+      [0, {"def.method": "func (h IntHeap) Len() int { return len(h) }", "recv": "IntHeap", "name": "Len"}],
+      [1, {"def.method": "func (h *IntHeap) Push(x any) { *h = append(*h, x.(int)) }", "recv": "IntHeap", "name": "Push"}],
+      [1, {"def.method": "func (h *IntHeap) Pop() any { return 0 }", "recv": "IntHeap", "name": "Pop"}],
+      [0, {"def.method": "func (h IntHeap) Unused() {}", "recv": "IntHeap", "name": "Unused"}],
+      [10, {"def.var": "Left, Right = 1, 2", "name": "Left"}],
+      [10, {"def.var": "Left, Right = 1, 2", "name": "Right"}],
+      [4, {"def.func": "func main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [8, {"import": "\"container/heap\""}],
+      [8, {"import": "\"example.com/lib/v2\""}],
+      [6, {"ref.ref": "IntHeap#5", "name": "IntHeap"}],
+      [1, {"ref.call": "heap.Push(h, 3)", "obj": "heap", "name": "Push"}],
+      [1, {"ref.call": "lib.Open(Left)", "obj": "lib", "name": "Open"}],
+      [4, {"ref.ref": "Left#1", "name": "Left"}]
+    ],
+    "roots": [
+      [1, {"pkg": "main"}],
+      [2, {"root.cand": "func main() {…\n}", "name": "main"}]
+    ],
+    "stub": [
+      [1, {"stub.def": "func (h IntHeap) Unused() {}", "name": "Unused", "body": "{}"}]
+    ]
+  },
+  "lib/lib.go": {
+    "defs": [
+      [4, {"def.func": "func Open(n int) { internal() }", "name": "Open"}],
+      [4, {"def.func": "func internal() {}", "name": "internal"}],
+      [4, {"def.func": "func Close() {}", "name": "Close"}]
+    ],
+    "refs": [
+      [0, {"ref.call": "internal()", "name": "internal"}]
+    ],
+    "roots": [
+      [1, {"pkg": "lib"}],
+      [2, {"root.cand": "func Open(n int) { internal() }", "name": "Open"}],
+      [2, {"root.cand": "func internal() {}", "name": "internal"}],
+      [2, {"root.cand": "func Close() {}", "name": "Close"}]
+    ],
+    "stub": [
+      [0, {"stub.def": "func internal() {}", "name": "internal", "body": "{}"}],
+      [0, {"stub.def": "func Close() {}", "name": "Close", "body": "{}"}]
+    ]
+  }
+}

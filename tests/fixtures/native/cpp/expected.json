@@ -1,0 +1,5 @@
+{
+  "_doc": "Authored expectation (real tree-sitter-cpp only; skipped while the grammar is not installed, UNVERIFIED until it runs; the expectation was derived against the engine with the scripted backend). Closed world. Shape::twice calls area() by its bare name: a member of Shape (type_scope), so the virtual call reaches every override (class hierarchy, no instantiation analysis): Square, Orphan and their area() are alive. Counter is only declared in main.cpp (`Counter c;`): its constructor and destructor, written out of class in shape.cpp, are alive with it (link.is_ctor). Only the static function nobody calls is dead.",
+  "roots": [["annotation:extern-c", "plugin_entry"], ["main", "main"], ["test", "TEST"]],
+  "dead": ["shape.cpp#dead_helper"]
+}

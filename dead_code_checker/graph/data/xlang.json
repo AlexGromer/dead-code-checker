@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "_doc": "Rules of graph.extract.xlang (the cross-language edges). lit: a string literal that spells a repo-relative path (re, min and max length, and it must hold a '/' or end in an extension): ref kind lit, N edge to the file in graph.link. calls: per language FAMILY (langs.json family; c and c++ share cpp, javascript/typescript/tsx share js), a call whose callee text (as written, `new ` dropped, whitespace removed) matches re is read by role: exec = the leading run of string literals of the argument list is a command (join argv: one literal per argument, `Popen([a, b])`; join line: the literals are one command line, `Process.Start(file, args)`; a single literal is always a command line) read by graph.roots.command_targets (interpreters, launchers, builtins of frameworks.json), the program or script it names is an exec ref (T edge); env.r / env.w = the first literal (after skip arguments) names an environment variable that is read / written (`X=v` of putenv: the part before '='), cfg.r / cfg.w the same for a configuration key (System.getProperty, viper): refs of kind env named r:NAME / w:NAME and r:cfg:NAME / w:cfg:NAME. skip = leading arguments that are no literal (exec.CommandContext(ctx, ..), os.spawnv(mode, ..)). env_objects: the object whose member or subscript is an environment variable (process.env.X, os.environ[\"X\"]). ffi_load (python): a call whose result is a handle of a native library (ctypes.CDLL, cffi dlopen); a member read of the handle is the native symbol (ref kind ffi). ffi_decl: a declaration that binds a native symbol: re must match the declaration text, entry (optional) is a group 1 regex of the symbol name in it, else the declared name; jni = the symbol is the JNI mangled Java_<package>_<class>_<method> of the package of the file and the class around the method. cmd: the family reads whole command lines (shell: every command node is a command line for graph.roots.command_targets). env_ambient: names every process has or every tool sets (HOME, PATH ...): no link. env_max_writers: a name that more places than this write is ambient too, over-wide is no information (graph.xlink). ffi_groups: the language groups (link groups or families) whose top-level functions a native import can reach (graph.link): a ref of kind ffi goes to the top-level defs of that name in them, T when there is one candidate, else N. schema: the references of the schema languages (sql, proto, graphql: graph.extract.schema defines their objects). A family with `schema_sql` reads every string literal that is a DML statement (sql.verb) for the tables it names (refs of kind schema, name `sql:<table>`; a name built at run time is a glob, `sql:audit_*`, `sql:*`). A statement written over several literals is one text: python `\"SELECT a \" + \"FROM b\"` and f-strings by `ast`; the tree-sitter families by `concat` = {node type: operator} of the node that joins operands (binary_expression + of java, js, go, c#; additive_expression + of kotlin, whose operator is no field; concatenated_string of c / c++, no operator): the literals are the text, any other operand a `{}` hole (`\"SELECT * FROM \" + t` names every table), a leading hole is dropped; a literal that is a part of such a chain is read only through it. A literal that starts with a clause (sql.clause: FROM, LEFT JOIN, the part a StringBuilder appends) names its tables too. The `schema.<group>` call role names a schema object by the first string literal of a call (graphql-java dataFetcher). schema.groups = the language groups of the schema files (fold = identifiers are case-insensitive, parent = a name that no object has falls back to its owner: `Book.author` to the type Book). schema.sql: verb = the start of a literal that is a statement, clause = the start of a literal that is the part of one (a clause that names a table), dml = the keywords that are followed by a table name (a FROM list too), ddl = more of them in a schema file, call = keywords followed by a routine name, stop = the words that end a FROM list, min / max = the length of a literal that is read, fold_max the length of a statement written over several operands (a long query is not a prose string). schema.proto: stubs = the names the generated code of a service, a message and a file has (`{n}` the name, `{f}` the file stem, `{F}` its CamelCase): `service` and `file_services` give the service(s), `file` the file itself. schema.graphql: roots = the root operation types (their fields are objects; a type that a `schema { query: X }` block names is one too), builtin = the scalars of the language, resolvers = the class names whose members are the resolvers of the fields of the root types (group 1 = the operation).",
+  "lit": {"min": 3, "max": 200, "re": "^(?:\\.{1,2}/)*[\\w@+~][\\w@+.~-]*(?:/[\\w@+.~-]+)*/?$", "ext": "\\.\\w{1,8}$"},
+  "name": "^[A-Za-z_][\\w.-]*$",
+  "ffi_groups": ["cpp", "rust", "go"],
+  "env_ambient": ["HOME", "PATH", "USER", "USERNAME", "LOGNAME", "PWD", "OLDPWD", "SHELL", "TERM", "LANG", "LC_ALL", "TMPDIR", "TEMP", "TMP", "HOSTNAME", "EDITOR", "PAGER", "USERPROFILE", "APPDATA", "LOCALAPPDATA", "PROGRAMFILES", "SYSTEMROOT", "COMSPEC", "DISPLAY", "TZ", "CI", "DEBUG", "VERBOSE", "NO_COLOR"],
+  "env_max_writers": 8,
+  "schema": {
+    "groups": {"sql": {"fold": true}, "proto": {}, "graphql": {"parent": true}},
+    "sql": {
+      "verb": "^\\s*(?:SELECT|INSERT|UPDATE|DELETE|MERGE|WITH|CALL)\\b",
+    "clause": "^\\s*(?:(?:INNER|LEFT|RIGHT|FULL|CROSS|NATURAL)\\s+(?:OUTER\\s+)?)?(?:FROM|JOIN)\\b",
+      "dml": ["FROM", "JOIN", "INTO", "UPDATE"],
+      "ddl": ["REFERENCES", "INHERITS\\s*\\(", "PARTITION\\s+OF", "LIKE", "TRUNCATE(?:\\s+TABLE)?", "ALTER\\s+(?:TABLE|VIEW)(?:\\s+IF\\s+EXISTS)?(?:\\s+ONLY)?", "COMMENT\\s+ON\\s+(?:TABLE|VIEW)", "GRANT\\s+[\\w ,]+\\s+ON(?:\\s+TABLE)?"],
+      "call": ["CALL", "PERFORM", "EXECUTE\\s+(?:FUNCTION|PROCEDURE)"],
+      "stop": ["WHERE", "GROUP", "ORDER", "HAVING", "LIMIT", "UNION", "EXCEPT", "INTERSECT", "JOIN", "INNER", "LEFT", "RIGHT", "FULL", "CROSS", "NATURAL", "ON", "USING", "SET", "VALUES", "SELECT", "OFFSET", "FETCH", "FOR", "RETURNING", "WINDOW"],
+      "min": 7,
+      "max": 4000,
+      "fold_max": 200000
+    },
+    "proto": {
+      "stubs": {
+        "service": ["{n}Grpc", "{n}Stub", "{n}BlockingStub", "{n}FutureStub", "{n}ImplBase", "{n}Servicer", "{n}Client", "{n}Server", "Unimplemented{n}Server", "Register{n}Server", "New{n}Client", "add_{n}Servicer_to_server", "{n}_ServiceDesc"],
+        "file_services": ["{f}_pb2_grpc", "{f}_grpc_pb"],
+        "file": ["{f}_pb2", "{f}_pb", "{F}OuterClass", "{F}Proto"]
+      }
+    },
+    "graphql": {
+      "roots": ["Query", "Mutation", "Subscription"],
+      "builtin": ["Int", "Float", "String", "Boolean", "ID"],
+      "resolvers": "(?i)^(?:\\w*?)(query|mutation|subscription)(?:resolvers?|controller|(?:data)?fetchers?|handler)?$"
+    }
+  },
+  "families": {
+    "python": {
+      "calls": [
+        {"re": "^subprocess\\.(?:run|call|check_call|check_output|Popen)$|^(?:Popen|check_call|check_output)$|^os\\.(?:system|popen|execv\\w*|execl\\w*|posix_spawn\\w*)$", "role": "exec"},
+        {"re": "^os\\.spawn[vl]\\w*$", "role": "exec", "skip": 1},
+        {"re": "^os\\.(?:getenv|environ\\.get)$", "role": "env.r"},
+        {"re": "^os\\.(?:putenv|environ\\.setdefault)$", "role": "env.w"},
+        {"re": "(?:^|\\.)\\w*(?:query|mutation|subscription|Query|Mutation|Subscription)\\w*\\.(?:field|set_field)$", "role": "schema.graphql"}
+      ],
+      "env_objects": ["os.environ"],
+      "schema_sql": true,
+      "ffi_load": "^(?:ctypes\\.)?(?:CDLL|PyDLL|WinDLL|OleDLL)$|(?:^|\\.)(?:LoadLibrary|dlopen)$"
+    },
+    "shell": {
+      "cmd": true
+    },
+    "go": {
+      "schema_sql": true,
+      "concat": {"binary_expression": "+"},
+      "calls": [
+        {"re": "^exec\\.Command$", "role": "exec"},
+        {"re": "^exec\\.CommandContext$", "role": "exec", "skip": 1},
+        {"re": "^os\\.(?:Getenv|LookupEnv)$", "role": "env.r"},
+        {"re": "^os\\.Setenv$", "role": "env.w"},
+        {"re": "^viper\\.(?:Get\\w*|IsSet)$", "role": "cfg.r"},
+        {"re": "^viper\\.(?:Set|SetDefault)$", "role": "cfg.w"}
+      ]
+    },
+    "js": {
+      "schema_sql": true,
+      "concat": {"binary_expression": "+"},
+      "calls": [
+        {"re": "^(?:(?:child_process|childProcess|cp)\\.)?(?:spawn|spawnSync|exec|execSync|execFile|execFileSync|fork)$|^Bun\\.spawn(?:Sync)?$|^Deno\\.Command$", "role": "exec"},
+        {"re": "^Deno\\.env\\.get$", "role": "env.r"},
+        {"re": "^Deno\\.env\\.set$", "role": "env.w"}
+      ],
+      "env_objects": ["process.env", "import.meta.env"]
+    },
+    "java": {
+      "schema_sql": true,
+      "concat": {"binary_expression": "+"},
+      "calls": [
+        {"re": "^ProcessBuilder$", "role": "exec"},
+        {"re": "^Runtime\\.getRuntime\\(\\)\\.exec$", "role": "exec", "join": "line"},
+        {"re": "^System\\.getenv$", "role": "env.r"},
+        {"re": "^System\\.getProperty$", "role": "cfg.r"},
+        {"re": "^System\\.setProperty$", "role": "cfg.w"},
+        {"re": "(?:^|\\.)(?:dataFetcher|newTypeWiring)$", "role": "schema.graphql"}
+      ],
+      "ffi_decl": [{"re": "^[^{]*\\bnative\\b[^{]*;\\s*$", "jni": true}]
+    },
+    "kotlin": {
+      "schema_sql": true,
+      "concat": {"additive_expression": "+"}
+    },
+    "csharp": {
+      "schema_sql": true,
+      "concat": {"binary_expression": "+"},
+      "calls": [
+        {"re": "^(?:System\\.Diagnostics\\.)?Process\\.Start$", "role": "exec", "join": "line"},
+        {"re": "^(?:System\\.Diagnostics\\.)?ProcessStartInfo$", "role": "exec", "join": "line"},
+        {"re": "^(?:System\\.)?Environment\\.GetEnvironmentVariable$", "role": "env.r"},
+        {"re": "^(?:System\\.)?Environment\\.SetEnvironmentVariable$", "role": "env.w"}
+      ],
+      "ffi_decl": [{"re": "^\\s*(?:\\[[^\\]]*\\]\\s*)*\\[[^\\]]*\\b(?:DllImport|LibraryImport)\\b", "entry": "\\bEntryPoint\\s*=\\s*\"(\\w+)\""}]
+    },
+    "rust": {
+      "schema_sql": true,
+      "calls": [
+        {"re": "^(?:std::process::)?Command::new$", "role": "exec"},
+        {"re": "^(?:std::)?env::(?:var|var_os)$", "role": "env.r"},
+        {"re": "^(?:std::)?env::set_var$", "role": "env.w"}
+      ],
+      "ffi_decl": [{"re": "^"}]
+    },
+    "cpp": {
+      "schema_sql": true,
+      "concat": {"concatenated_string": ""},
+      "calls": [
+        {"re": "^(?:system|popen|execl|execlp|execle|execv|execvp|execve|posix_spawn|posix_spawnp)$", "role": "exec"},
+        {"re": "^(?:secure_)?getenv$", "role": "env.r"},
+        {"re": "^(?:setenv|putenv)$", "role": "env.w"}
+      ]
+    }
+  }
+}

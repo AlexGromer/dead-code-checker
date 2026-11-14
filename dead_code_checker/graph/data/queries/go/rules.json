@@ -1,0 +1,9 @@
+{
+  "_doc": "Rules of the Go extractor that live in the queries (the per-language rules of the mapping are in data/rules.json, key go; keys here: see ts_generic.rules_of). dyn.members: a value of a type written as a composite literal in an argument of a call on an imported package (`log.With(quiet{})`, `srv.Use(&mw{})`) is the dynamic site members:<Type>, any EXPORTED member of the type may be called through an interface the tree does not declare (D; graph.link: an unexported method cannot be called from another package, and a Type that the tree does not declare keeps no member alive). A receiver that is a local value (`obj.Do(T{})`) makes no site: the callee is in the tree and its interfaces are matched by name.",
+  "dyn": {
+    "members": {
+      "re": "^([A-Za-z_]\\w*)$",
+      "cmd_alias": true
+    }
+  }
+}

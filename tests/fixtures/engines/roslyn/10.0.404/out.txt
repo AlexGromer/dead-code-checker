@@ -1,0 +1,17 @@
+/work/Program.cs(6,30): warning CS0219: The variable 'x' is assigned but its value is never used [/work/fx.csproj]
+/work/Program.cs(4,17): warning CS0169: The field 'P.unusedField' is never used [/work/fx.csproj]
+CSC : warning EnableGenerateDocumentationFile: Set MSBuild property 'GenerateDocumentationFile' to 'true' in project file to enable IDE0005 (Remove unnecessary usings/imports) on build (https://github.com/dotnet/roslyn/issues/41640) [/work/fx.csproj]
+/work/Program.cs(4,17): warning IDE0051: Private member 'P.unusedField' is unused (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0051) [/work/fx.csproj]
+/work/Program.cs(5,18): warning IDE0051: Private member 'P.Unused' is unused (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0051) [/work/fx.csproj]
+
+Build succeeded.
+
+/work/Program.cs(6,30): warning CS0219: The variable 'x' is assigned but its value is never used [/work/fx.csproj]
+/work/Program.cs(4,17): warning CS0169: The field 'P.unusedField' is never used [/work/fx.csproj]
+CSC : warning EnableGenerateDocumentationFile: Set MSBuild property 'GenerateDocumentationFile' to 'true' in project file to enable IDE0005 (Remove unnecessary usings/imports) on build (https://github.com/dotnet/roslyn/issues/41640) [/work/fx.csproj]
+/work/Program.cs(4,17): warning IDE0051: Private member 'P.unusedField' is unused (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0051) [/work/fx.csproj]
+/work/Program.cs(5,18): warning IDE0051: Private member 'P.Unused' is unused (https://learn.microsoft.com/dotnet/fundamentals/code-analysis/style-rules/ide0051) [/work/fx.csproj]
+    5 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:09.01

@@ -1,0 +1,7 @@
+package main
+
+import "example.com/fixgo/shapes"
+
+func use(p shapes.Pinger) int { return p.Ping() + shapes.Helper() }
+
+func main() { _ = use(shapes.Alpha{}) }

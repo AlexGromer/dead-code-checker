@@ -1,0 +1,8 @@
+name: ci
+on: push
+jobs:
+  ship:
+    runs-on: ubuntu-latest
+    steps:
+      - run: make deploy
+      - run: just -f ops/justfile release

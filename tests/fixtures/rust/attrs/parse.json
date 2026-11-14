@@ -1,0 +1,36 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [6, {"def.class": "pub struct Ctx;", "vis": "pub", "name": "Ctx"}],
+      [1, {"def.method": "pub fn get<T>(&self) -> Option<T> { None }", "vis": "pub", "recv": "<Ctx", "name": "get"}],
+      [1, {"def.method": "fn via_turbofish<T>(&self) -> T { loop {} }", "recv": "<Ctx", "name": "via_turbofish"}],
+      [1, {"def.method": "fn never_called<T>(&self) -> T { loop {} }", "recv": "<Ctx", "name": "never_called"}],
+      [6, {"def.class": "pub struct Config {…\n}", "vis": "pub", "name": "Config"}],
+      [4, {"def.func": "fn default_port() -> u16 { 8080 }", "name": "default_port"}],
+      [4, {"def.func": "fn unused_default() -> u16 { 1 }", "name": "unused_default"}],
+      [4, {"def.func": "fn native() { let _x = 1; }", "name": "native"}],
+      [4, {"def.func": "fn on_panic() { let _x = 2; }", "name": "on_panic"}],
+      [4, {"def.func": "fn start() { let _x = 3; }", "name": "start"}],
+      [4, {"def.func": "fn web_case() { let _x = 4; }", "name": "web_case"}],
+      [6, {"def.class": "struct Handle;", "name": "Handle"}],
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [10, {"ref.ref": "Ctx#2", "name": "Ctx"}],
+      [5, {"ref.call": "c.get::<u8>()", "obj": "c", "name": "get"}],
+      [5, {"ref.call": "c.via_turbofish::<u8>()", "obj": "c", "name": "via_turbofish"}],
+      [13, {"ref.ref": "Config#1", "name": "Config"}],
+      [14, {"ref.ref": "\"default_port\"", "name": "\"default_port\""}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}],
+      [2, {"root.attr": "#[pymodule]", "attr": "pymodule"}],
+      [2, {"root.attr": "#[panic_handler]", "attr": "panic_handler"}],
+      [2, {"root.attr": "#[cortex_m_rt::entry]", "attr": "cortex_m_rt::entry"}],
+      [2, {"root.attr": "#[wasm_bindgen_test]", "attr": "wasm_bindgen_test"}],
+      [2, {"root.attr": "#[pyclass]", "attr": "pyclass"}],
+      [3, {"root.span": "impl Ctx {…\n}"}]
+    ],
+    "stub": []
+  }
+}

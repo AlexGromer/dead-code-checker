@@ -1,0 +1,7 @@
+def call(String msg) {
+    echo msg
+}
+
+def unusedInSteps() {
+    return 1
+}

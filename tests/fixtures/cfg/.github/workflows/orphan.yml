@@ -1,0 +1,7 @@
+name: orphan
+on: workflow_call
+jobs:
+  never:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo never

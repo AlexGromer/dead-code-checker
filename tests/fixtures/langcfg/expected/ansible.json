@@ -1,0 +1,273 @@
+{
+ "facts": {
+  "other.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "roles/web/tasks/main.yml",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "roles/common/tasks/main.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "roles/web/tasks/main.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "*.conf.j2",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "template",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "site.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [
+    [
+     "app.conf.j2",
+     "include",
+     ""
+    ],
+    [
+     "files/motd",
+     "include",
+     ""
+    ],
+    [
+     "other.yml",
+     "include",
+     ""
+    ],
+    [
+     "roles/common/tasks/main.yml",
+     "include",
+     ""
+    ],
+    [
+     "roles/web/tasks/main.yml",
+     "include",
+     ""
+    ],
+    [
+     "tasks/extra.yml",
+     "include",
+     ""
+    ],
+    [
+     "vars/main.yml",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "tasks/extra.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "templates/app.conf.j2": {
+   "defs": [
+    [
+     "macro:row",
+     "template",
+     4,
+     4
+    ],
+    [
+     "macro:unused_macro",
+     "template",
+     5,
+     5
+    ]
+   ],
+   "dyn": [],
+   "errors": 1,
+   "refs": [
+    [
+     "base.j2",
+     "include",
+     ""
+    ],
+    [
+     "macro:cell",
+     "ref",
+     "macro:row"
+    ],
+    [
+     "macro:field",
+     "ref",
+     ""
+    ],
+    [
+     "macro:row",
+     "ref",
+     ""
+    ],
+    [
+     "macros.j2",
+     "include",
+     ""
+    ],
+    [
+     "macros.j2",
+     "include",
+     ""
+    ],
+    [
+     "part1.j2",
+     "include",
+     ""
+    ],
+    [
+     "part2.j2",
+     "include",
+     ""
+    ]
+   ],
+   "roots": [
+    [
+     "template",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "templates/base.j2": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "template",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "templates/macros.j2": {
+   "defs": [
+    [
+     "macro:cell",
+     "template",
+     1,
+     1
+    ],
+    [
+     "macro:field",
+     "template",
+     2,
+     2
+    ],
+    [
+     "macro:lonely",
+     "template",
+     3,
+     3
+    ]
+   ],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "template",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "templates/part1.j2": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "template",
+     "",
+     "soft"
+    ]
+   ]
+  },
+  "vars/main.yml": {
+   "defs": [],
+   "dyn": [],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "init",
+     "",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "file:files/motd": "weak-alive",
+  "jinja2:templates/app.conf.j2": "weak-alive",
+  "jinja2:templates/app.conf.j2#macro:row": "weak-alive",
+  "jinja2:templates/app.conf.j2#macro:unused_macro": "dead",
+  "jinja2:templates/base.j2": "weak-alive",
+  "jinja2:templates/macros.j2": "weak-alive",
+  "jinja2:templates/macros.j2#macro:cell": "weak-alive",
+  "jinja2:templates/macros.j2#macro:field": "weak-alive",
+  "jinja2:templates/macros.j2#macro:lonely": "dead",
+  "jinja2:templates/part1.j2": "weak-alive",
+  "yaml:other.yml": "weak-alive",
+  "yaml:roles/common/tasks/main.yml": "weak-alive",
+  "yaml:roles/web/tasks/main.yml": "weak-alive",
+  "yaml:site.yml": "weak-alive",
+  "yaml:tasks/extra.yml": "weak-alive",
+  "yaml:vars/main.yml": "weak-alive"
+ }
+}

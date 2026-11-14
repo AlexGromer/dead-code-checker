@@ -1,0 +1,12 @@
+{
+  description = "demo";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs";
+  outputs = { self, nixpkgs }:
+    let
+      lib = import ./lib { };
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in {
+      packages.x86_64-linux.default = pkgs.callPackage ./pkg.nix { inherit lib; };
+      nixosConfigurations.box = { imports = [ ./modules/box.nix ]; };
+    };
+}

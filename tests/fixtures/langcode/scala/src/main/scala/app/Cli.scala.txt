@@ -1,0 +1,29 @@
+package app
+
+class Base {
+  def baseCall: Int = 1
+  def neverCalled: Int = 2
+}
+
+trait Greets {
+  def greet: Int = 3
+  def silent: Int = 4
+}
+
+class Derived extends Base with Greets {
+  def go(p: Int): Int = {
+    val local = 1
+    if (flag) baseCall + greet + p + local else 0
+  }
+  def flag: Boolean = true
+}
+
+object Cli {
+  def main(args: Array[String]): Unit = {
+    println(new Derived().go(1))
+  }
+}
+
+object Unused {
+  def helper: Int = 5
+}

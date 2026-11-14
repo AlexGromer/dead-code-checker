@@ -1,0 +1,5 @@
+class User
+  def self.recent; end
+  def old_method; end
+  def norm; end
+end

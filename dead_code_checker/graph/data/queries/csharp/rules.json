@@ -1,0 +1,99 @@
+{
+  "_doc": "Rules of the C# extractor (keys: see ts_generic.rules_of). public/protected = public (the API of library mode), internal = package, private/file = private; no modifier: a member is private, a type internal, an interface member public. virtual = dispatch (flag abstract: base.m reaches the overrides, link.py). A live member keeps its class alive (langs.json owner_edge). protocol: a public instance field or property of a class is a data member (serializer, model binder, EF, options binding read it by name, no call shows it) and so are the members the language or a host calls by convention (GetEnumerator, Dispose, Configure, OnGet*); both are alive with their class. An attribute other than a compiler or tooling one on a property or a field says a framework reads it by reflection (SerializeField, Inject, Column): flag protocol too. An attribute that makes a host build or call a type or member without a reference (MEF Export, WCF ServiceContract/DataContract, XML/JSON converters, COM, Unity editor and menu hooks, EF Table/Owned, view components) roots it: annotation.host-attr. strip_angles: the type arguments of a generic call are no part of the name (`repo.Get<Foo>(1)` is `repo.Get`). A member of an unnamed receiver (`new B().Run()`, `x?.Run()`, `a.F().G`, an object initializer `new Foo { Id = 1 }`) is the ref `?.Run`: link.py resolves it to every member of that name, and a bare name written in a member is a member of its type, its other (partial) parts and its bases (langs.json type_scope). A class derived at any depth from a host class or interface of this project (`Base : ControllerBase`, `Orders : Base`; Unity `Enemy : Character : MonoBehaviour`) is rooted by link.py (langs.json root_inherit), and so are all parts of a partial class; the host base list itself is matched by annotation.dotnet-host (the suffixes Controller, Hub ... are in the regex). Gaps: a type or member named by a computed string is not seen (a string literal given to GetMethod, GetType, CreateInstance ... is: dyn.name).",
+  "stub_tag": "cs",
+  "vis_mods": {
+    "public": "public",
+    "protected": "public",
+    "internal": "package",
+    "private": "private",
+    "file": "private"
+  },
+  "flag_mods": {
+    "abstract": "abstract",
+    "virtual": "abstract",
+    "override": "override"
+  },
+  "default_vis": {
+    "class": "package",
+    "iface": "package",
+    "*": "private"
+  },
+  "parent_default_vis": {
+    "iface": "public"
+  },
+  "dotted_names": true,
+  "strip_angles": true,
+  "ref_cmd": {
+    "di": "^(Add(Scoped|Transient|Singleton|HostedService|KeyedScoped|KeyedTransient|KeyedSingleton|DbContext|HttpClient)|TryAdd(Scoped|Transient|Singleton))$"
+  },
+  "roots": {
+    "main": {
+      "re": "^Main$"
+    },
+    "main-toplevel": {},
+    "test": {
+      "re": "(^|\\.)(Fact|Theory|Test|TestCase|TestCaseSource|TestMethod|DataTestMethod|DataRow|TestFixture|TestClass|SetUp|TearDown|OneTimeSetUp|OneTimeTearDown|TestInitialize|TestCleanup|ClassInitialize|ClassCleanup|AssemblyInitialize|Benchmark|GlobalSetup|GlobalCleanup|IterationSetup|IterationCleanup|Params|ParamsSource|Arguments|ArgumentsSource|InlineData|MemberData|ClassData|DynamicData|TestFixtureSource)(Attribute)?$"
+    },
+    "annotation.aspnet": {
+      "re": "(^|\\.)(ApiController|Controller|HttpGet|HttpPost|HttpPut|HttpDelete|HttpPatch|HttpHead|HttpOptions|Route|AcceptVerbs|ActionName|NonAction|ProducesResponseType|Authorize|AllowAnonymous|HubMethodName)(Attribute)?$"
+    },
+    "annotation.azure-function": {
+      "re": "^(Function|FunctionName|HttpTrigger|QueueTrigger|TimerTrigger|ServiceBusTrigger|BlobTrigger|EventHubTrigger|EventGridTrigger|CosmosDBTrigger|OrchestrationTrigger|ActivityTrigger)(Attribute)?$"
+    },
+    "annotation.runtime-entry": {
+      "re": "^(ModuleInitializer|UnmanagedCallersOnly|JSInvokable|STAThread|MTAThread|OnSerializing|OnSerialized|OnDeserializing|OnDeserialized)(Attribute)?$"
+    },
+    "annotation.host-attr": {
+      "re": "^([\\w.]*\\.)?(Export|InheritedExport|ExportMetadata|ImportingConstructor|PartCreationPolicy|ServiceContract|DataContract|CollectionDataContract|MessageContract|ServiceBehavior|XmlRoot|XmlType|XmlInclude|JsonConverter|JsonObject|ComVisible|ComImport|ProgId|ClassInterface|Guid|CreateAssetMenu|RequireComponent|AddComponentMenu|ExecuteInEditMode|ExecuteAlways|InitializeOnLoad|InitializeOnLoadMethod|RuntimeInitializeOnLoadMethod|CustomEditor|CustomPropertyDrawer|MenuItem|ContextMenu|Table|Owned|Keyless|ComplexType|HtmlTargetElement|ViewComponent)(Attribute)?$"
+    },
+    "annotation.dotnet-host": {
+      "re": "^([\\w.]*\\.)?(\\w*(Controller|ControllerBase|Hub|BackgroundService|DbContext|PageModel|ComponentBase|TagHelper|Attribute)|IHostedService|IMiddleware|Startup|IStartup|Migration|ModelSnapshot|Profile|ViewComponent|AbstractValidator|IValidator|IRequestHandler|INotificationHandler|IPipelineBehavior|IHealthCheck|IAuthorizationHandler|AuthorizationHandler|JsonConverter|TypeConverter|IModelBinder|IModelBinderProvider|IEntityTypeConfiguration|DelegatingHandler|MonoBehaviour|NetworkBehaviour|ScriptableObject|StateMachineBehaviour|Window|UserControl|Form|Page|Application)$"
+    },
+    "annotation.member-attr": {
+      "re": "^(?!([\\w.]*\\.)?(Obsolete|SuppressMessage|EditorBrowsable|DebuggerBrowsable|DebuggerDisplay|CompilerGenerated|ThreadStatic|NonSerialized|Conditional)(Attribute)?$)",
+      "kinds": [
+        "var"
+      ],
+      "flag": "protocol"
+    }
+  },
+  "protocol": [
+    {
+      "kinds": [
+        "var"
+      ],
+      "vis": [
+        "public"
+      ],
+      "parents": [
+        "class"
+      ],
+      "skip_mods": [
+        "static",
+        "const"
+      ]
+    },
+    {
+      "re": "(^|\\.)(GetEnumerator|GetAsyncEnumerator|MoveNext|MoveNextAsync|Current|Reset|DisposeAsync|Finalize|GetAwaiter|GetResult|OnCompleted|UnsafeOnCompleted|IsCompleted|Deconstruct|CompareTo|Clone|Configure|ConfigureServices|ConfigureContainer|ConfigureWebHost|ConfigureDevelopmentServices|CreateHostBuilder|CreateWebHostBuilder|BuildWebHost|OnModelCreating|OnConfiguring|Application_\\w+|Session_\\w+|Page_\\w+|On(Get|Post|Put|Delete|Patch|Head)(Async)?\\w*)$"
+    },
+    {
+      "re": "Middleware\\.(Invoke|InvokeAsync)$",
+      "kinds": ["method"],
+      "vis": ["public"]
+    }
+  ],
+  "dyn": {
+    "static": {
+      "re": "^(?:global\\s+)?using\\s+static\\s+(?:[\\w.]*\\.)?(\\w+)\\s*;?$"
+    },
+    "name": {
+      "cmd": "^(GetMethod|GetMethods|GetProperty|GetField|GetMember|GetEvent|GetNestedType|InvokeMember|GetType|CreateInstance|CreateInstanceFrom|CreateInstanceAndUnwrap)$",
+      "re": "^@?\"(?:[\\w.]*\\.)?(\\w+)(?:,[^\"]*)?\"$"
+    },
+    "members": {
+      "cmd": "^UseMiddleware$",
+      "re": "^(?:[\\w.]*\\.)?(\\w+)$",
+      "pick": "/Invoke*"
+    }
+  }
+}

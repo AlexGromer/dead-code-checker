@@ -1,0 +1,9 @@
+{
+  "_doc": "Rules of graph.extract.ts_generic for Kotlin (only dyn so far, see queries/java/rules.json): Class.forName(\"p.Plugin\"), loader.loadClass(..), getMethod(\"run\") with a string literal are the D-tier site `name:<simple name>`.",
+  "dyn": {
+    "name": {
+      "cmd": "^(forName|loadClass|findClass|getMethod|getDeclaredMethod|getField|getDeclaredField)$",
+      "re": "^\"(?:[\\w$.]*[.$])?(\\w+)\"$"
+    }
+  }
+}

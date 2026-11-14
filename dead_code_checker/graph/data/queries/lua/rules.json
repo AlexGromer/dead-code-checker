@@ -1,0 +1,33 @@
+{
+  "_doc": "Lua. name_map: the colon of a method call or definition is a dot. ref_cmd and path_sub: require('a.b') includes a/b.lua (a dotted module is a path, dofile and loadfile name the file). roots.main: a function named main is the entry of a script.",
+  "name_map": [
+    [
+      ":",
+      "."
+    ]
+  ],
+  "ref_cmd": {
+    "include": "^(require|dofile|loadfile)$",
+    "dyn": "^(require|dofile|loadfile|load)$"
+  },
+  "path_sub": {
+    "include": [
+      [
+        "^(?!.*\\.lua$)(.+)$",
+        "\\1.lua"
+      ],
+      [
+        "\\.(?!lua$)",
+        "/"
+      ]
+    ]
+  },
+  "roots": {
+    "main": {
+      "re": "^main$",
+      "kinds": [
+        "func"
+      ]
+    }
+  }
+}

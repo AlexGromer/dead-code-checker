@@ -1,0 +1,15 @@
+package shapes
+
+type Alpha struct{}
+
+func (Alpha) Ping() int { return 1 }
+
+type Beta struct{}
+
+func (Beta) Ping() int { return 2 }
+
+func Helper() int { return 3 }
+
+func unused() int { return 4 }
+
+type Pinger interface{ Ping() int }

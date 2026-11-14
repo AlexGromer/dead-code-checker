@@ -1,0 +1,9 @@
+{
+  "_doc": "Rules of graph.extract.ts_generic for Java (only dyn so far: the reflection and class loading calls whose argument is a string literal). dyn.name: Class.forName(\"p.Plugin\"), loader.loadClass(\"p.Plugin\"), findClass, getMethod(\"run\"), getDeclaredMethod, getField, getDeclaredField name a class or a member by a literal: the D-tier site is `name:<simple name>` (the part after the last . or $), every def of that name may be used by reflection.",
+  "dyn": {
+    "name": {
+      "cmd": "^(forName|loadClass|findClass|getMethod|getDeclaredMethod|getField|getDeclaredField)$",
+      "re": "^\"(?:[\\w$.]*[.$])?(\\w+)\"$"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+mod macros;
+mod shapes;
+mod utils;
+
+use shapes::{Shape, Square};
+
+fn main() {
+    utils::helper();
+    let s = Square::new();
+    let a = s.area();
+    println!("{}", a);
+    my_macro!();
+}
+
+fn dead_fn() {}
+
+fn dead_a() {
+    dead_b();
+}
+
+fn dead_b() {
+    dead_a();
+}

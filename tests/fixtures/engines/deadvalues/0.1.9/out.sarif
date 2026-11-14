@@ -1,0 +1,36 @@
+{
+ "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+ "runs": [
+  {
+   "results": [
+    {
+     "level": "warning",
+     "locations": [
+      {
+       "physicalLocation": {
+        "artifactLocation": {
+         "uri": "my.yaml"
+        },
+        "region": {
+         "startLine": 2
+        }
+       }
+      }
+     ],
+     "message": {
+      "text": "chart: unusedKey 1  (key not in chart values.yaml)"
+     },
+     "ruleId": "dead"
+    }
+   ],
+   "tool": {
+    "driver": {
+     "informationUri": "https://github.com/guarnz/deadvalues",
+     "name": "deadvalues",
+     "version": "v0.1.9"
+    }
+   }
+  }
+ ],
+ "version": "2.1.0"
+}

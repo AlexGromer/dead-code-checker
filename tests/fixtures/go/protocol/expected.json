@@ -1,0 +1,28 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: methods that satisfy an interface of the stdlib or a library and are called through it, never by name (flag.Value Set, sync.Locker Lock and Unlock, ast.Visitor Visit, hash.Hash and context.Context methods Reset, Deadline, Done, Err), alive with their type; a method no interface asks for (Unused, Spare, Idle) is dead although its type is alive.",
+ "closed_world": {
+  "main.go#clock": "alive",
+  "main.go#clock.Deadline": "alive",
+  "main.go#clock.Done": "alive",
+  "main.go#clock.Err": "alive",
+  "main.go#clock.Idle": "dead",
+  "main.go#clock.Reset": "alive",
+  "main.go#guard": "alive",
+  "main.go#guard.Lock": "alive",
+  "main.go#guard.Unlock": "alive",
+  "main.go#main": "alive",
+  "main.go#stringList": "alive",
+  "main.go#stringList.Set": "alive",
+  "main.go#stringList.String": "alive",
+  "main.go#stringList.Unused": "dead",
+  "main.go#use": "alive",
+  "main.go#walker": "alive",
+  "main.go#walker.Spare": "dead",
+  "main.go#walker.Visit": "alive"
+ },
+ "library": {
+  "main.go#clock.Idle": "public-unused",
+  "main.go#stringList.Unused": "public-unused",
+  "main.go#walker.Spare": "public-unused"
+ }
+}

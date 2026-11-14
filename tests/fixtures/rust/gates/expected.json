@@ -1,0 +1,17 @@
+{
+ "_doc": "verdict of every def by 'path#qual': closed_world mode, and the nodes that differ in library mode. Reviewed by hand against the sources: #[unsafe(no_mangle)] (edition 2024) and #[cfg_attr(cond, attr)] root like the plain attribute, #[used] and #[global_allocator] statics are kept by the compiler, two cfg variants of one fn are one def, a `const _` is no definition, #[derive] roots nothing.",
+ "closed_world": {
+  "src/main.rs#ALLOC": "alive",
+  "src/main.rs#Alloc": "alive",
+  "src/main.rs#KEEP": "alive",
+  "src/main.rs#Plain": "dead",
+  "src/main.rs#PyThing": "alive",
+  "src/main.rs#conditional_export": "alive",
+  "src/main.rs#ffi_2024": "alive",
+  "src/main.rs#gated_test": "weak-alive",
+  "src/main.rs#main": "alive",
+  "src/main.rs#platform": "alive",
+  "src/main.rs#unused_helper": "dead"
+ },
+ "library": {}
+}

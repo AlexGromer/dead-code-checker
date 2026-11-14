@@ -1,0 +1,9 @@
+class Dispatcher
+  def go(name)
+    send("handle_#{name}")
+  end
+
+  def handle_a; end
+
+  def handle_b; end
+end

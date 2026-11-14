@@ -1,0 +1,15 @@
+class A {
+  m(): number { return 1; }
+}
+
+class B {
+  m(): number { return 2; }
+}
+
+export function use(x: A | B): number {
+  return x.m();
+}
+
+export function twice(x: A, y: any): number {
+  return x.m() + y.m();
+}

@@ -1,0 +1,26 @@
+{
+ "files": [
+  "a.py"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "ruff",
+    "check",
+    "--isolated",
+    "--no-cache",
+    "--select",
+    "F401,F841",
+    "--output-format",
+    "json",
+    "a.py"
+   ],
+   "out": "out.json",
+   "rc": 1,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "ruff",
+ "version": "0.17.4"
+}

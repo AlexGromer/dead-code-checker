@@ -1,0 +1,278 @@
+{
+ "schema": 1,
+ "note": "How the engines of the registry's audit and sem roles (and the branch role) are run. An engine of the audit plan that is not here is named in ONE W dc.engine-unwired per run, never skipped silently (the language servers of data/sem.json are used by the language-server step, not by a job). argv: {bin} the engine found by graph.engines, {out} a private directory of the job, {name} the project directory name. scope: repo = one job at the root; marker = one job in every directory that holds a file matching `marker` (nested ones are left to the outer one unless `nest`; the files a job is known to analyse, its `covered`, never include those below a nested marker directory: a nested Go module is not part of `./...`); files = the files of `langs`, in chunks, after `--` (the engine must take it: `dashdash`, so a tracked file named like an option is a file). stream: stdout | stderr | file:NAME (written into {out}). fmt names a format of data/adapters.json. An engine that builds the project (registry needs_build) and every indexer runs through graph.sandbox; an indexer runs only when each offline cache it names (`cache`) can be used (`cache_opt`: an engine that uses one when it can and runs without it otherwise: go-deadcode and the Go module cache of graph.gocache); `verified` says whether the command line was recorded against the real engine (false = taken from its documentation, to be checked on the first real run).",
+ "engines": {
+  "cargo": {
+   "scope": "marker",
+   "marker": "Cargo.toml",
+   "argv": [
+    "{bin}",
+    "check",
+    "--offline",
+    "--message-format=json",
+    "--target-dir",
+    "{out}/target"
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "cppcheck": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "--enable=unusedFunction",
+    "--xml",
+    "--xml-version=2",
+    "--quiet",
+    "."
+   ],
+   "stream": "stderr",
+   "fmt": "xml"
+  },
+  "deadvalues": {
+   "scope": "marker",
+   "marker": "Chart.yaml",
+   "argv": [
+    "{bin}",
+    "check",
+    "--chart",
+    ".",
+    "-o",
+    "json",
+    "--no-cache",
+    "--cache-dir",
+    "{out}/cache",
+    "--fail-on",
+    "none"
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "detekt": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "--input",
+    ".",
+    "--report",
+    "xml:{out}/detekt.xml"
+   ],
+   "stream": "file:detekt.xml",
+   "fmt": "xml"
+  },
+  "go-deadcode": {
+   "scope": "marker",
+   "marker": "go.mod",
+   "argv": [
+    "{bin}",
+    "-json",
+    "./..."
+   ],
+   "stream": "stdout",
+   "fmt": "json",
+   "cache_opt": [
+    "go"
+   ]
+  },
+  "knip": {
+   "scope": "marker",
+   "marker": "package.json",
+   "argv": [
+    "{bin}",
+    "--reporter",
+    "json",
+    "--no-progress"
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "pmd": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "check",
+    "--no-cache",
+    "--no-progress",
+    "-d",
+    ".",
+    "-R",
+    "category/java/bestpractices.xml/UnusedPrivateField,category/java/bestpractices.xml/UnusedPrivateMethod,category/java/bestpractices.xml/UnusedLocalVariable,category/java/bestpractices.xml/UnusedFormalParameter",
+    "-f",
+    "json"
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "ruff": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "check",
+    "--isolated",
+    "--no-cache",
+    "--select",
+    "F401,F841",
+    "--output-format",
+    "json",
+    "."
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "shellcheck": {
+   "scope": "files",
+   "langs": [
+    "shell"
+   ],
+   "dashdash": true,
+   "argv": [
+    "{bin}",
+    "-f",
+    "json"
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "staticcheck": {
+   "scope": "marker",
+   "marker": "go.mod",
+   "argv": [
+    "{bin}",
+    "-f",
+    "json",
+    "-checks",
+    "U1000",
+    "./..."
+   ],
+   "stream": "stdout",
+   "fmt": "json",
+   "cache_opt": [
+    "go"
+   ]
+  },
+  "tflint": {
+   "scope": "marker",
+   "marker": "*.tf",
+   "nest": true,
+   "argv": [
+    "{bin}",
+    "--format",
+    "json"
+   ],
+   "stream": "stdout",
+   "fmt": "json"
+  },
+  "tsc": {
+   "scope": "marker",
+   "marker": "tsconfig.json",
+   "argv": [
+    "{bin}",
+    "--noEmit",
+    "--noUnusedLocals",
+    "--noUnusedParameters",
+    "--pretty",
+    "false",
+    "-p",
+    "."
+   ],
+   "stream": "stdout",
+   "fmt": "text"
+  },
+  "vulture": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "--min-confidence",
+    "80",
+    "."
+   ],
+   "stream": "stdout",
+   "fmt": "text"
+  }
+ },
+ "indexers": {
+  "scip-python": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "index",
+    ".",
+    "--project-name",
+    "{name}",
+    "--output",
+    "{out}/index.scip"
+   ],
+   "cache": [],
+   "verified": false
+  },
+  "scip-go": {
+   "scope": "marker",
+   "marker": "go.mod",
+   "argv": [
+    "{bin}",
+    "--output",
+    "{out}/index.scip"
+   ],
+   "cache": [
+    "go"
+   ],
+   "verified": false
+  },
+  "scip-typescript": {
+   "scope": "marker",
+   "marker": "tsconfig.json",
+   "argv": [
+    "{bin}",
+    "index",
+    "--output",
+    "{out}/index.scip"
+   ],
+   "cache": [],
+   "verified": false
+  },
+  "scip-dotnet": {
+   "scope": "repo",
+   "argv": [
+    "{bin}",
+    "index",
+    "--output",
+    "{out}/index.scip"
+   ],
+   "cache": [
+    "nuget"
+   ],
+   "verified": false
+  },
+  "scip-clang": {
+   "scope": "marker",
+   "marker": "compile_commands.json",
+   "argv": [
+    "{bin}",
+    "--compdb-path=compile_commands.json",
+    "--index-output-path={out}/index.scip"
+   ],
+   "cache": [],
+   "verified": false
+  },
+  "rust-analyzer": {
+   "scope": "marker",
+   "marker": "Cargo.toml",
+   "argv": [
+    "{bin}",
+    "scip",
+    ".",
+    "--output",
+    "{out}/index.scip"
+   ],
+   "cache": [
+    "cargo"
+   ],
+   "verified": false
+  }
+ },
+ "cache_env": {
+  "go": "GOMODCACHE",
+  "nuget": "NUGET_PACKAGES",
+  "cargo": "CARGO_HOME"
+ }
+}

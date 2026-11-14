@@ -1,0 +1,21 @@
+{
+ "files": [
+  ".tflint.hcl",
+  "main.tf"
+ ],
+ "root": "/work",
+ "runs": [
+  {
+   "argv": [
+    "tflint",
+    "--format",
+    "json"
+   ],
+   "out": "out.json",
+   "rc": 2,
+   "stream": "stdout"
+  }
+ ],
+ "tool": "tflint",
+ "version": "0.66.0"
+}

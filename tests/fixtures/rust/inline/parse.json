@@ -1,0 +1,52 @@
+{
+  "src/main.rs": {
+    "defs": [
+      [12, {"def.module": "mod utils {…\n}", "name": "utils"}],
+      [4, {"def.func": "pub fn helper() {}", "vis": "pub", "name": "helper"}],
+      [4, {"def.func": "pub fn unused_in_mod() {}", "vis": "pub", "name": "unused_in_mod"}],
+      [12, {"def.module": "pub mod deep {…\n    }", "vis": "pub", "name": "deep"}],
+      [4, {"def.func": "pub fn leaf() {}", "vis": "pub", "name": "leaf"}],
+      [4, {"def.func": "pub fn aliased() {}", "vis": "pub", "name": "aliased"}],
+      [12, {"def.module": "mod prelude {…\n}", "name": "prelude"}],
+      [4, {"def.func": "pub fn from_glob() {}", "vis": "pub", "name": "from_glob"}],
+      [12, {"def.module": "pub mod shared {…\n}", "vis": "pub", "name": "shared"}],
+      [4, {"def.func": "pub fn common() {}", "vis": "pub", "name": "common"}],
+      [4, {"def.func": "pub fn unused_shared() {}", "vis": "pub", "name": "unused_shared"}],
+      [4, {"def.func": "pub fn top_level() {}", "vis": "pub", "name": "top_level"}],
+      [6, {"def.class": "pub struct Wrapper<T> {…\n}", "vis": "pub", "name": "Wrapper"}],
+      [1, {"def.method": "pub fn new() -> Wrapper<T> {…\n    }", "vis": "pub", "recv": "<Wrapper<T>", "name": "new"}],
+      [1, {"def.method": "pub fn never_called(&self) {}", "vis": "pub", "recv": "<Wrapper<T>", "name": "never_called"}],
+      [4, {"def.func": "fn orphan() {}", "name": "orphan"}],
+      [4, {"def.func": "fn main() {…\n}", "name": "main"}]
+    ],
+    "refs": [
+      [16, {"import": "mod worker;"}],
+      [15, {"import": "use utils::{helper, deep::leaf};"}],
+      [15, {"import": "use crate::utils::aliased as renamed;"}],
+      [15, {"import": "use prelude::*;"}],
+      [0, {"ref.call": "helper();", "name": "helper"}],
+      [0, {"ref.call": "leaf();", "name": "leaf"}],
+      [0, {"ref.call": "renamed();", "name": "renamed"}],
+      [0, {"ref.call": "from_glob();", "name": "from_glob"}],
+      [1, {"ref.call": "worker::work()", "name": "worker::work"}],
+      [1, {"ref.call": "Wrapper::<Vec<u8>>::new()", "name": "Wrapper::<Vec<u8>>::new"}]
+    ],
+    "roots": [
+      [1, {"root.cand": "fn main() {…\n}", "name": "main"}]
+    ],
+    "stub": []
+  },
+  "src/worker.rs": {
+    "defs": [
+      [4, {"def.func": "pub fn work() {…\n}", "vis": "pub", "name": "work"}]
+    ],
+    "refs": [
+      [15, {"import": "use crate::shared::common;"}],
+      [15, {"import": "use crate::top_level;"}],
+      [0, {"ref.call": "common();", "name": "common"}],
+      [0, {"ref.call": "top_level();", "name": "top_level"}]
+    ],
+    "roots": [],
+    "stub": []
+  }
+}

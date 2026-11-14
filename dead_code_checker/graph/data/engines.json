@@ -1,0 +1,2390 @@
+{
+ "schema": 1,
+ "roles": [
+  "branch",
+  "audit",
+  "sem"
+ ],
+ "oses": [
+  "linux",
+  "darwin",
+  "windows"
+ ],
+ "languages": {
+  "python": {
+   "tag": "py",
+   "ext": [
+    ".py",
+    ".pyi"
+   ],
+   "markers": [
+    "pyproject.toml",
+    "setup.cfg",
+    "setup.py"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "vulture"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "vulture"
+     },
+     {
+      "engine": "py-deadcode"
+     },
+     {
+      "engine": "deptry"
+     },
+     {
+      "engine": "pyan3"
+     },
+     {
+      "engine": "ruff"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "basedpyright"
+     },
+     {
+      "engine": "scip-python"
+     }
+    ]
+   }
+  },
+  "shell": {
+   "tag": "sh",
+   "ext": [
+    ".sh",
+    ".bash"
+   ],
+   "markers": [],
+   "roles": {
+    "branch": [
+     {
+      "engine": "shellcheck"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "shellcheck"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "bash-language-server"
+     }
+    ]
+   }
+  },
+  "go": {
+   "tag": "go",
+   "ext": [
+    ".go"
+   ],
+   "markers": [
+    "go.mod",
+    "go.work"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "go-deadcode"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "go-deadcode"
+     },
+     {
+      "engine": "callgraph"
+     },
+     {
+      "engine": "go-callvis"
+     },
+     {
+      "engine": "staticcheck"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "gopls"
+     },
+     {
+      "engine": "scip-go"
+     }
+    ]
+   }
+  },
+  "rust": {
+   "tag": "rs",
+   "ext": [
+    ".rs"
+   ],
+   "markers": [
+    "Cargo.toml"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "rustc"
+     },
+     {
+      "engine": "cargo"
+     },
+     {
+      "engine": "cargo-clippy"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "cargo"
+     },
+     {
+      "engine": "cargo-udeps"
+     },
+     {
+      "engine": "cargo-shear"
+     },
+     {
+      "engine": "cargo-modules"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "rust-analyzer"
+     }
+    ]
+   }
+  },
+  "js": {
+   "tag": "js",
+   "ext": [
+    ".js",
+    ".mjs",
+    ".cjs",
+    ".jsx",
+    ".ts",
+    ".tsx",
+    ".mts",
+    ".cts"
+   ],
+   "markers": [
+    "package.json",
+    "tsconfig.json"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "knip"
+     },
+     {
+      "engine": "tsc"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "knip"
+     },
+     {
+      "engine": "dependency-cruiser"
+     },
+     {
+      "engine": "tsc"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "typescript-language-server"
+     },
+     {
+      "engine": "scip-typescript"
+     }
+    ]
+   }
+  },
+  "java": {
+   "tag": "java",
+   "ext": [
+    ".java"
+   ],
+   "markers": [
+    "pom.xml",
+    "build.gradle",
+    "build.gradle.kts"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "pmd"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "pmd"
+     }
+    ]
+   }
+  },
+  "kotlin": {
+   "tag": "kt",
+   "ext": [
+    ".kt",
+    ".kts"
+   ],
+   "markers": [
+    "build.gradle.kts"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "detekt"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "detekt"
+     }
+    ]
+   }
+  },
+  "cpp": {
+   "tag": "c",
+   "ext": [
+    ".c",
+    ".h",
+    ".cc",
+    ".cpp",
+    ".cxx",
+    ".hpp",
+    ".hh"
+   ],
+   "markers": [
+    "CMakeLists.txt",
+    "compile_commands.json"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "cppcheck"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "cppcheck"
+     },
+     {
+      "engine": "clang-tidy"
+     },
+     {
+      "engine": "cflow"
+     },
+     {
+      "engine": "doxygen"
+     },
+     {
+      "engine": "ctags"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "clangd"
+     },
+     {
+      "engine": "scip-clang"
+     }
+    ]
+   }
+  },
+  "powershell": {
+   "tag": "ps1",
+   "ext": [
+    ".ps1",
+    ".psm1",
+    ".psd1"
+   ],
+   "markers": [],
+   "roles": {
+    "branch": [
+     {
+      "engine": "PSScriptAnalyzer"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "PSScriptAnalyzer"
+     }
+    ]
+   }
+  },
+  "hcl": {
+   "tag": "tf",
+   "ext": [
+    ".tf",
+    ".tfvars",
+    ".hcl"
+   ],
+   "markers": [],
+   "roles": {
+    "branch": [
+     {
+      "engine": "tflint"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "tflint"
+     }
+    ]
+   }
+  },
+  "yaml": {
+   "tag": "yaml",
+   "ext": [
+    ".yaml",
+    ".yml"
+   ],
+   "markers": [
+    "Chart.yaml"
+   ],
+   "roles": {
+    "branch": [
+     {
+      "engine": "deadvalues"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "deadvalues"
+     }
+    ]
+   }
+  },
+  "csharp": {
+   "tag": "cs",
+   "ext": [
+    ".cs",
+    ".csproj",
+    ".sln"
+   ],
+   "markers": [],
+   "roles": {
+    "branch": [
+     {
+      "engine": "dotnet"
+     }
+    ],
+    "audit": [
+     {
+      "engine": "dotnet"
+     },
+     {
+      "engine": "scip-dotnet"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "scip-dotnet"
+     }
+    ]
+   }
+  },
+  "make": {
+   "tag": "make",
+   "ext": [
+    ".mk",
+    ".just"
+   ],
+   "markers": [
+    "Makefile",
+    "makefile",
+    "GNUmakefile",
+    "justfile",
+    "Justfile"
+   ],
+   "roles": {}
+  },
+  "docker": {
+   "tag": "docker",
+   "ext": [
+    ".dockerfile"
+   ],
+   "markers": [
+    "Dockerfile",
+    "Containerfile"
+   ],
+   "roles": {}
+  },
+  "nginx": {
+   "tag": "nginx",
+   "ext": [
+    ".nginx"
+   ],
+   "markers": [
+    "nginx.conf"
+   ],
+   "roles": {}
+  },
+  "jsonnet": {
+   "tag": "jsonnet",
+   "ext": [
+    ".jsonnet",
+    ".libsonnet"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "jinja2": {
+   "tag": "jinja2",
+   "ext": [
+    ".j2",
+    ".jinja",
+    ".jinja2"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "json": {
+   "tag": "json",
+   "ext": [
+    ".json",
+    ".jsonc"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "toml": {
+   "tag": "toml",
+   "ext": [
+    ".toml"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "ini": {
+   "tag": "ini",
+   "ext": [
+    ".ini",
+    ".cfg",
+    ".conf"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "properties": {
+   "tag": "properties",
+   "ext": [
+    ".properties"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "xml": {
+   "tag": "xml",
+   "ext": [
+    ".xml"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "proto": {
+   "tag": "proto",
+   "ext": [
+    ".proto"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "graphql": {
+   "tag": "graphql",
+   "ext": [
+    ".graphql",
+    ".graphqls",
+    ".gql"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "sql": {
+   "tag": "sql",
+   "ext": [
+    ".sql",
+    ".psql",
+    ".pgsql"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "promql": {
+   "tag": "promql",
+   "ext": [
+    ".promql"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "ssh_config": {
+   "tag": "ssh_config",
+   "ext": [],
+   "markers": [
+    "ssh_config",
+    "sshd_config"
+   ],
+   "roles": {}
+  },
+  "caddy": {
+   "tag": "caddy",
+   "ext": [
+    ".caddy"
+   ],
+   "markers": [
+    "Caddyfile"
+   ],
+   "roles": {}
+  },
+  "css": {
+   "tag": "css",
+   "ext": [
+    ".css"
+   ],
+   "markers": [],
+   "roles": {}
+  },
+  "cmake": {
+   "tag": "cmake",
+   "ext": [
+    ".cmake"
+   ],
+   "markers": [
+    "CMakeLists.txt"
+   ],
+   "roles": {}
+  },
+  "*": {
+   "tag": null,
+   "ext": [],
+   "markers": [],
+   "roles": {
+    "audit": [
+     {
+      "engine": "dot"
+     }
+    ],
+    "sem": [
+     {
+      "engine": "ast-grep"
+     },
+     {
+      "engine": "scip"
+     }
+    ]
+   }
+  }
+ },
+ "engines": {
+  "ruff": {
+   "kind": "exe",
+   "bin": {
+    "linux": "ruff",
+    "windows": "ruff.exe",
+    "darwin": "ruff"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "pipx",
+     "cmd": "pipx install ruff  (or: python3 -m pip install ruff)"
+    },
+    "darwin": {
+     "method": "pipx",
+     "cmd": "pipx install ruff  (or: python3 -m pip install ruff)"
+    },
+    "windows": {
+     "method": "pipx",
+     "cmd": "pipx install ruff  (or: python3 -m pip install ruff)"
+    }
+   }
+  },
+  "vulture": {
+   "kind": "exe",
+   "bin": {
+    "linux": "vulture",
+    "windows": "vulture.cmd",
+    "darwin": "vulture"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install vulture  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install vulture  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install vulture with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   }
+  },
+  "py-deadcode": {
+   "kind": "exe",
+   "bin": {
+    "linux": "py-deadcode",
+    "windows": "py-deadcode.cmd",
+    "darwin": "py-deadcode"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "AGPL-3.0",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "pipx",
+     "cmd": "pipx install deadcode, then link its `deadcode` executable as `py-deadcode` in the engines directory"
+    },
+    "darwin": {
+     "method": "pipx",
+     "cmd": "pipx install deadcode, then link its `deadcode` executable as `py-deadcode` in the engines directory"
+    },
+    "windows": {
+     "method": "pipx",
+     "cmd": "pipx install deadcode, then link its `deadcode` executable as `py-deadcode` in the engines directory"
+    }
+   },
+   "note": "PyPI package `deadcode` installs an executable named `deadcode`: expose it as `py-deadcode` (a link in the engines directory), so it never shadows the Go tool of that name"
+  },
+  "deptry": {
+   "kind": "exe",
+   "bin": {
+    "linux": "deptry",
+    "windows": "deptry.cmd",
+    "darwin": "deptry"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "pipx",
+     "cmd": "pipx install deptry  (or: python3 -m pip install deptry)"
+    },
+    "darwin": {
+     "method": "pipx",
+     "cmd": "pipx install deptry  (or: python3 -m pip install deptry)"
+    },
+    "windows": {
+     "method": "pipx",
+     "cmd": "pipx install deptry  (or: python3 -m pip install deptry)"
+    }
+   }
+  },
+  "pyan3": {
+   "kind": "exe",
+   "bin": {
+    "linux": "pyan3",
+    "windows": "pyan3.cmd",
+    "darwin": "pyan3"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "GPL-2.0-or-later",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "pipx",
+     "cmd": "pipx install pyan3  (or: python3 -m pip install pyan3)"
+    },
+    "darwin": {
+     "method": "pipx",
+     "cmd": "pipx install pyan3  (or: python3 -m pip install pyan3)"
+    },
+    "windows": {
+     "method": "pipx",
+     "cmd": "pipx install pyan3  (or: python3 -m pip install pyan3)"
+    }
+   }
+  },
+  "basedpyright": {
+   "kind": "exe",
+   "bin": {
+    "linux": "basedpyright",
+    "windows": "basedpyright.cmd",
+    "darwin": "basedpyright"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "pipx",
+     "cmd": "pipx install basedpyright  (or: python3 -m pip install basedpyright)"
+    },
+    "darwin": {
+     "method": "pipx",
+     "cmd": "pipx install basedpyright  (or: python3 -m pip install basedpyright)"
+    },
+    "windows": {
+     "method": "pipx",
+     "cmd": "pipx install basedpyright  (or: python3 -m pip install basedpyright)"
+    }
+   },
+   "aliases": [
+    "basedpyright-langserver"
+   ]
+  },
+  "scip-python": {
+   "kind": "exe",
+   "bin": {
+    "linux": "scip-python",
+    "windows": "scip-python.cmd",
+    "darwin": "scip-python"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 4,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g @sourcegraph/scip-python"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g @sourcegraph/scip-python"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g @sourcegraph/scip-python"
+    }
+   }
+  },
+  "shellcheck": {
+   "kind": "exe",
+   "bin": {
+    "linux": "shellcheck",
+    "windows": "shellcheck.exe",
+    "darwin": "shellcheck"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "GPL-3.0",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install shellcheck  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install shellcheck  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install shellcheck with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "version:\\s*([\\d.]+)"
+  },
+  "bash-language-server": {
+   "kind": "exe",
+   "bin": {
+    "linux": "bash-language-server",
+    "windows": "bash-language-server.cmd",
+    "darwin": "bash-language-server"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g bash-language-server"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g bash-language-server"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g bash-language-server"
+    }
+   }
+  },
+  "staticcheck": {
+   "kind": "exe",
+   "bin": {
+    "linux": "staticcheck",
+    "windows": "staticcheck.exe",
+    "darwin": "staticcheck"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "go install honnef.co/go/tools/cmd/staticcheck@latest"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "go install honnef.co/go/tools/cmd/staticcheck@latest"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "go install honnef.co/go/tools/cmd/staticcheck@latest"
+    }
+   },
+   "needs": [
+    "go.mod"
+   ]
+  },
+  "go-deadcode": {
+   "kind": "exe",
+   "bin": {
+    "linux": [
+     "go-deadcode",
+     "deadcode"
+    ],
+    "darwin": [
+     "go-deadcode",
+     "deadcode"
+    ],
+    "windows": [
+     "go-deadcode.exe",
+     "deadcode.exe"
+    ]
+   },
+   "version_cmd": [
+    "go",
+    "version",
+    "-m",
+    "{bin}"
+   ],
+   "license": "BSD-3-Clause",
+   "class": "permissive",
+   "weight": 2,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/cmd/deadcode@latest  (the binary is named `deadcode`; it is accepted under that name when it is the Go tool, or rename it to go-deadcode)"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/cmd/deadcode@latest  (the binary is named `deadcode`; it is accepted under that name when it is the Go tool, or rename it to go-deadcode)"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/cmd/deadcode@latest  (the binary is named `deadcode`; it is accepted under that name when it is the Go tool, or rename it to go-deadcode)"
+    }
+   },
+   "version_re": "mod\\s+golang\\.org/x/tools\\s+(v[\\d.]+)",
+   "needs": [
+    "go.mod"
+   ],
+   "note": "Go x/tools deadcode; version read from the embedded build info (the tool has no version flag)"
+  },
+  "revive": {
+   "kind": "exe",
+   "bin": {
+    "linux": "revive",
+    "windows": "revive.exe",
+    "darwin": "revive"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "go install github.com/mgechev/revive@latest"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "go install github.com/mgechev/revive@latest"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "go install github.com/mgechev/revive@latest"
+    }
+   },
+   "version_re": "version\\s+(\\S+)",
+   "needs": [
+    "go.mod"
+   ]
+  },
+  "callgraph": {
+   "kind": "exe",
+   "bin": {
+    "linux": "callgraph",
+    "windows": "callgraph.exe",
+    "darwin": "callgraph"
+   },
+   "version_cmd": [
+    "go",
+    "version",
+    "-m",
+    "{bin}"
+   ],
+   "license": "BSD-3-Clause",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/cmd/callgraph@latest"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/cmd/callgraph@latest"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/cmd/callgraph@latest"
+    }
+   },
+   "version_re": "mod\\s+golang\\.org/x/tools\\s+(v[\\d.]+)",
+   "note": "x/tools tag assumed equal to the go-deadcode one"
+  },
+  "go-callvis": {
+   "kind": "exe",
+   "bin": {
+    "linux": "go-callvis",
+    "windows": "go-callvis.exe",
+    "darwin": "go-callvis"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "install go-callvis from its project page (a release build or `go install` with the module path of its README) and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "install go-callvis from its project page (a release build or `go install` with the module path of its README) and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "install go-callvis from its project page (a release build or `go install` with the module path of its README) and put the executable on PATH or in the engines directory"
+    }
+   }
+  },
+  "gopls": {
+   "kind": "exe",
+   "bin": {
+    "linux": "gopls",
+    "windows": "gopls.exe",
+    "darwin": "gopls"
+   },
+   "version_cmd": [
+    "{bin}",
+    "version"
+   ],
+   "license": "BSD-3-Clause",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/gopls@latest"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/gopls@latest"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "go install golang.org/x/tools/gopls@latest"
+    }
+   },
+   "version_re": "gopls\\s+(v[\\d.]+)|(v[\\d.]+)"
+  },
+  "scip-go": {
+   "kind": "exe",
+   "bin": {
+    "linux": "scip-go",
+    "windows": "scip-go.exe",
+    "darwin": "scip-go"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 4,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "GOTOOLCHAIN": "local",
+    "GOPROXY": "off",
+    "GOFLAGS": "-mod=readonly",
+    "GOTELEMETRY": "off"
+   },
+   "install": {
+    "linux": {
+     "method": "go-install",
+     "cmd": "install scip-go from its project page (a release build or `go install` with the module path of its README) and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "go-install",
+     "cmd": "install scip-go from its project page (a release build or `go install` with the module path of its README) and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "go-install",
+     "cmd": "install scip-go from its project page (a release build or `go install` with the module path of its README) and put the executable on PATH or in the engines directory"
+    }
+   },
+   "needs": [
+    "go.mod"
+   ],
+   "offline": [
+    "gomod"
+   ]
+  },
+  "rustc": {
+   "kind": "exe",
+   "bin": {
+    "linux": "rustc",
+    "windows": "rustc.exe",
+    "darwin": "rustc"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT OR Apache-2.0",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "CARGO_NET_OFFLINE": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install rustc cargo  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install rustc  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install rustc with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   }
+  },
+  "cargo": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cargo",
+    "windows": "cargo.exe",
+    "darwin": "cargo"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT OR Apache-2.0",
+   "class": "permissive",
+   "weight": 4,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "CARGO_NET_OFFLINE": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install cargo  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install cargo  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install cargo with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "needs": [
+    "Cargo.toml"
+   ]
+  },
+  "rust-analyzer": {
+   "kind": "exe",
+   "bin": {
+    "linux": "rust-analyzer",
+    "windows": "rust-analyzer.exe",
+    "darwin": "rust-analyzer"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0 OR MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install rust-analyzer  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install rust-analyzer  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install rust-analyzer with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   }
+  },
+  "cargo-udeps": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cargo-udeps",
+    "windows": "cargo-udeps.exe",
+    "darwin": "cargo-udeps"
+   },
+   "version_cmd": [
+    "{bin}",
+    "udeps",
+    "--version"
+   ],
+   "license": "MIT OR Apache-2.0",
+   "class": "permissive",
+   "weight": 4,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "CARGO_NET_OFFLINE": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-udeps"
+    },
+    "darwin": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-udeps"
+    },
+    "windows": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-udeps"
+    }
+   },
+   "offline": [
+    "cargo"
+   ]
+  },
+  "cargo-clippy": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cargo-clippy",
+    "windows": null,
+    "darwin": "cargo-clippy"
+   },
+   "version_cmd": [
+    "{bin}",
+    "clippy",
+    "--version"
+   ],
+   "license": "MIT OR Apache-2.0",
+   "class": "permissive",
+   "weight": 4,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "CARGO_NET_OFFLINE": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install rust-clippy  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install rust-clippy  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "degraded",
+     "reason": "no build of this engine for this OS"
+    }
+   },
+   "offline": [
+    "cargo"
+   ],
+   "needs": [
+    "Cargo.toml"
+   ]
+  },
+  "cargo-shear": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cargo-shear",
+    "windows": "cargo-shear.exe",
+    "darwin": "cargo-shear"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "CARGO_NET_OFFLINE": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-shear"
+    },
+    "darwin": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-shear"
+    },
+    "windows": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-shear"
+    }
+   },
+   "version_re": "Version:\\s*([\\d.]+)"
+  },
+  "cargo-modules": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cargo-modules",
+    "windows": "cargo-modules.exe",
+    "darwin": "cargo-modules"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MPL-2.0",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "CARGO_NET_OFFLINE": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-modules"
+    },
+    "darwin": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-modules"
+    },
+    "windows": {
+     "method": "cargo",
+     "cmd": "cargo install --locked cargo-modules"
+    }
+   }
+  },
+  "knip": {
+   "kind": "exe",
+   "bin": {
+    "linux": "knip",
+    "windows": "knip.cmd",
+    "darwin": "knip"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "ISC",
+   "class": "permissive",
+   "weight": 2,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g knip"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g knip"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g knip"
+    }
+   },
+   "needs": [
+    "package.json"
+   ],
+   "aliases": [
+    "knip-bun"
+   ],
+   "note": "knip-bun needs bun"
+  },
+  "tsc": {
+   "kind": "exe",
+   "bin": {
+    "linux": "tsc",
+    "windows": "tsc.cmd",
+    "darwin": "tsc"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g typescript"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g typescript"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g typescript"
+    }
+   },
+   "version_re": "Version\\s+([\\d.]+)",
+   "needs": [
+    "tsconfig.json"
+   ]
+  },
+  "dependency-cruiser": {
+   "kind": "exe",
+   "bin": {
+    "linux": "dependency-cruiser",
+    "windows": "dependency-cruiser.cmd",
+    "darwin": "dependency-cruiser"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g dependency-cruiser"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g dependency-cruiser"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g dependency-cruiser"
+    }
+   },
+   "aliases": [
+    "depcruise",
+    "depcruise-baseline",
+    "depcruise-fmt",
+    "depcruise-wrap-stream-in-html",
+    "dependency-cruise"
+   ],
+   "note": "needs a recent Node (22 or later)"
+  },
+  "typescript-language-server": {
+   "kind": "exe",
+   "bin": {
+    "linux": "typescript-language-server",
+    "windows": "typescript-language-server.cmd",
+    "darwin": "typescript-language-server"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g typescript-language-server"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g typescript-language-server"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g typescript-language-server"
+    }
+   }
+  },
+  "scip-typescript": {
+   "kind": "exe",
+   "bin": {
+    "linux": "scip-typescript",
+    "windows": "scip-typescript.cmd",
+    "darwin": "scip-typescript"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 4,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g @sourcegraph/scip-typescript"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g @sourcegraph/scip-typescript"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g @sourcegraph/scip-typescript"
+    }
+   },
+   "offline": [
+    "npm"
+   ]
+  },
+  "pmd": {
+   "kind": "exe",
+   "bin": {
+    "linux": "pmd",
+    "windows": "pmd.cmd",
+    "darwin": "pmd"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "BSD-style",
+   "class": "process-only",
+   "weight": 2,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "release+sha",
+     "cmd": "download a release build of pmd for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "release+sha",
+     "cmd": "download a release build of pmd for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "release+sha",
+     "cmd": "download a release build of pmd for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    }
+   },
+   "version_re": "PMD\\s+([\\d.]+)",
+   "payload": [
+    "java/pmd-bin-7.29.0"
+   ]
+  },
+  "detekt": {
+   "kind": "exe",
+   "bin": {
+    "linux": "detekt",
+    "windows": "detekt.cmd",
+    "darwin": "detekt"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0 (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 2,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "maven",
+     "cmd": "download the `all` jar of detekt-cli (group io.gitlab.arturbosch.detekt) from Maven Central and put a `detekt` wrapper script (java -jar ...) on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "maven",
+     "cmd": "download the `all` jar of detekt-cli (group io.gitlab.arturbosch.detekt) from Maven Central and put a `detekt` wrapper script (java -jar ...) on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "maven",
+     "cmd": "download the `all` jar of detekt-cli (group io.gitlab.arturbosch.detekt) from Maven Central and put a `detekt` wrapper script (java -jar ...) on PATH or in the engines directory"
+    }
+   },
+   "payload": [
+    "java/detekt-cli-1.23.8-all.jar"
+   ]
+  },
+  "google-java-format": {
+   "kind": "exe",
+   "bin": {
+    "linux": "google-java-format",
+    "windows": "google-java-format.cmd",
+    "darwin": "google-java-format"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0 (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "release+sha",
+     "cmd": "download a release build of google-java-format for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "release+sha",
+     "cmd": "download a release build of google-java-format for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "release+sha",
+     "cmd": "download a release build of google-java-format for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    }
+   },
+   "version_re": "Version:?\\s*([\\d.]+)"
+  },
+  "cppcheck": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cppcheck",
+    "windows": "cppcheck.exe",
+    "darwin": "cppcheck"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "GPL-3.0-or-later (UNVERIFIED)",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install cppcheck  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install cppcheck  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install cppcheck with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "Cppcheck\\s+([\\d.]+)"
+  },
+  "clang-tidy": {
+   "kind": "exe",
+   "bin": {
+    "linux": "clang-tidy",
+    "windows": "clang-tidy.exe",
+    "darwin": "clang-tidy"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0 WITH LLVM-exception",
+   "class": "permissive",
+   "weight": 2,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install clang-tidy  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install clang-tidy  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install clang-tidy with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "version\\s+([\\d.]+)"
+  },
+  "clangd": {
+   "kind": "exe",
+   "bin": {
+    "linux": "clangd",
+    "windows": "clangd.exe",
+    "darwin": "clangd"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0 WITH LLVM-exception",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install clangd  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install clangd  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install clangd with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "version\\s+([\\d.]+)"
+  },
+  "cflow": {
+   "kind": "exe",
+   "bin": {
+    "linux": "cflow",
+    "windows": null,
+    "darwin": "cflow"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "GPL-3.0-or-later (UNVERIFIED)",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install cflow  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install cflow  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "degraded",
+     "reason": "no build of this engine for this OS"
+    }
+   },
+   "version_re": "cflow \\(GNU cflow\\)\\s+([\\d.]+)"
+  },
+  "scip-clang": {
+   "kind": "exe",
+   "bin": {
+    "linux": "scip-clang",
+    "windows": null,
+    "darwin": "scip-clang"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 6,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "release+sha",
+     "cmd": "download a release build of scip-clang for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "release+sha",
+     "cmd": "download a release build of scip-clang for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "degraded",
+     "reason": "no build of this engine for this OS"
+    }
+   }
+  },
+  "doxygen": {
+   "kind": "exe",
+   "bin": {
+    "linux": "doxygen",
+    "windows": "doxygen.exe",
+    "darwin": "doxygen"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "GPL-2.0-or-later (UNVERIFIED)",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install doxygen  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install doxygen  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install doxygen with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   }
+  },
+  "ctags": {
+   "kind": "exe",
+   "bin": {
+    "linux": "ctags",
+    "windows": "ctags.exe",
+    "darwin": "ctags"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "GPL-2.0-or-later (UNVERIFIED)",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install universal-ctags  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install universal-ctags  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install universal-ctags with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "Universal Ctags\\s+([\\d.]+)"
+  },
+  "pwsh": {
+   "kind": "exe",
+   "bin": {
+    "linux": "pwsh",
+    "windows": "pwsh.exe",
+    "darwin": "pwsh"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "POWERSHELL_TELEMETRY_OPTOUT": "1",
+    "POWERSHELL_UPDATECHECK": "Off"
+   },
+   "install": {
+    "linux": {
+     "method": "deb",
+     "cmd": "install PowerShell 7 with a package manager or from the project's releases page"
+    },
+    "darwin": {
+     "method": "deb",
+     "cmd": "install PowerShell 7 with a package manager or from the project's releases page"
+    },
+    "windows": {
+     "method": "deb",
+     "cmd": "install PowerShell 7 with a package manager or from the project's releases page"
+    }
+   },
+   "version_re": "PowerShell\\s+([\\d.]+)"
+  },
+  "PSScriptAnalyzer": {
+   "kind": "module",
+   "bin": {
+    "linux": "/usr/local/share/powershell/Modules/PSScriptAnalyzer",
+    "windows": "PSScriptAnalyzer.exe",
+    "darwin": "/usr/local/share/powershell/Modules/PSScriptAnalyzer"
+   },
+   "version_cmd": null,
+   "license": "MIT (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "POWERSHELL_TELEMETRY_OPTOUT": "1",
+    "POWERSHELL_UPDATECHECK": "Off"
+   },
+   "install": {
+    "linux": {
+     "method": "pwsh-module",
+     "cmd": "pwsh -NoProfile -Command \"Install-Module PSScriptAnalyzer -Scope CurrentUser\""
+    },
+    "darwin": {
+     "method": "pwsh-module",
+     "cmd": "pwsh -NoProfile -Command \"Install-Module PSScriptAnalyzer -Scope CurrentUser\""
+    },
+    "windows": {
+     "method": "pwsh-module",
+     "cmd": "pwsh -NoProfile -Command \"Install-Module PSScriptAnalyzer -Scope CurrentUser\""
+    }
+   },
+   "note": "module directory; version = its version directory name (1.25.0 observed)"
+  },
+  "dotnet": {
+   "kind": "exe",
+   "bin": {
+    "linux": "dotnet",
+    "windows": "dotnet.exe",
+    "darwin": "dotnet"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 6,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_NOLOGO": "1",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install dotnet-sdk-<version>  (pick a current SDK; the package name depends on your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install dotnet  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install the .NET SDK with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "(\\d+\\.\\d+\\.\\d+)",
+   "note": "Roslyn analyzers run through a build",
+   "offline": [
+    "nuget"
+   ]
+  },
+  "scip-dotnet": {
+   "kind": "exe",
+   "bin": {
+    "linux": "scip-dotnet",
+    "windows": "scip-dotnet.cmd",
+    "darwin": "scip-dotnet"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0 (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 6,
+   "needs_build": true,
+   "needs_net": false,
+   "env": {
+    "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+    "DOTNET_NOLOGO": "1",
+    "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1"
+   },
+   "install": {
+    "linux": {
+     "method": "dotnet-tool",
+     "cmd": "dotnet tool install --global scip-dotnet"
+    },
+    "darwin": {
+     "method": "dotnet-tool",
+     "cmd": "dotnet tool install --global scip-dotnet"
+    },
+    "windows": {
+     "method": "dotnet-tool",
+     "cmd": "dotnet tool install --global scip-dotnet"
+    }
+   },
+   "version_re": "(\\d+\\.\\d+\\.\\d+)",
+   "offline": [
+    "nuget"
+   ]
+  },
+  "tflint": {
+   "kind": "exe",
+   "bin": {
+    "linux": "tflint",
+    "windows": "tflint.exe",
+    "darwin": "tflint"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MPL-2.0 (UNVERIFIED)",
+   "class": "process-only",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "release+sha",
+     "cmd": "download a release build of tflint for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "release+sha",
+     "cmd": "download a release build of tflint for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "release+sha",
+     "cmd": "download a release build of tflint for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    }
+   },
+   "version_re": "TFLint version\\s+([\\d.]+)"
+  },
+  "deadvalues": {
+   "kind": "exe",
+   "bin": {
+    "linux": "deadvalues",
+    "windows": "deadvalues.exe",
+    "darwin": "deadvalues"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "release+sha",
+     "cmd": "download a release build of deadvalues for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "release+sha",
+     "cmd": "download a release build of deadvalues for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "release+sha",
+     "cmd": "download a release build of deadvalues for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    }
+   },
+   "version_re": "v([\\d.]+)",
+   "needs": [
+    "Chart.yaml"
+   ]
+  },
+  "dot": {
+   "kind": "exe",
+   "bin": {
+    "linux": "dot",
+    "windows": "dot.exe",
+    "darwin": "dot"
+   },
+   "version_cmd": [
+    "{bin}",
+    "-V"
+   ],
+   "license": "EPL-1.0 (UNVERIFIED)",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "apt",
+     "cmd": "apt install graphviz  (or the package of your distribution)"
+    },
+    "darwin": {
+     "method": "apt",
+     "cmd": "brew install graphviz  (or another package manager; the package name can differ)"
+    },
+    "windows": {
+     "method": "apt",
+     "cmd": "install graphviz with a package manager (winget, scoop, choco) or the project's installer"
+    }
+   },
+   "version_re": "graphviz version\\s+([\\d.]+)"
+  },
+  "ast-grep": {
+   "kind": "exe",
+   "bin": {
+    "linux": "ast-grep",
+    "windows": "ast-grep.cmd",
+    "darwin": "ast-grep"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "MIT",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {
+    "NO_UPDATE_NOTIFIER": "1",
+    "npm_config_offline": "true"
+   },
+   "install": {
+    "linux": {
+     "method": "npm",
+     "cmd": "npm install -g @ast-grep/cli"
+    },
+    "darwin": {
+     "method": "npm",
+     "cmd": "npm install -g @ast-grep/cli"
+    },
+    "windows": {
+     "method": "npm",
+     "cmd": "npm install -g @ast-grep/cli"
+    }
+   },
+   "version_re": "ast-grep\\s+([\\d.]+)"
+  },
+  "scip": {
+   "kind": "exe",
+   "bin": {
+    "linux": "scip",
+    "windows": "scip.exe",
+    "darwin": "scip"
+   },
+   "version_cmd": [
+    "{bin}",
+    "--version"
+   ],
+   "license": "Apache-2.0",
+   "class": "permissive",
+   "weight": 1,
+   "needs_build": false,
+   "needs_net": false,
+   "env": {},
+   "install": {
+    "linux": {
+     "method": "release+sha",
+     "cmd": "download a release build of scip for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "darwin": {
+     "method": "release+sha",
+     "cmd": "download a release build of scip for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    },
+    "windows": {
+     "method": "release+sha",
+     "cmd": "download a release build of scip for your OS from the project's releases page, check its published checksum, and put the executable on PATH or in the engines directory"
+    }
+   },
+   "version_re": "scip version\\s+(v[\\d.]+)"
+  }
+ },
+ "sandbox": {
+  "note": "Engines that build the project (needs_build) run in bubblewrap when it is installed (no network, a read-only view of the tree, private scratch directories); without it they run unsandboxed and a note says so. {dir} is a cache directory, {out} and {home} are private directories of the run.",
+  "levels": [
+   "branch",
+   "repo"
+  ],
+  "limits": {
+   "wall_s": 1800,
+   "cpu_s": 3600,
+   "as_mb": 16384,
+   "fsize_mb": 4096,
+   "nofile": 8192,
+   "collect_mb": 512
+  },
+  "scratch_env": {
+   "CARGO_TARGET_DIR": "{out}/cargo-target",
+   "GOCACHE": "{out}/go-build",
+   "XDG_CACHE_HOME": "{home}/.cache"
+  },
+  "caches": {
+   "coursier": {
+    "env": {
+     "COURSIER_MODE": "offline",
+     "COURSIER_CACHE": "{dir}"
+    },
+    "fill": "with network access: COURSIER_CACHE={dir} cs fetch <the indexer artifact and its dependencies>"
+   },
+   "maven": {
+    "markers": [
+     "pom.xml"
+    ],
+    "env": {
+     "MAVEN_OPTS": "-Dmaven.repo.local={dir}",
+     "MAVEN_ARGS": "--offline"
+    },
+    "fill": "with network access: mvn -Dmaven.repo.local={dir} dependency:go-offline"
+   },
+   "gradle": {
+    "markers": [
+     "build.gradle",
+     "build.gradle.kts",
+     "settings.gradle",
+     "settings.gradle.kts"
+    ],
+    "env": {
+     "GRADLE_USER_HOME": "{dir}"
+    },
+    "fill": "with network access: run the project's gradle build once with GRADLE_USER_HOME={dir}"
+   },
+   "nuget": {
+    "markers": [
+     "*.sln",
+     "*.csproj",
+     "*.fsproj",
+     "*.vbproj"
+    ],
+    "env": {
+     "NUGET_PACKAGES": "{dir}"
+    },
+    "fill": "with network access: NUGET_PACKAGES={dir} dotnet restore <the solution>"
+   },
+   "cargo": {
+    "markers": [
+     "Cargo.toml"
+    ],
+    "env": {
+     "CARGO_HOME": "{dir}",
+     "CARGO_NET_OFFLINE": "true"
+    },
+    "fill": "with network access: cargo vendor {dir}/vendor and put the source replacement it prints into {dir}/config.toml"
+   },
+   "gomod": {
+    "markers": [
+     "go.mod"
+    ],
+    "env": {
+     "GOMODCACHE": "{dir}",
+     "GOFLAGS": "-mod=mod",
+     "GOPROXY": "off",
+     "GOSUMDB": "off",
+     "GOTOOLCHAIN": "local"
+    },
+    "fill": "with network access: GOMODCACHE={dir} go mod download (the exact commands: dead-code-checker graph cache go --fill REPO); what is still missing: dead-code-checker graph cache go --check REPO"
+   },
+   "npm": {
+    "markers": [
+     "package.json"
+    ],
+    "env": {
+     "npm_config_cache": "{dir}"
+    },
+    "fill": "with network access: npm_config_cache={dir} npm ci"
+   }
+  }
+ }
+}

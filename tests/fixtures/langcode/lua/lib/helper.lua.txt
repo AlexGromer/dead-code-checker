@@ -1,0 +1,3 @@
+local H = {}
+function H.alone() end
+return H

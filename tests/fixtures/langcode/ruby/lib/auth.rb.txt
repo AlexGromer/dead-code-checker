@@ -1,0 +1,9 @@
+module Auth
+  def self.check(req)
+    verify(req)
+  end
+
+  def self.verify(req); end
+
+  def self.dead_auth; end
+end

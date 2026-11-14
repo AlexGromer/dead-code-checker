@@ -1,0 +1,2 @@
+import { renamed } from "./app.js";
+renamed();

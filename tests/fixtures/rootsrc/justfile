@@ -1,0 +1,11 @@
+py := "python3"
+
+default: build
+
+build target="debug":
+    {{py}} scripts/build.py {{target}}
+    @./scripts/post.sh
+
+deploy:
+    just build
+    {{launcher}} tools/push.sh

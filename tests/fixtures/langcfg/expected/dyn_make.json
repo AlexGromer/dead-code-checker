@@ -1,0 +1,69 @@
+{
+ "facts": {
+  "Makefile": {
+   "defs": [
+    [
+     "recipe:a%2Eo",
+     "job",
+     19,
+     21
+    ],
+    [
+     "recipe:all",
+     "job",
+     7,
+     10
+    ],
+    [
+     "recipe:sub1",
+     "job",
+     13,
+     15
+    ],
+    [
+     "recipe:sub2",
+     "job",
+     15,
+     17
+    ],
+    [
+     "recipe:tx",
+     "job",
+     17,
+     19
+    ]
+   ],
+   "dyn": [
+    [
+     "name:recipe:*",
+     ""
+    ],
+    [
+     "name:recipe:*",
+     "recipe:all"
+    ],
+    [
+     "name:recipe:*",
+     "recipe:all"
+    ]
+   ],
+   "errors": 0,
+   "refs": [],
+   "roots": [
+    [
+     "init",
+     "recipe:all",
+     "soft"
+    ]
+   ]
+  }
+ },
+ "verdicts": {
+  "make:Makefile": "weak-alive",
+  "make:Makefile#recipe:a%2Eo": "weak-alive",
+  "make:Makefile#recipe:all": "weak-alive",
+  "make:Makefile#recipe:sub1": "weak-alive",
+  "make:Makefile#recipe:sub2": "weak-alive",
+  "make:Makefile#recipe:tx": "weak-alive"
+ }
+}

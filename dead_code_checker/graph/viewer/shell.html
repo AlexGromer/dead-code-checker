@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+@@LOCAL@@
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:">
+<title>@@TITLE@@</title>
+<style>@@CSS@@</style>
+</head>
+<body>
+<header>
+  <h1 id="title">@@TITLE@@</h1>
+  <span id="summary"></span>
+  <b id="local" hidden></b>
+  <nav id="lenses" aria-label="lenses">
+    <button id="l-unused" data-on="1" title="unused lens">unused</button><button id="l-dup" title="duplicates lens" disabled>duplicates</button><button id="l-arch" title="architecture lens" disabled>architecture</button><button id="l-health" title="health lens" disabled>health</button>
+  </nav>
+  <nav id="links"></nav>
+  <span class="grow"></span>
+  <label class="btn">open graph.json.gz <input id="file" type="file" accept=".gz,.json,.dcv" hidden></label>
+  <button id="mode" title="graph view (g)" hidden>graph</button>
+  <button id="png" title="export PNG (e)">PNG</button>
+  <button id="theme" title="theme (t)">theme</button>
+</header>
+<div id="banner" hidden></div>
+<div id="err" role="alert" hidden></div>
+<main>
+  <aside id="left">
+    <input id="q" type="search" placeholder="search name or path, /regex/  ( / )" aria-label="search">
+    <details open><summary>filters</summary>
+      <label>language <select id="f-lang"></select></label>
+      <label>kind <select id="f-kind"></select></label>
+      <label>module <input id="f-mod" type="text" placeholder="path prefix"></label>
+      <label>root kind <select id="f-root"></select></label>
+      <label id="l-diff">diff <select id="f-diff"><option value="">all</option><option value="1">touched</option><option value="2">newly dead</option><option value="4">newly alive</option></select></label>
+      <label><input id="f-test" type="checkbox"> hide tests</label>
+      <fieldset id="f-vd"><legend>verdict</legend></fieldset>
+      <fieldset id="f-tier"><legend>edge tier</legend></fieldset>
+      <label>neighbourhood depth <select id="f-depth"><option>1</option><option>2</option><option>3</option></select></label>
+    </details>
+    <h2 id="lh">findings</h2>
+    <label id="l-sort">sort <select id="f-sort"><option value="">severity</option><option value="conf">confidence</option></select></label>
+    <ul id="list"></ul>
+  </aside>
+  <section id="lensp" aria-label="lens" hidden>
+    <div id="lbar"></div>
+    <div id="lmsg" class="muted"></div>
+    <label class="btn" id="l-pick-l" hidden>choose lens/ folder <input id="l-pick" type="file" webkitdirectory multiple hidden></label>
+    <div id="lbody"></div>
+  </section>
+  <section id="stage"><canvas id="cv" tabindex="0" aria-label="treemap of the symbol graph"></canvas>
+    <div id="gbar" hidden>
+      <input id="gq" type="search" placeholder="search, Enter jumps to the hit" aria-label="search the graph">
+      <span id="ghits" class="muted"></span>
+      <button id="g-fit" title="fit (f)">fit</button>
+      <label id="g-egol" hidden>levels <select id="g-n"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></label>
+      <span id="gstat" class="muted"></span>
+    </div>
+    <canvas id="mini" width="200" height="125" aria-label="minimap" hidden></canvas>
+    <div id="legend"></div></section>
+  <aside id="right"><div id="panel"><p class="muted">Click a symbol. Keys: / search, 1-3 depth, f fit, Backspace up, t theme, e PNG, Esc clear.</p></div></aside>
+</main>
+<script type="application/octet-stream" id="dcdata" data-enc="@@ENC@@">@@DATA@@</script>
+@@LENS@@
+<script>@@JS@@</script>
+</body>
+</html>

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Security
+
+- VS Code extension: a cloned repository's `.vscode/settings.json` could set `deadCodeChecker.path` and make the extension run any program
+  when the folder was opened. The setting is now machine-scoped and read from the user level only, a bare command name is looked up in the
+  absolute entries of `PATH` (a relative path is refused), the package declares limited untrusted-workspace support with
+  `deadCodeChecker.path` as a restricted configuration, and in an untrusted workspace the extension starts nothing (one notification; it
+  scans after trust is granted). The language server and `.dead-code-checker.toml` were checked: neither lets the workspace name a program.
+
+### Changes
+
 - Runtime mode: the login belongs to the person who runs the tool. `user` and `port` in a repository's `[graph.runtime]` are ignored (one
   `dc.bad-config` note); the login comes from `--user` / `--port` (also on `graph fix --verify`), from `user@host:port` entries of
   `DEAD_CODE_CHECKER_RUNTIME_HOSTS`, or from your ssh configuration. A line the target or ssh printed is masked before it reaches a message.

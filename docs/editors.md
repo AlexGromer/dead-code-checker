@@ -83,6 +83,26 @@ that has `scan --json`. The mapping is the same as in the language server (same 
 Settings: `deadCodeChecker.enabled` (default true) and `deadCodeChecker.path` (default `dead-code-checker`).
 Commands: `Dead Code Checker: Scan workspace` and `Dead Code Checker: Clear diagnostics`.
 
+### Security: a repository cannot choose what runs
+
+A repository you clone can carry a `.vscode/settings.json`. The extension therefore never lets a workspace decide which
+program starts:
+
+- `deadCodeChecker.path` has the scope `machine`, so VS Code ignores it in workspace settings, and the extension also reads
+  it only from your user settings or its default (never from a workspace or folder value). Any future setting that names a
+  program, an argument, an environment variable or a working directory must be machine-scoped too (a test enforces it).
+- The value must be a bare name, which is looked up in the absolute entries of `PATH` only (never the workspace folder), or
+  an absolute path. A relative path such as `./tool` is refused.
+- The package declares limited support for untrusted workspaces and lists `deadCodeChecker.path` as a restricted
+  configuration. In a workspace that is not trusted the extension does not start the checker at all; it shows one
+  notification and scans when you grant trust.
+
+The language server has no such setting: `dead-code-checker lsp` always starts the checker's own Python interpreter, the
+`initializationOptions` it accepts (`debounceMs`) cannot name a program, and `.dead-code-checker.toml` cannot either (a
+`path`, `argv`, `args`, `env`, `cmd`, `command`, `exe` or `binary` key under `[graph]` is a `dc.bad-config` error). The
+configuration of your editor's LSP client (the `cmd` in the snippets above) is your own, user-level choice; keep it out of
+project-local files you did not write.
+
 Install it from source without publishing anything:
 
 ```bash

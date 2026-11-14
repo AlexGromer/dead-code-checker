@@ -5,6 +5,8 @@
 
 const vscode = require("vscode");
 const { spawn } = require("child_process");
+const fs = require("fs");
+const path = require("path");
 const { parseFindings, toEntries } = require("./map");
 
 const DEBOUNCE_MS = 400;
@@ -16,16 +18,53 @@ const SEVERITY = {
   information: () => vscode.DiagnosticSeverity.Information,
 };
 
+// Settings that name a program are machine-scoped in package.json and read here from the user level only
+// (the default or the user value), never from the workspace: a cloned repository's .vscode/settings.json must not
+// choose what the editor runs.
+const DEFAULT_CLI = "dead-code-checker";
+
+function userValue(c, key, fallback) {
+  const i = c.inspect(key);
+  const v = i && i.globalValue !== undefined ? i.globalValue : i ? i.defaultValue : undefined;
+  return v === undefined || v === null || v === "" ? fallback : v;
+}
+
 function settings() {
   const c = vscode.workspace.getConfiguration("deadCodeChecker");
-  return { enabled: c.get("enabled", true), cli: c.get("path", "dead-code-checker") || "dead-code-checker" };
+  const cli = userValue(c, "path", DEFAULT_CLI);
+  return { enabled: c.get("enabled", true), cli: typeof cli === "string" ? cli : DEFAULT_CLI };
 }
+
+// The command to start: an absolute path as given, or a bare name looked up in the absolute entries of PATH only
+// (never the workspace folder, which the platform may search first). null with a reason when it cannot be trusted.
+function resolveCli(cli) {
+  if (/[\0\r\n]/.test(cli)) return { error: "the command contains a control character" };
+  if (/[\\/]/.test(cli)) {
+    return path.isAbsolute(cli) ? { file: cli } : { error: "deadCodeChecker.path must be a name or an absolute path" };
+  }
+  const exts = process.platform === "win32" ? ["", ...(process.env.PATHEXT || ".EXE;.CMD").split(";").filter(Boolean)] : [""];
+  for (const dir of (process.env.PATH || "").split(path.delimiter)) {
+    if (!dir || !path.isAbsolute(dir)) continue;
+    for (const ext of exts) {
+      const f = path.join(dir, cli + ext);
+      try {
+        if (fs.statSync(f).isFile()) return { file: f };
+      } catch (e) {
+        /* not here */
+      }
+    }
+  }
+  return { missing: true, file: cli };
+}
+
+const trusted = () => vscode.workspace.isTrusted === true;
 
 function activate(context) {
   const collection = vscode.languages.createDiagnosticCollection("dead-code-checker");
   const out = vscode.window.createOutputChannel("Dead Code Checker");
   const runs = new Map(); // folder path -> { timer, child, uris: Set<string> }
   let warnedMissing = false;
+  let warnedUntrusted = false;
 
   const state = (folder) => {
     if (!runs.has(folder)) runs.set(folder, { timer: null, child: null, uris: new Set() });
@@ -69,11 +108,30 @@ function activate(context) {
     st.uris = new Set();
   }
 
+  // In an untrusted workspace nothing is started: the extension only says so, once.
+  function allowed() {
+    if (trusted()) return true;
+    if (!warnedUntrusted) {
+      warnedUntrusted = true;
+      vscode.window.showWarningMessage(
+        "Dead Code Checker is paused: this workspace is not trusted, so the checker is not started. Trust the workspace to scan it."
+      );
+    }
+    return false;
+  }
+
   function scan(folder) {
     const st = state(folder);
     cancel(st);
-    const { enabled, cli } = settings();
+    const { enabled, cli: name } = settings();
     if (!enabled) return clearFolder(folder);
+    if (!allowed()) return clearFolder(folder);
+    const r = resolveCli(name);
+    if (r.error) {
+      out.appendLine(`not started: ${r.error}`);
+      return;
+    }
+    const cli = r.file;
     const child = spawn(cli, ["scan", folder, "--root", folder, "--json"], { cwd: folder, windowsHide: true });
     st.child = child;
     const bufs = [];
@@ -112,7 +170,7 @@ function activate(context) {
   function schedule(folder, delay = DEBOUNCE_MS) {
     const st = state(folder);
     cancel(st);
-    if (!settings().enabled) return clearFolder(folder);
+    if (!settings().enabled || !allowed()) return clearFolder(folder);
     st.timer = setTimeout(() => {
       st.timer = null;
       scan(folder);
@@ -133,6 +191,9 @@ function activate(context) {
       if (e.affectsConfiguration("deadCodeChecker")) folders().forEach((f) => schedule(f, 0));
     }),
     vscode.workspace.onDidChangeWorkspaceFolders(() => folders().forEach((f) => schedule(f, 0))),
+    ...(vscode.workspace.onDidGrantWorkspaceTrust
+      ? [vscode.workspace.onDidGrantWorkspaceTrust(() => folders().forEach((f) => schedule(f, 0)))]
+      : []),
     vscode.commands.registerCommand("deadCodeChecker.run", () => folders().forEach((f) => scan(f))),
     vscode.commands.registerCommand("deadCodeChecker.clear", () => [...runs.keys()].forEach(clearFolder)),
     { dispose: () => runs.forEach(cancel) }

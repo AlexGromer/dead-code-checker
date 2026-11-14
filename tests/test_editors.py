@@ -17,6 +17,11 @@ NODE = shutil.which("node")
 needs_node = pytest.mark.skipif(NODE is None, reason="node is not installed")
 
 
+# every setting that names a program, its arguments, its environment or its working directory
+PROGRAM_SETTINGS = {"deadCodeChecker.path"}
+OTHER_SETTINGS = {"deadCodeChecker.enabled"}
+
+
 def manifest():
     return json.loads((EXT / "package.json").read_text())
 
@@ -32,11 +37,39 @@ def test_manifest_declares_what_the_code_uses():
     props = m["contributes"]["configuration"]["properties"]
     for key in props:
         assert key.startswith("deadCodeChecker.")
-        assert re.search(r'get\("%s"' % re.escape(key.split(".", 1)[1]), code), key
+        name = re.escape(key.split(".", 1)[1])
+        reader = r"userValue\(c, " if key in PROGRAM_SETTINGS else r"get\("  # a setting that names a program is read by level
+        assert re.search(r'%s"%s"' % (reader, name), code), key
     for cmd in m["contributes"]["commands"]:
         assert 'registerCommand("%s"' % cmd["command"] in code, cmd["command"]
     assert props["deadCodeChecker.path"]["default"] == "dead-code-checker"
     assert m["license"] == "Apache-2.0"
+
+
+def test_every_setting_is_classified_and_program_settings_are_machine_scoped():
+    props = manifest()["contributes"]["configuration"]["properties"]
+    assert set(props) == PROGRAM_SETTINGS | OTHER_SETTINGS  # a new setting must be placed in one of the two sets on purpose
+    for key in PROGRAM_SETTINGS:
+        assert props[key]["scope"] == "machine", key  # never "window", "resource" or "machine-overridable"
+    for key in OTHER_SETTINGS:  # settings with a program-like name or a path/command/args/env/cwd meaning would need the machine scope
+        assert not re.search(r"path|command|args|env|cwd|exe|server|bin", key.split(".", 1)[1], re.I), key
+
+
+def test_restricted_configurations_list_the_program_settings():
+    caps = manifest()["capabilities"]["untrustedWorkspaces"]
+    assert caps["supported"] == "limited" and caps["description"].strip()
+    assert set(caps["restrictedConfigurations"]) == PROGRAM_SETTINGS
+
+
+def test_the_extension_reads_program_settings_from_the_user_level_only_and_needs_trust():
+    code = (EXT / "extension.js").read_text()
+    for key in PROGRAM_SETTINGS:
+        assert 'get("%s"' % key.split(".", 1)[1] not in code  # get() merges the workspace over the user level
+    assert "globalValue" in code and "defaultValue" in code
+    assert "workspaceValue" not in code and "workspaceFolderValue" not in code
+    assert "workspace.isTrusted" in code and "onDidGrantWorkspaceTrust" in code
+    assert "isTrusted === true" in code  # unknown counts as untrusted
+    assert code.index("allowed()") < code.index("spawn(cli")  # the trust check comes before the process start
 
 
 def test_the_cli_accepts_the_stdio_flag_clients_pass():

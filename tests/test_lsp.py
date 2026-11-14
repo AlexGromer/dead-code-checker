@@ -259,6 +259,34 @@ def test_a_failing_scan_is_logged_not_published(tmp_path):
     assert "window/logMessage" in sent and "scan failed" in sent and "publishDiagnostics" not in sent
 
 
+# ---------------------------------------------------------------- what the server runs is never chosen by the workspace
+def test_default_command_is_the_checkers_own_interpreter_and_names_no_workspace_program(tmp_path):
+    argv = lsp.default_command(str(tmp_path))
+    assert argv[:4] == [sys.executable, "-P", "-m", "dead_code_checker"]
+    assert argv[4] == "scan" and set(argv[5:]) == {str(tmp_path), "--root", "--json"}
+
+
+def test_initialization_options_cannot_change_what_runs(tmp_path):
+    srv = lsp.Server(io.BytesIO(), io.BytesIO())
+    before = srv.command
+    srv.handle({"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {
+        "rootUri": lsp.path_to_uri(str(tmp_path)),
+        "initializationOptions": {"command": ["touch", "x"], "path": "/bin/sh", "args": ["-c", "x"], "env": {"A": "b"}, "debounceMs": 5}}})
+    assert srv.command is before and srv.command is lsp.default_command
+    assert srv.debounce == 0.005  # the one option it knows still works
+
+
+def test_a_repository_config_that_names_a_program_runs_nothing(client, repo):
+    marker = repo / "planted-ran"
+    (repo / ".dead-code-checker.toml").write_text(
+        f'command = "touch {marker}"\npath = "{marker}"\n[graph]\ncommand = ["touch", "{marker}"]\nexe = "touch"\nargs = ["{marker}"]\n')
+    init(client, repo)
+    uri = lsp.path_to_uri(str(repo / "lib" / "x_mod.py"))
+    client.notify("textDocument/didOpen", {"textDocument": {"uri": uri, "languageId": "python", "version": 1, "text": ""}})
+    client.diagnostics_for(uri)  # the scan finished (with or without findings), and nothing was started by name
+    assert not marker.exists()
+
+
 # ---------------------------------------------------------------- pure helpers
 def test_parse_findings_shapes():
     assert lsp.parse_findings("") == []

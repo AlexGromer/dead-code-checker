@@ -28,7 +28,7 @@ language server, see `docs/editors.md` in the repository.
 | setting | default | meaning |
 |---|---|---|
 | `deadCodeChecker.enabled` | `true` | scan on open and on save; off clears the diagnostics |
-| `deadCodeChecker.path` | `dead-code-checker` | the command: a name on PATH or an absolute path |
+| `deadCodeChecker.path` | `dead-code-checker` | the command: a name on PATH or an absolute path; machine-scoped, read from user settings only (a workspace cannot set it) |
 
 Commands: `Dead Code Checker: Scan workspace`, `Dead Code Checker: Clear diagnostics`.
 

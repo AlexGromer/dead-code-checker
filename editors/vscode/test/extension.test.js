@@ -10,8 +10,10 @@ const Module = require("module");
 
 const posix = process.platform !== "win32";
 
-function makeVscode(cfg, folder) {
-  const handlers = { save: [], config: [], folders: [] };
+// cfg holds the user-level values, ws the workspace-level ones, trusted the workspace trust state
+function makeVscode(cfg, folder, ws = {}, trusted = true) {
+  const handlers = { save: [], config: [], folders: [], trust: [] };
+  const defaults = { path: "dead-code-checker" };
   const warnings = [];
   const commands = {};
   const diag = new Map();
@@ -37,14 +39,20 @@ function makeVscode(cfg, folder) {
     commands: { registerCommand: (n, fn) => ((commands[n] = fn), { dispose() {} }) },
     workspace: {
       workspaceFolders: [{ uri: { fsPath: folder } }],
-      getConfiguration: () => ({ get: (k, d) => (k in cfg ? cfg[k] : d) }),
+      isTrusted: trusted,
+      getConfiguration: () => ({
+        // get() merges the workspace over the user level, as VS Code does; inspect() keeps the levels apart
+        get: (k, d) => (k in ws ? ws[k] : k in cfg ? cfg[k] : d),
+        inspect: (k) => ({ key: k, defaultValue: defaults[k], globalValue: cfg[k], workspaceValue: ws[k], workspaceFolderValue: ws[k] }),
+      }),
+      onDidGrantWorkspaceTrust: (cb) => (handlers.trust.push(cb), { dispose() {} }),
       getWorkspaceFolder: (uri) => (uri.fsPath.startsWith(folder) ? { uri: { fsPath: folder } } : undefined),
       onDidSaveTextDocument: (cb) => (handlers.save.push(cb), { dispose() {} }),
       onDidChangeConfiguration: (cb) => (handlers.config.push(cb), { dispose() {} }),
       onDidChangeWorkspaceFolders: (cb) => (handlers.folders.push(cb), { dispose() {} }),
     },
   };
-  return { v, handlers, warnings, commands, diag };
+  return { v, handlers, warnings, commands, diag, grant: () => ((v.workspace.isTrusted = true), handlers.trust.forEach((cb) => cb())) };
 }
 
 // load a fresh copy of extension.js whose require("vscode") is `stub`
@@ -95,14 +103,14 @@ else { console.log(JSON.stringify([
   return f;
 }
 
-function setup(t) {
+function setup(t, { ws = {}, trusted = true } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "dcc-ext-"));
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
   const folder = path.join(dir, "ws");
   fs.mkdirSync(folder);
   fs.writeFileSync(path.join(folder, ".mode"), "findings");
   const cfg = { enabled: true, path: fakeCli(dir) };
-  const stub = makeVscode(cfg, folder);
+  const stub = makeVscode(cfg, folder, ws, trusted);
   const ext = load(stub.v);
   const ctx = { subscriptions: [] };
   t.after(() => ctx.subscriptions.forEach((s) => s.dispose && s.dispose()));
@@ -198,4 +206,71 @@ test("a missing CLI warns once", async (t) => {
   await new Promise((r) => setTimeout(r, 400));
   assert.strictEqual(s.stub.warnings.length, 1);
   assert.ok(s.stub.warnings[0].includes("deadCodeChecker.path"));
+});
+
+// a program that records that it ran: what a hostile workspace setting would point at
+function plant(dir) {
+  const marker = path.join(dir, "planted-ran");
+  const f = path.join(dir, "planted.js");
+  fs.writeFileSync(f, `#!${process.execPath}\nrequire("fs").writeFileSync(${JSON.stringify(marker)}, "ran");\nconsole.log("[]");\n`);
+  fs.chmodSync(f, 0o755);
+  return { f, ran: () => fs.existsSync(marker) };
+}
+
+test("a workspace value of deadCodeChecker.path is never run", { skip: !posix }, async (t) => {
+  const dir0 = fs.mkdtempSync(path.join(os.tmpdir(), "dcc-plant-"));
+  t.after(() => fs.rmSync(dir0, { recursive: true, force: true }));
+  const bad = plant(dir0);
+  const s = setup(t, { ws: { path: bad.f } });
+  s.ext.activate(s.ctx);
+  await until(() => s.stub.diag.size === 2); // the user's CLI ran, the workspace's did not
+  await new Promise((r) => setTimeout(r, 300));
+  assert.strictEqual(bad.ran(), false);
+  assert.strictEqual(calls(s.folder).length, 1);
+});
+
+test("an untrusted workspace starts nothing, says so once, and scans after trust is granted", { skip: !posix }, async (t) => {
+  const s = setup(t, { trusted: false });
+  s.ext.activate(s.ctx);
+  await new Promise((r) => setTimeout(r, 500));
+  await s.stub.commands["deadCodeChecker.run"]();
+  s.stub.handlers.save.forEach((cb) => cb({ uri: { scheme: "file", fsPath: path.join(s.folder, "lib", "a.py") } }));
+  await new Promise((r) => setTimeout(r, 900));
+  assert.deepStrictEqual(calls(s.folder), []);
+  assert.strictEqual(s.stub.diag.size, 0);
+  assert.strictEqual(s.stub.warnings.length, 1);
+  assert.ok(/not trusted/.test(s.stub.warnings[0]));
+  s.stub.grant();
+  await until(() => s.stub.diag.size === 2);
+  assert.strictEqual(calls(s.folder).length, 1);
+});
+
+test("a relative path setting is refused, not run from the workspace", { skip: !posix }, async (t) => {
+  const s = setup(t);
+  s.cfg.path = "./fake-cli.js";
+  fs.copyFileSync(path.join(s.dir, "fake-cli.js"), path.join(s.folder, "fake-cli.js"));
+  fs.chmodSync(path.join(s.folder, "fake-cli.js"), 0o755);
+  s.ext.activate(s.ctx);
+  await new Promise((r) => setTimeout(r, 600));
+  assert.deepStrictEqual(calls(s.folder), []);
+});
+
+test("a bare name is looked up in the absolute entries of PATH only", { skip: !posix }, async (t) => {
+  const s = setup(t);
+  fs.copyFileSync(path.join(s.dir, "fake-cli.js"), path.join(s.dir, "dcc-bare"));
+  fs.chmodSync(path.join(s.dir, "dcc-bare"), 0o755);
+  const planted = plant(s.folder); // a program with the same name where a relative PATH entry would find it
+  fs.renameSync(planted.f, path.join(s.folder, "dcc-bare"));
+  const oldPath = process.env.PATH;
+  const oldCwd = process.cwd();
+  t.after(() => {
+    process.env.PATH = oldPath;
+    process.chdir(oldCwd);
+  });
+  process.chdir(s.folder);
+  process.env.PATH = [".", "", s.dir].join(path.delimiter);
+  s.cfg.path = "dcc-bare";
+  s.ext.activate(s.ctx);
+  await until(() => s.stub.diag.size === 2);
+  assert.strictEqual(planted.ran(), false);
 });
